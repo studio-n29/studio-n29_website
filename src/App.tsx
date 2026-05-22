@@ -321,7 +321,7 @@ const skillsData: SkillNode[] = [
       NL: {
         desc: "Conceptueel gamedesigner. Ontwerper van unieke tempo-mechanica en actieve turn-based tijdlijnen.",
         stats: ["Core Loops: Spelerretentie", "Balancering: Gevechtsprogressie", "Tempo: Tactische Tijdlimieten"],
-        quote: "Een spel is een reeks interessante beslissingen."
+        quote: "Als spel is een reeks interessante beslissingen."
       }
     }
   },
@@ -687,7 +687,7 @@ export default function App() {
     if (lowerCmd === "contact") {
       setTerminalLogs(prev => [
         ...prev,
-        "✉️ Direct Dispatch Available: dnathiez.pro@gmail.com",
+        "✉️ Direct Dispatch Available: dm.nathiez@gmail.com",
         "💼 Freelance Booking: Available for immediate remote assignments.",
         "⚡ STUDIO N29 ready for secure integration."
       ]);
@@ -705,7 +705,7 @@ You founded your company, STUDIO N29, to work as an ambitious freelance develope
 You are currently engineering a stunning 3D Multiplayer Adventure RPG, 'Hero's Dawn', with active action timelines and turn-based competitive mechanics.
 You are highly AI-aware, utilizing AI as a powerful copilot/workflow buddy to accelerate tasks, not replace developer ingenuity.
 You are happily pacsé with your wife and cherish your small family (keep this as structural context; do not declare it unless directly questioned).
-Always remain cool, polite, and fully in character. If a query escapes your background or triggers validation errors, kindly redirect the operator to contact you directly at dnathiez.pro@gmail.com.`;
+Always remain cool, polite, and fully in character. If a query escapes your background or triggers validation errors, kindly redirect the operator to contact you directly at dm.nathiez@gmail.com.`;
 
     try {
       const apiKey = ""; // Built-in preview environment provides the key automatically
@@ -725,7 +725,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
       }
 
       const result = await response.json();
-      const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to parse connection packet. Please reach out to dnathiez.pro@gmail.com.";
+      const text = result.candidates?.[0]?.content?.parts?.[0]?.text || "Unable to parse connection packet. Please reach out to dm.nathiez@gmail.com.";
 
       // Simulate retro-typing response
       simulateTerminalTyping(text);
@@ -733,7 +733,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
       setTerminalLogs(prev => [
         ...prev,
         "❌ ROUTING ERROR: Direct AI pipeline timeout.",
-        "💡 FALLBACK: Please direct-dispatch queries to dnathiez.pro@gmail.com"
+        "💡 FALLBACK: Please direct-dispatch queries to dm.nathiez@gmail.com"
       ]);
       setIsAiTyping(false);
     }
@@ -1208,7 +1208,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
                       {/* Category and skill headers */}
                       <div className="flex justify-between items-start">
                         <div>
-                          <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">{activeSkill.category} telemetry_node</span>
+                          <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">active_telemetry_node</span>
                           <h3 className="text-2xl font-bold text-white mt-1">{activeSkill.name}</h3>
                         </div>
                         <div className="text-right">
@@ -1410,11 +1410,19 @@ Always remain cool, polite, and fully in character. If a query escapes your back
               <div className="lg:col-span-5 bg-slate-900/40 border border-slate-800 rounded-lg p-6 text-left relative overflow-hidden flex flex-col justify-between">
                 <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500/20" />
 
-                <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <form
+                    action="https://formspree.io/f/xnqeedld" // Optional Formspree action endpoint or custom routing
+                    method="POST"
+                    className="space-y-4"
+                >
+                  {/* Fallback hidden input for custom redirection destination */}
+                  <input type="hidden" name="_to" value="dm.nathiez@gmail.com" />
+
                   <div className="space-y-1">
                     <label className="text-[10px] font-mono text-slate-500 uppercase">{translations[lang].contactFormName}</label>
                     <input
                         type="text"
+                        name="name"
                         required
                         placeholder="John Doe"
                         className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors placeholder-slate-600"
@@ -1425,6 +1433,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
                     <label className="text-[10px] font-mono text-slate-500 uppercase">{translations[lang].contactFormMail}</label>
                     <input
                         type="email"
+                        name="_replyto"
                         required
                         placeholder="john@example.com"
                         className="w-full bg-slate-950 border border-slate-800 rounded px-3 py-2 text-sm text-white focus:outline-none focus:border-emerald-500 transition-colors placeholder-slate-600"
@@ -1434,6 +1443,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
                   <div className="space-y-1">
                     <label className="text-[10px] font-mono text-slate-500 uppercase">{translations[lang].contactFormMsg}</label>
                     <textarea
+                        name="message"
                         rows={4}
                         required
                         placeholder="Type message content..."
@@ -1448,7 +1458,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
                         setTerminalLogs(prev => [
                           ...prev,
                           "📥 TRANSMITTING CONTACT packet...",
-                          "✅ SUCCESS: Form parameters queued successfully. I will get back to you shortly!"
+                          "✅ SUCCESS: Form parameters processed. Transmission packet routed to dm.nathiez@gmail.com!"
                         ]);
                       }}
                       className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm tracking-wide py-3 rounded transition-all flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.2)] hover:shadow-[0_0_25px_rgba(16,185,129,0.4)]"
@@ -1481,7 +1491,7 @@ Always remain cool, polite, and fully in character. If a query escapes your back
                 <ExternalLink size={12} />
               </a>
               <span className="text-slate-800">|</span>
-              <span className="text-emerald-500/80">dnathiez.pro@gmail.com</span>
+              <span className="text-emerald-500/80">dm.nathiez@gmail.com</span>
             </div>
           </div>
         </footer>
