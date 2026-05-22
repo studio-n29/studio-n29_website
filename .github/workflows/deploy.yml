@@ -1,35 +1,46 @@
-name: Deploy Portfolio Website
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Set this to your primary branch
+      - main # Runs every time you push to the main branch
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: 'pages'
+  cancel-in-progress: true
 
 jobs:
-  build-and-deploy:
-    concurrency: ci-${{ github.ref }}
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js Environment
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-size: 20
-          cache: npm
+          node-version: 22 # Use active Node.js 22 to build
+          cache: 'npm'
 
-      - name: Install Project Dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Compile and Build Static Assets
+      - name: Build Project
         run: npm run build
 
-      - name: Deploy static build to GitHub Pages branch
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Build Artifacts
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: dist # Vite compiles code into the 'dist' directory
-          branch: gh-pages # Target hosting branch
+          path: dist # Uploads the compiled production folder
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
