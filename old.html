@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Studio N29">
+
+    <title>STUDIO N29</title>
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial' font-weight='900' font-size='40'>N29</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='black'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='Arial' font-weight='900' font-size='40'>N29</text></svg>">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .citrine-gradient {
+            background: linear-gradient(135deg, #fef08a 0%, #facc15 100%);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+
+        .btn-black {
+            background-color: #000000;
+            color: #ffffff;
+            transition: opacity 0.2s;
+        }
+
+            .btn-black:hover {
+                opacity: 0.8;
+            }
+
+        /* Logo style logic */
+        .logo-font {
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            line-height: 0.8;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header / Navigation -->
+    <header class="py-6 px-6 md:px-12 flex justify-between items-center border-b border-gray-100">
+        <div class="flex flex-col">
+            <span class="text-xs tracking-[0.3em] uppercase mb-1">Studio</span>
+            <span class="text-3xl font-black uppercase tracking-tighter">N29</span>
+        </div>
+        <nav class="hidden md:flex space-x-8 font-medium">
+            <a href="#services" class="hover:text-yellow-600 transition">Prestations</a>
+            <a href="#contact" class="hover:text-yellow-600 transition">Contact</a>
+        </nav>
+        <a href="#contact" class="bg-black text-white px-5 py-2 rounded-full text-sm font-bold">DEVIS GRATUIT</a>
+    </header>
+
+    <section class="py-16 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="bg-black text-white rounded-[2.5rem] p-8 md:p-12 flex flex-col items-center justify-center text-center">
+
+            <span class="bg-white/10 text-white text-[10px] font-bold px-3 py-1 rounded-full mb-6 uppercase tracking-widest border border-white/20">
+                Valenciennes & Environs
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight uppercase">
+                VOTRE PARTENAIRE<br>NUMÉRIQUE DE PROXIMITÉ
+            </h1>
+
+            <p class="text-lg md:text-xl max-w-2xl mb-8 opacity-90 mx-auto">
+                Nous accompagnons les entreprises dans leur transformation digitale avec des solutions sur-mesure et performantes.
+            </p>
+
+            <div class="bg-white/30 backdrop-blur-md border border-white/40 p-4 rounded-2xl inline-block">
+                <p class="font-bold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-location-dot"></i>
+                    OFFRE LOCALE : -10% pour toutes les PME du Valenciennois !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-12 px-6 md:px-12 max-w-7xl mx-auto">
+        <h2 class="text-3xl font-black mb-12 text-center uppercase tracking-tighter">Nos Prestations</h2>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Service 1 -->
+            <div class="service-card bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                <div class="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-code text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 uppercase">Création de site web</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Sites vitrines, e-commerce ou blogs. Design moderne, optimisé pour le référencement (SEO) et totalement responsive.
+                </p>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="service-card bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                <div class="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-gears text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 uppercase">Logiciel personnalisé</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Développement d'outils métiers sur-mesure pour automatiser vos tâches et gagner en productivité au quotidien.
+                </p>
+            </div>
+
+            <!-- Service 3 -->
+            <div class="service-card bg-gray-50 p-8 rounded-3xl border border-gray-100">
+                <div class="w-12 h-12 bg-black text-white rounded-xl flex items-center justify-center mb-6">
+                    <i class="fa-solid fa-at text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-4 uppercase">Domaine & Emails</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Gestion complète de votre identité en ligne : réservation de nom de domaine et configuration d'adresses mails professionnelles.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-6 md:px-12 max-w-4xl mx-auto">
+        <div class="bg-black text-white rounded-[2.5rem] p-8 md:p-12">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black mb-4 uppercase">PRÊT À LANCER VOTRE PROJET ?</h2>
+                <p class="text-gray-400">Contactez-nous pour une étude personnalisée et gratuite.</p>
+            </div>
+
+            <form action="https://formspree.io/f/mlgwvjga" method="POST" id="contactForm" class="space-y-6">
+    <div class="grid md:grid-cols-2 gap-6">
+        <div>
+            <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-bold">Nom / Entreprise</label>
+            <input type="text" name="nom" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white">
+        </div>
+        <div>
+            <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-bold">Email</label>
+            <input type="email" name="email" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white">
+        </div>
+<div>
+            <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-bold">Numéro de téléphone</label>
+            <input type="telephone" name="telephone" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white">
+        </div>
+    </div>
+    <div>
+        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-bold">Nature du Projet</label>
+        <select name="projet" class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white appearance-none cursor-pointer">
+            <option class="bg-zinc-900">Création de site web</option>
+            <option class="bg-zinc-900">Logiciel personnalisé</option>
+            <option class="bg-zinc-900">Domaine et email</option>
+        </select>
+    </div>
+    <div>
+        <label class="block text-xs uppercase tracking-widest text-gray-400 mb-2 font-bold">Message</label>
+        <textarea name="message" rows="4" required class="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:outline-none focus:border-yellow-400 transition text-white"></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-yellow-400 text-black font-black py-4 rounded-xl uppercase tracking-widest hover:bg-white transition-all transform active:scale-95">
+        Envoyer ma demande
+    </button>
+</form>
+
+            <div id="successMsg" class="hidden mt-6 bg-green-500/20 text-green-400 p-4 rounded-xl text-center font-bold">
+                Merci ! Votre message a bien été envoyé. Nous vous recontactons rapidement. Vous pouvez également nous joindre au 09.83.92.36.85 !
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 text-center text-gray-400 text-sm">
+        <div class="flex flex-col items-center mb-6">
+            <span class="text-[8px] tracking-[0.4em] uppercase mb-1">Studio</span>
+            <span class="text-xl font-black text-black uppercase tracking-tighter">N29</span>
+        </div>
+        <p>&copy; STUDIO N29 | 09.03.92.36.85 - contact@n29-studio.fr | Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        const form = document.getElementById('contactForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // On récupère les données du formulaire
+        const data = new FormData(form);
+        
+        // On envoie à Formspree via AJAX pour éviter de quitter la page
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: data,
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+
+        if (response.ok) {
+            form.classList.add('hidden');
+            successMsg.classList.remove('hidden');
+        } else {
+            alert("Oups ! Un problème est survenu. Veuillez réessayer.");
+        }
+    });
+    </script>
+</body>
+</html>
+
+

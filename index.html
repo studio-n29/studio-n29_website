@@ -1,13 +1,1262 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Djason Nathiez - Freelance Developper</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Djason Nathiez | Développeur Fullstack & Game Programmer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0a0516',
+                            card: '#130b24',
+                            primary: '#8b5cf6', // Violet principal
+                            secondary: '#d8b4fe', // Violet clair
+                            accent: '#ec4899', // Rose/fuchsia pour le contraste
+                            muted: '#94a3b8'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-purple': '0 0 15px rgba(139, 92, 246, 0.4)',
+                        'neon-pink': '0 0 15px rgba(236, 72, 153, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0a0516;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0a0516;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8b5cf6;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d8b4fe;
+        }
+        /* Custom neon border anim */
+        .neon-glow-hover {
+            transition: all 0.3s ease;
+        }
+        .neon-glow-hover:hover {
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.6);
+            border-color: #8b5cf6;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <script>
+        // Dictionary containing all portfolio text content in French and English
+        const translations = {
+            fr: {
+                "nav-about": "À propos",
+                "nav-experience": "Parcours",
+                "nav-projects": "Projets",
+                "nav-skills": "Compétences",
+                "nav-contact": "Me contacter",
+                "hero-badge": "Unity, Web & Polyvalence",
+                "hero-title": "Djason <span class='bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent'>NATHIEZ</span>",
+                "hero-subtitle": "DÉVELOPPEUR FULLSTACK | PROGRAMMATEUR JEUX VIDÉO",
+                "hero-description": "Développeur spécialisé dans le jeu vidéo sur <strong>Unity Engine</strong> et en <strong>Développement Web</strong>. J'aime découvrir de nouveaux secteurs et appliquer mes compétences uniques pour améliorer le quotidien de mes collaborateurs. Actuellement à la recherche de nouvelles opportunités.",
+                "hero-btn-discover": "Découvrir mes projets",
+                "hero-btn-contact": "Me contacter",
+                "hero-stat-exp": "4+ Années d'Exp.",
+                "hero-stat-education": "Diplômé Rubika",
+                "hero-stat-avail": "Disponible",
+                "hero-stat-loc": "Onnaing, France",
+                "about-title": "À Propos de Moi",
+                "about-p": "Diplômé de la prestigieuse école de jeu vidéo <strong>Rubika - Supinfogame</strong>, je possède une solide expertise en programmation. Curieux par nature, j'ai également étendu mon savoir-faire au développement Web moderne (APIs, Bases de données, Cloud) et à l'intelligence artificielle (Prompt Engineering, intégration LLM). Mon adaptabilité éprouvée sur le terrain fait de moi un atout polyvalent au sein de n'importe quel projet d'équipe ou structure d'entreprise.",
+                "about-soft-title": "Savoir-être (Soft Skills) & Valeurs",
+                "soft-proactive": "Proactivité & Initiative",
+                "soft-learning": "Apprentissage très rapide",
+                "soft-autonomy": "Autonomie rigoureuse",
+                "soft-team": "Travail d'équipe & Synergie",
+                "soft-empathy": "Empathie & Entraide",
+                "soft-listening": "Écoute active & Dialogue",
+                "about-edu-title": "Formation & Diplômes",
+                "about-edu-degree": "Bachelor Programmation",
+                "about-edu-school": "Rubika Supinfogame | 2019 - 2023",
+                "about-edu-desc": "Une formation d'excellence mondiale. Cursus rigoureux axé sur la programmation système et gameplay, le respect des architectures logicielles (design patterns) et la gestion de projets pluridisciplinaires d'envergure.",
+                "exp-title": "Parcours Professionnel",
+                "exp-1-title": "Développeur Fullstack",
+                "exp-1-comp": "IdentityOS",
+                "exp-1-date": "Juin 2026 - Janv. 2027",
+                "exp-1-tag": "Intelligence Artificielle & Graph DB",
+                "exp-1-bullet-1": "Création d'une <strong>API Back-End</strong> avancée basée sur l'intelligence artificielle et l'utilisation de bases de données graphes (Neo4j).",
+                "exp-1-bullet-2": "<strong>Unity Engine</strong> : Développement complet d'un jeu narratif interactif se branchant de façon fluide sur l'API d'Intelligence Artificielle.",
+                "exp-2-title": "Développeur Web",
+                "exp-2-comp": "Central Cars",
+                "exp-2-date": "Août 2024 - Nov. 2025",
+                "exp-2-tag": "Développement Fullstack & Digitalisation",
+                "exp-2-bullet-1": "Création d'un <strong>site web vitrine</strong> de véhicules d'occasions avec une interface administrateur sécurisée et optimisée.",
+                "exp-2-bullet-2": "<strong>Gestion numérique</strong> : Déploiement et administration des solutions Cloud de l'entreprise, automatisation de facturations et suivi informatique des stocks physiques.",
+                "exp-3-title": "Technicien IT",
+                "exp-3-comp": "Simoldes Plasticos",
+                "exp-3-date": "Mars 2024 - Mai 2024",
+                "exp-3-tag": "Support Parc & Innovation Applicative",
+                "exp-3-bullet-1": "Administration courante, dépannage, maintenance et entretien du parc informatique matériel (hardware) et applicatif (software) de l'usine.",
+                "exp-3-bullet-2": "<strong>Conception innovante</strong> : Création d'une application interne d'inventaire et de suivi des stocks de consommables via un système de <strong>scan par QR Code</strong>.",
+                "exp-4-title": "Employé Polyvalent",
+                "exp-4-comp": "La Grignotine du Lac",
+                "exp-4-date": "Mars 2018 - Sept. 2023",
+                "exp-4-tag": "Relation Client & Management d'Équipe",
+                "exp-4-bullet-1": "Prise en charge chaleureuse et réalisation rigoureuse des commandes dans le respect des contraintes de flux de clients.",
+                "exp-4-bullet-2": "<strong>Gestion opérationnelle</strong> : Responsabilité des stocks, planification des ressources humaines (plannings), management des équipes et encadrement/formation des nouveaux arrivants.",
+                "proj-title": "Mes Projets & Réalisations",
+                "proj-subtitle": "Aperçu de mes initiatives et contributions techniques majeures, alliant programmation gameplay sur Unity et développement d'applications.",
+                "proj-studio-badge": "Studio Personnel",
+                "proj-studio-title": "STUDIO N29",
+                "proj-studio-desc": "Mon studio de création informatique. Réalisation d'architectures web, de designs visuels et d'outils numériques interactifs modernes.",
+                "proj-studio-tag-1": "Création Web",
+                "proj-studio-tag-2": "Design Graphique",
+                "proj-studio-tag-3": "Identité Numérique",
+                "proj-delight-badge": "Unity - 3D Adventure",
+                "proj-delight-desc": "Un jeu d'aventure 3D de type Zelda-like entièrement conçu autour d'une mécanique de corde physique totalement active et réaliste conduite par des calculs de tensions dynamiques.",
+                "proj-delight-resp": "<strong>Responsabilités clés :</strong> Programmeur de la mécanique principale, solveur de physique & tension de corde, intégration du contrôleur de personnage.",
+                "proj-cosmos-badge": "Unity - 3D Multiplayer MOBA",
+                "proj-cosmos-desc": "Un MOBA multijoueur 3D fondé sur des contrôles cinétiques dynamiques d'accélération, de glissement et de propulsion d'énergie.",
+                "proj-cosmos-resp": "<strong>Responsabilités clés :</strong> Développeur système réseau (multijoueur), architecte du moteur de lancement de sorts, conception de l'interface HUD & contrôles.",
+                "proj-dawn-badge": "WIP - RPG 3D Turn Based",
+                "proj-dawn-desc": "Un RPG 3D fantasy combinant des mécaniques de Life Sim et de MMORPG. Comprend un système de combat au tour par tour fluide et stratégique soutenu par une timeline dynamique.",
+                "proj-beneath-badge": "WIP - Dungeon Crawler 2D",
+                "proj-beneath-desc": "Un dungeon crawler 2D captivant bénéficiant d'une direction artistique en nuances de noir et blanc très épurée.",
+                "proj-beneath-feat": "<strong>Mécanique :</strong> Logique de combat tactique et de rôles directement inspirée du MMORPG légendaire <i>World of Warcraft</i>.",
+                "proj-scrap-badge": "WIP - Idle Crafting",
+                "proj-scrap-desc": "Un jeu incrémental (idle) de gestion et de crafting prenant place dans une usine de recyclage du continuum espace-temps.",
+                "proj-scrap-feat": "<strong>Mécanique :</strong> Fusion progressive d'objets (merge features) pour débloquer des améliorations logistiques uniques.",
+                "skills-title": "L'Arsenal Technique",
+                "skills-subtitle": "Un profil équilibré capable de concevoir des architectures de jeux complexes et de mener des intégrations web et clouds performantes.",
+                "skills-hards": "Compétences de Programmation",
+                "skills-gamedev": "Moteurs de Jeux & Design 3D",
+                "skills-gamedev-desc1": "Programmation Gameplay, IA narratives, Réseau, UI & Shaders.",
+                "skills-gamedev-desc2": "Notions solides en prototypage et retouches 3D.",
+                "skills-gamedev-desc3": "Création graphique, organisation de dossiers et bureautique.",
+                "skills-databases": "Gestion des Données & Systèmes",
+                "skills-tools-title": "Outils de Développement",
+                "hobbies-title": "Intérêts & Hobbies",
+                "hobby-games-title": "Jeux Vidéos",
+                "hobby-games-desc": "World of Warcraft, Dofus, Mario Kart, Valorant, Hades, Diablo.",
+                "hobby-music-title": "Musique",
+                "hobby-music-desc": "Linkin Park, Rammstein, Yaniss Odua, Blacko, Orelsan, Damso, Vladimir Cauchemar.",
+                "hobby-auto-title": "Automobile",
+                "hobby-auto-desc": "Rénovation, mécanique carrosserie, électronique embarquée, modifications.",
+                "hobby-sci-title": "Sciences & Tech",
+                "hobby-sci-desc": "Physique quantique, architecture matérielle, astronomie, intelligence artificielle.",
+                "contact-tag": "Collaborons ensemble !",
+                "contact-subtitle": "Que ce soit pour un rôle de développement de jeu, une mission web d'envergure, ou l'intégration d'outils d'IA, je suis prêt à rejoindre vos équipes.",
+                "contact-form-title": "M'envoyer un message",
+                "form-name": "Votre Nom",
+                "form-company": "Entreprise",
+                "form-email": "Votre Email",
+                "form-message": "Message & Détails de votre projet...",
+                "form-submit": "Envoyer le message",
+                "form-success": "Transmission Réussie !",
+                "form-success-p": "Merci pour votre message. Djason vous répondra sous 24 à 48 heures.",
+                "form-retry": "Envoyer un autre message",
+                "footer-rights": "© 2026 Djason Nathiez. Tous droits réservés."
+            },
+            en: {
+                "nav-about": "About",
+                "nav-experience": "Experience",
+                "nav-projects": "Projects",
+                "nav-skills": "Skills",
+                "nav-contact": "Contact me",
+                "hero-badge": "Unity, Web & Versatility",
+                "hero-title": "Djason <span class='bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent'>NATHIEZ</span>",
+                "hero-subtitle": "FULLSTACK DEVELOPER | GAME PROGRAMMER",
+                "hero-description": "Developer specialized in video games on <strong>Unity Engine</strong> and in <strong>Web Development</strong>. I love discovering new fields and applying my unique skills to improve the daily life of my collaborators. Currently seeking new opportunities.",
+                "hero-btn-discover": "Discover my projects",
+                "hero-btn-contact": "Contact me",
+                "hero-stat-exp": "4+ Years of Exp.",
+                "hero-stat-education": "Rubika Graduate",
+                "hero-stat-avail": "Available",
+                "hero-stat-loc": "Onnaing, France",
+                "about-title": "About Me",
+                "about-p": "A graduate of the prestigious video game school <strong>Rubika - Supinfogame</strong>, I possess a solid expertise in programming. Naturally curious, I have also expanded my know-how to modern Web development (APIs, Databases, Cloud) and artificial intelligence (Prompt Engineering, LLM integration). My proven adaptability in the field makes me a versatile asset in any team project or corporate structure.",
+                "about-soft-title": "Soft Skills & Values",
+                "soft-proactive": "Proactivity & Initiative",
+                "soft-learning": "Fast Learner",
+                "soft-autonomy": "Rigorous Autonomy",
+                "soft-team": "Teamwork & Synergy",
+                "soft-empathy": "Empathy & Support",
+                "soft-listening": "Active Listening & Dialogue",
+                "about-edu-title": "Education & Degrees",
+                "about-edu-degree": "Bachelor of Programming",
+                "about-edu-school": "Rubika Supinfogame | 2019 - 2023",
+                "about-edu-desc": "World-class d'excellence education. A rigorous program focusing on systems and gameplay programming, compliance with software architecture standards (design patterns), and the management of large-scale multidisciplinary projects.",
+                "exp-title": "Professional Experience",
+                "exp-1-title": "Fullstack Developer",
+                "exp-1-comp": "IdentityOS",
+                "exp-1-date": "June 2026 - Jan. 2027",
+                "exp-1-tag": "Artificial Intelligence & Graph DB",
+                "exp-1-bullet-1": "Creation of an advanced <strong>Back-End API</strong> based on artificial intelligence and graph databases (Neo4j).",
+                "exp-1-bullet-2": "<strong>Unity Engine</strong>: Full development of an interactive narrative game that seamlessly connects to the AI API.",
+                "exp-2-title": "Web Developer",
+                "exp-2-comp": "Central Cars",
+                "exp-2-date": "Aug. 2024 - Nov. 2025",
+                "exp-2-tag": "Fullstack Development & Digitalization",
+                "exp-2-bullet-1": "Creation of a showcase <strong>web portal</strong> for used cars complete with a secure, optimized admin panel.",
+                "exp-2-bullet-2": "<strong>Digital Management</strong>: Deployment and administration of the company's Cloud systems, invoice automation, and tracking of inventory stocks.",
+                "exp-3-title": "IT Technician",
+                "exp-3-comp": "Simoldes Plasticos",
+                "exp-3-date": "March 2024 - May 2024",
+                "exp-3-tag": "Fleet Support & Application Innovation",
+                "exp-3-bullet-1": "Daily system administration, hardware/software troubleshooting, maintenance and optimization of the factory fleet.",
+                "exp-3-bullet-2": "<strong>Innovative Engineering</strong>: Creation of an internal inventory tracking app leveraging an intuitive <strong>QR Code scan system</strong>.",
+                "exp-4-title": "Versatile Employee",
+                "exp-4-comp": "La Grignotine du Lac",
+                "exp-4-date": "March 2018 - Sept. 2023",
+                "exp-4-tag": "Customer Relations & Team Management",
+                "exp-4-bullet-1": "Welcomed customers and prepared complex orders under tight high-traffic constraints.",
+                "exp-4-bullet-2": "<strong>Operational Management</strong>: In charge of stock management, human resources scheduling, team supervision, and onboarding/training of new hires.",
+                "proj-title": "Projects & Portfolio",
+                "proj-subtitle": "An overview of my initiatives and key technical contributions, blending Unity gameplay programming and system engineering.",
+                "proj-studio-badge": "Personal Studio",
+                "proj-studio-title": "STUDIO N29",
+                "proj-studio-desc": "My personal development studio. Design and deployment of web architectures, visual layouts, and modern interactive digital utilities.",
+                "proj-studio-tag-1": "Web Creation",
+                "proj-studio-tag-2": "Graphic Design",
+                "proj-studio-tag-3": "Digital Branding",
+                "proj-delight-badge": "Unity - 3D Adventure",
+                "proj-delight-desc": "A stunning 3D Zelda-like adventure game designed entirely around a fully active, physics-driven rope mechanic calculated through real-time tension solvers.",
+                "proj-delight-resp": "<strong>Key Responsibilities:</strong> Core game mechanic programmer, custom rope physics & tension solver, player controller integration.",
+                "proj-cosmos-badge": "Unity - 3D Multiplayer MOBA",
+                "proj-cosmos-desc": "A 3D multiplayer MOBA focusing on dynamic kinetic controls of speed release, drag/launch, and energy acceleration.",
+                "proj-cosmos-resp": "<strong>Key Responsibilities:</strong> Multiplayer network systems engineer, spell casting engine architect, UI/HUD & control designer.",
+                "proj-dawn-badge": "WIP - RPG 3D Turn Based",
+                "proj-dawn-desc": "A 3D fantasy RPG blending Life Sim and MMORPG dynamics. Features a fluid and highly tactical turn-based battle system supported by an active timeline.",
+                "proj-beneath-badge": "WIP - Dungeon Crawler 2D",
+                "proj-beneath-desc": "A compelling 2D dungeon crawler showcasing a clean, high-contrast black and white visual direction.",
+                "proj-beneath-feat": "<strong>Mechanic:</strong> Strategic roles and battle formulas directly inspired by the classic MMORPG <i>World of Warcraft</i>.",
+                "proj-scrap-badge": "WIP - Idle Crafting",
+                "proj-scrap-desc": "A temporal recycling factory idle game. Synthesize new products via fusion mechanics to optimize timeline outputs.",
+                "proj-scrap-feat": "<strong>Mechanic:</strong> Progressive merge systems to unlock unique automated logistical upgrades.",
+                "skills-title": "Technical Skillset",
+                "skills-subtitle": "A balanced and robust profile capable of designing detailed gameplay scripts and deploying performant cloud systems.",
+                "skills-hards": "Programming Languages",
+                "skills-gamedev": "Game Engines & 3D Design",
+                "skills-gamedev-desc1": "Gameplay programming, AI behaviors, Multiplayer, UI & Shaders.",
+                "skills-gamedev-desc2": "Solid basics in 3D prototyping, rigging and mesh design.",
+                "skills-gamedev-desc3": "Graphic assets, office suite and presentation pipeline.",
+                "skills-databases": "Databases & Cloud Architecture",
+                "skills-tools-title": "Development Tooling",
+                "hobbies-title": "Hobbies & Interests",
+                "hobby-games-title": "Video Games",
+                "hobby-games-desc": "World of Warcraft, Dofus, Mario Kart, Valorant, Hades, Diablo.",
+                "hobby-music-title": "Music",
+                "hobby-music-desc": "Linkin Park, Rammstein, Yaniss Odua, Blacko, Orelsan, Damso, Vladimir Cauchemar.",
+                "hobby-auto-title": "Car Tuning & Repair",
+                "hobby-auto-desc": "Restoration, structural body works, precise micro-electronics, retrofitting.",
+                "hobby-sci-title": "Science & Tech",
+                "hobby-sci-desc": "Quantum physics, low-level hardware design, astronomy, AI prompting.",
+                "contact-tag": "Let's collaborate!",
+                "contact-subtitle": "Whether you are looking for an experienced game programmer, a fullstack developer, or AI integration experts, I am ready to join your team.",
+                "contact-form-title": "Drop me a message",
+                "form-name": "Your Name",
+                "form-company": "Company Name",
+                "form-email": "Your Email",
+                "form-message": "Message & Details of your project...",
+                "form-submit": "Send Message",
+                "form-success": "Message sent!",
+                "form-success-p": "Thanks for reaching out! Djason will get back to you within 24 to 48 hours.",
+                "form-retry": "Send another message",
+                "footer-rights": "© 2026 Djason Nathiez. All rights reserved."
+            }
+        };
+    </script>
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-brand-dark/80 backdrop-blur-md border-b border-brand-primary/20">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo Studio inspired by n29-studio.fr -->
+            <a href="#hero" class="flex items-center space-x-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-primary to-brand-accent p-0.5 shadow-neon-purple transition-transform group-hover:scale-110">
+                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+                        <span class="font-mono font-bold text-lg text-brand-secondary">N29</span>
+                    </div>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-bold text-md tracking-wider text-white">N29 STUDIO</span>
+                    <span class="text-xs text-brand-secondary font-mono">Djason Nathiez</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links & Language Switcher -->
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#about" class="text-sm font-medium hover:text-brand-primary transition-colors" data-i18n="nav-about">À propos</a>
+                <a href="#experience" class="text-sm font-medium hover:text-brand-primary transition-colors" data-i18n="nav-experience">Parcours</a>
+                <a href="#projects" class="text-sm font-medium hover:text-brand-primary transition-colors" data-i18n="nav-projects">Projets</a>
+                <a href="#skills" class="text-sm font-medium hover:text-brand-primary transition-colors" data-i18n="nav-skills">Compétences</a>
+                
+                <!-- Language Toggle pills inside navbar -->
+                <div class="flex bg-slate-900 border border-slate-800 p-0.5 rounded-lg">
+                    <button onclick="changeLang('fr')" class="lang-btn px-2.5 py-1 text-xs font-bold rounded-md transition-all" data-lang="fr">FR</button>
+                    <button onclick="changeLang('en')" class="lang-btn px-2.5 py-1 text-xs font-bold rounded-md transition-all" data-lang="en">EN</button>
+                </div>
+
+                <a href="#contact" class="px-5 py-2 rounded-xl bg-brand-primary text-white hover:bg-brand-primary/80 transition-all font-semibold shadow-neon-purple" data-i18n="nav-contact">
+                    Me contacter
+                </a>
+            </nav>
+
+            <!-- Mobile Menu Toggle Button -->
+            <div class="flex items-center space-x-3 md:hidden">
+                <!-- Mobile Language selector -->
+                <div class="flex bg-slate-900 border border-slate-800 p-0.5 rounded-lg">
+                    <button onclick="changeLang('fr')" class="lang-btn px-2 py-0.5 text-[10px] font-bold rounded" data-lang="fr">FR</button>
+                    <button onclick="changeLang('en')" class="lang-btn px-2 py-0.5 text-[10px] font-bold rounded" data-lang="en">EN</button>
+                </div>
+                <button id="mobile-menu-btn" class="text-white hover:text-brand-primary focus:outline-none" aria-label="Toggle menu">
+                    <i class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark/95 border-b border-brand-primary/20 px-6 py-6 space-y-4">
+            <a href="#about" class="block text-lg font-medium hover:text-brand-primary transition-colors" data-i18n="nav-about">À propos</a>
+            <a href="#experience" class="block text-lg font-medium hover:text-brand-primary transition-colors" data-i18n="nav-experience">Parcours</a>
+            <a href="#projects" class="block text-lg font-medium hover:text-brand-primary transition-colors" data-i18n="nav-projects">Projets</a>
+            <a href="#skills" class="block text-lg font-medium hover:text-brand-primary transition-colors" data-i18n="nav-skills">Compétences</a>
+            <a href="#contact" class="block text-center py-3 rounded-xl bg-brand-primary text-white font-bold" data-i18n="nav-contact">Me contacter</a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-24 overflow-hidden">
+        <!-- Background Orbs -->
+        <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-brand-accent/10 rounded-full blur-[150px] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Hero Text -->
+            <div class="lg:col-span-7 space-y-6 text-center lg:text-left z-10">
+                <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-brand-primary/10 border border-brand-primary/30 text-brand-secondary text-sm font-semibold tracking-wider uppercase">
+                    <i class="fa-solid fa-gamepad text-xs"></i>
+                    <span data-i18n="hero-badge">Unity, Web & Polyvalence</span>
+                </div>
+                <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-none text-white" data-i18n="hero-title">
+                    Djason <span class="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-accent bg-clip-text text-transparent">NATHIEZ</span>
+                </h1>
+                <p class="text-xl sm:text-2xl font-semibold text-slate-300 font-mono tracking-wide" data-i18n="hero-subtitle">
+                    DÉVELOPPEUR FULLSTACK | PROGRAMMATEUR JEUX VIDÉO
+                </p>
+                <p class="text-slate-400 text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed" data-i18n="hero-description">
+                    Développeur spécialisé dans le jeu vidéo sur <strong>Unity Engine</strong> et en <strong>Développement Web</strong>. J'aime découvrir de nouveaux secteurs et appliquer mes compétences uniques pour améliorer le quotidien de mes collaborateurs. Actuellement à la recherche de nouvelles opportunités.
+                </p>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-wrap gap-4 justify-center lg:justify-start pt-4">
+                    <a href="#projects" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent hover:opacity-90 font-bold tracking-wide shadow-neon-purple transition-all transform hover:-translate-y-1" data-i18n="hero-btn-discover">
+                        Découvrir mes projets
+                    </a>
+                    <a href="#contact" class="px-8 py-4 rounded-xl border-2 border-brand-primary/50 text-brand-secondary hover:bg-brand-primary/10 font-bold transition-all transform hover:-translate-y-1 flex items-center space-x-2">
+                        <i class="fa-solid fa-paper-plane text-brand-secondary"></i>
+                        <span data-i18n="hero-btn-contact">Me contacter</span>
+                    </a>
+                </div>
+
+                <!-- Fast Info Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-slate-800">
+                    <div>
+                        <span class="block text-xl font-bold text-white">4+</span>
+                        <span class="text-xs text-brand-muted uppercase tracking-wider font-mono" data-i18n="hero-stat-exp">Années d'Exp.</span>
+                    </div>
+                    <div>
+                        <span class="block text-xl font-bold text-white">Rubika</span>
+                        <span class="text-xs text-brand-muted uppercase tracking-wider font-mono" data-i18n="hero-stat-education">Diplômé Rubika</span>
+                    </div>
+                    <div>
+                        <span class="block text-xl font-bold text-white text-emerald-400">✓</span>
+                        <span class="text-xs text-brand-muted uppercase tracking-wider font-mono" data-i18n="hero-stat-avail">Disponible</span>
+                    </div>
+                    <div>
+                        <span class="block text-xl font-bold text-white">Onnaing</span>
+                        <span class="text-xs text-brand-muted uppercase tracking-wider font-mono" data-i18n="hero-stat-loc">France (Nord)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Avatar Area with CV style violet frame -->
+            <div class="lg:col-span-5 flex justify-center z-10">
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-primary to-brand-accent rounded-[32px] blur-2xl opacity-40 group-hover:opacity-60 transition-opacity"></div>
+                    
+                    <!-- CV Frame Design referring to "CV General.pdf" -->
+                    <div class="relative w-72 h-96 sm:w-80 sm:h-[420px] rounded-[32px] border-4 border-brand-primary p-3 bg-brand-dark flex flex-col justify-between overflow-hidden shadow-neon-purple transition-transform duration-500 group-hover:scale-[1.02]">
+                        <div class="w-full h-full rounded-[24px] bg-slate-900 overflow-hidden relative">
+                            <!-- Gradient backdrop -->
+                            <div class="absolute inset-0 bg-gradient-to-b from-indigo-950/40 via-purple-950/20 to-brand-dark"></div>
+                            
+                            <!-- Stylized vector illustration representing Djason's photo on "CV General.pdf" -->
+                            <div class="absolute inset-0 flex flex-col justify-center items-center p-6 text-center">
+                                <div class="w-36 h-36 rounded-full border-4 border-brand-primary/80 overflow-hidden shadow-lg mb-4 bg-slate-800 relative">
+                                    <svg class="w-full h-full text-brand-secondary" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="50" cy="50" r="50" fill="#1e1538"/>
+                                        <!-- Hair (back) -->
+                                        <path d="M25 45 C20 25, 80 25, 75 45 C75 55, 85 65, 75 75 C65 80, 35 80, 25 75 C15 65, 25 55, 25 45 Z" fill="#b09673"/>
+                                        <!-- Face / Skin -->
+                                        <path d="M32 45 C32 35, 68 35, 68 45 C68 62, 59 74, 50 74 C41 74, 32 62, 32 45 Z" fill="#ffd1b3"/>
+                                        <!-- Hair (front / long locks) -->
+                                        <path d="M25 35 C30 20, 70 20, 75 35 C70 30, 60 28, 50 32 C40 28, 30 30, 25 35 Z" fill="#cbb391"/>
+                                        <path d="M28 35 C28 45, 22 55, 20 65 C22 55, 30 50, 32 45 Z" fill="#b09673"/>
+                                        <path d="M72 35 C72 45, 78 55, 80 65 C78 55, 70 50, 68 45 Z" fill="#b09673"/>
+                                        <!-- Glasses -->
+                                        <rect x="33" y="42" width="14" height="10" rx="2" stroke="#555" stroke-width="2.5" fill="rgba(150, 220, 255, 0.2)"/>
+                                        <rect x="53" y="42" width="14" height="10" rx="2" stroke="#555" stroke-width="2.5" fill="rgba(150, 220, 255, 0.2)"/>
+                                        <line x1="47" y1="46" x2="53" y2="46" stroke="#555" stroke-width="2.5"/>
+                                        <!-- Eyes -->
+                                        <circle cx="40" cy="47" r="2" fill="#2d3748"/>
+                                        <circle cx="60" cy="47" r="2" fill="#2d3748"/>
+                                        <!-- Nose -->
+                                        <path d="M48 48 L48 55 C48 56, 52 56, 52 55 Z" stroke="#e0a98c" stroke-width="2" fill="none"/>
+                                        <!-- Beard style from CV picture -->
+                                        <path d="M42 61 C45 58, 55 58, 58 61" stroke="#8a7356" stroke-width="3" fill="none"/>
+                                        <path d="M45 68 C47 72, 53 72, 55 68" stroke="#8a7356" stroke-width="4" fill="none"/>
+                                        <path d="M43 62 Q50 66 57 62" stroke="#e0a98c" stroke-width="2" fill="none"/>
+                                        <!-- Shirt -->
+                                        <path d="M30 85 L70 85 L65 74 L35 74 Z" fill="#c3b1e1"/>
+                                    </svg>
+                                </div>
+                                
+                                <div class="space-y-1">
+                                    <h3 class="font-extrabold text-lg text-white">Djason Nathiez</h3>
+                                    <p class="text-xs text-brand-secondary font-mono" data-i18n="hero-subtitle">DÉVELOPPEUR FULLSTACK | PROGRAMMATEUR JEUX VIDÉO</p>
+                                </div>
+                                
+                                <div class="flex flex-wrap justify-center gap-1.5 pt-3">
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono">Dispo Immédiate</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-brand-primary/20 border border-brand-primary/40 text-brand-secondary font-mono">Unity C#</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] bg-brand-accent/20 border border-brand-accent/40 text-brand-accent font-mono">Web Dev</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="absolute -bottom-5 -right-5 bg-brand-accent text-white p-4 rounded-2xl shadow-neon-pink transform rotate-12 transition-transform group-hover:rotate-0">
+                        <i class="fa-solid fa-laptop-code text-2xl animate-pulse"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-24 bg-brand-card/30 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="about-title">À Propos de Moi</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto rounded-full"></div>
+                <p class="text-slate-400 mt-6 leading-relaxed" data-i18n="about-p">
+                    Diplômé de la prestigieuse école de jeu vidéo **Rubika - Supinfogame**, je possède une solide expertise en programmation. Curieux par nature, j'ai également étendu mon savoir-faire au développement Web moderne (APIs, Bases de données, Cloud) et à l'intelligence artificielle (Prompt Engineering, intégration LLM). Mon adaptabilité éprouvée sur le terrain fait de moi un atout polyvalent au sein de n'importe quel projet d'équipe ou structure d'entreprise.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Soft Skills Card -->
+                <div class="bg-brand-card/60 border border-brand-primary/20 p-8 rounded-3xl transition-all hover:border-brand-primary hover:shadow-neon-purple md:col-span-2">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-primary/20 flex items-center justify-center mb-6 text-brand-primary">
+                        <i class="fa-solid fa-users-gear text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4" data-i18n="about-soft-title">Savoir-être (Soft Skills) & Valeurs</h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-secondary text-sm"></i>
+                                <span data-i18n="soft-proactive">Proactivité & Prise d'initiative</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-secondary text-sm"></i>
+                                <span data-i18n="soft-learning">Apprentissage très rapide</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-secondary text-sm"></i>
+                                <span data-i18n="soft-autonomy">Autonomie rigoureuse</span>
+                            </li>
+                        </ul>
+                        <ul class="space-y-3 text-slate-300">
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-accent text-sm"></i>
+                                <span data-i18n="soft-team">Travail d'équipe & Collaboration</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-secondary text-sm"></i>
+                                <span data-i18n="soft-empathy">Empathie & Écoute active</span>
+                            </li>
+                            <li class="flex items-center space-x-2">
+                                <i class="fa-solid fa-check text-brand-secondary text-sm"></i>
+                                <span data-i18n="soft-listening">Écoute active & Dialogue</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Education Card -->
+                <div class="bg-brand-card/60 border border-brand-primary/20 p-8 rounded-3xl transition-all hover:border-brand-primary hover:shadow-neon-purple">
+                    <div class="w-12 h-12 rounded-2xl bg-brand-primary/20 flex items-center justify-center mb-6 text-brand-primary">
+                        <i class="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-4" data-i18n="about-edu-title">Formation & Diplômes</h3>
+                    <div class="mb-2">
+                        <h4 class="text-md font-semibold text-white" data-i18n="about-edu-degree">Bachelor Programmation</h4>
+                        <p class="text-brand-secondary font-mono text-xs" data-i18n="about-edu-school">Rubika Supinfogame | 2019 - 2023</p>
+                    </div>
+                    <p class="text-slate-400 leading-relaxed text-sm" data-i18n="about-edu-desc">
+                        Une formation d'excellence mondiale. Cursus rigoureux axé sur la programmation système et gameplay, le respect des architectures logicielles (design patterns) et la gestion de projets pluridisciplinaires d'envergure.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROFESSIONAL EXPERIENCE SECTION -->
+    <section id="experience" class="py-24 relative">
+        <div class="absolute top-1/2 left-0 w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="exp-title">Parcours Professionnel</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto rounded-full"></div>
+            </div>
+
+            <!-- Vertical Timeline with all 4 Experiences from CV -->
+            <div class="relative border-l-2 border-slate-800 ml-4 md:ml-32 space-y-12">
+                
+                <!-- EXP 1: IdentityOS (Developer) -->
+                <div class="relative pl-8 md:pl-16">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-primary border-4 border-brand-dark shadow-neon-purple"></span>
+                    
+                    <div class="md:absolute md:-left-36 md:top-1.5 md:w-28 text-left md:text-right">
+                        <span class="text-xs font-bold text-brand-secondary font-mono bg-brand-primary/10 px-2 py-1 rounded border border-brand-primary/30" data-i18n="exp-1-date">
+                            Juin 2026 - Janv. 2027
+                        </span>
+                    </div>
+
+                    <div class="bg-brand-card/80 border border-slate-800 rounded-3xl p-8 hover:border-brand-primary/50 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white" data-i18n="exp-1-title">Développeur Fullstack</h3>
+                                <p class="text-brand-secondary font-semibold" data-i18n="exp-1-comp">IdentityOS</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs border border-indigo-500/30 font-mono" data-i18n="exp-1-tag">Intelligence Artificielle & Graph DB</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-sm">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-primary mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-1-bullet-1">Création d'une <strong>API Back-End</strong> avancée basée sur l'intelligence artificielle et l'utilisation de bases de données graphes.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-primary mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-1-bullet-2"><strong>Unity Engine</strong> : Développement complet d'un jeu narratif interactif se branchant de façon fluide sur l'API d'Intelligence Artificielle.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EXP 2: Central Cars (Web Developper) -->
+                <div class="relative pl-8 md:pl-16">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark shadow-neon-pink"></span>
+                    
+                    <div class="md:absolute md:-left-36 md:top-1.5 md:w-28 text-left md:text-right">
+                        <span class="text-xs font-bold text-brand-accent font-mono bg-brand-accent/10 px-2 py-1 rounded border border-brand-accent/30" data-i18n="exp-2-date">
+                            Août 2024 - Nov. 2025
+                        </span>
+                    </div>
+
+                    <div class="bg-brand-card/80 border border-slate-800 rounded-3xl p-8 hover:border-brand-accent/50 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white" data-i18n="exp-2-title">Développeur Web</h3>
+                                <p class="text-brand-accent font-semibold" data-i18n="exp-2-comp">Central Cars</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs border border-pink-500/30 font-mono" data-i18n="exp-2-tag">Développement Fullstack & Digitalisation</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-sm">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-accent mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-2-bullet-1">Création d'un <strong>site web vitrine</strong> de véhicules d'occasions avec une interface administrateur sécurisée et optimisée.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-accent mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-2-bullet-2"><strong>Gestion numérique</strong> : Déploiement et administration des solutions Cloud d'entreprise, facturations automatisées, suivi informatique des stocks physiques.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EXP 3: Simoldes Plasticos (Technicien IT) -->
+                <div class="relative pl-8 md:pl-16">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-primary border-4 border-brand-dark shadow-neon-purple"></span>
+                    
+                    <div class="md:absolute md:-left-36 md:top-1.5 md:w-28 text-left md:text-right">
+                        <span class="text-xs font-bold text-brand-secondary font-mono bg-brand-primary/10 px-2 py-1 rounded border border-brand-primary/30" data-i18n="exp-3-date">
+                            Mars 2024 - Mai 2024
+                        </span>
+                    </div>
+
+                    <div class="bg-brand-card/80 border border-slate-800 rounded-3xl p-8 hover:border-brand-primary/50 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white" data-i18n="exp-3-title">Technicien IT</h3>
+                                <p class="text-brand-secondary font-semibold" data-i18n="exp-3-comp">Simoldes Plasticos</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 text-xs border border-indigo-500/30 font-mono" data-i18n="exp-3-tag">Support Parc & Innovation Applicative</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-sm">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-primary mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-3-bullet-1">Administration courante, dépannage, maintenance et entretien du parc informatique matériel (hardware) et applicatif (software) de l'usine.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-primary mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-3-bullet-2"><strong>Conception innovante</strong> : Création d'une application interne d'inventaire et de suivi des stocks de consommables via un système de <strong>scan par QR Code</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EXP 4: La Grignotine du Lac (Employé polyvalent) -->
+                <div class="relative pl-8 md:pl-16">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-accent border-4 border-brand-dark shadow-neon-pink"></span>
+                    
+                    <div class="md:absolute md:-left-36 md:top-1.5 md:w-28 text-left md:text-right">
+                        <span class="text-xs font-bold text-brand-accent font-mono bg-brand-accent/10 px-2 py-1 rounded border border-brand-accent/30" data-i18n="exp-4-date">
+                            Mars 2018 - Sept. 2023
+                        </span>
+                    </div>
+
+                    <div class="bg-brand-card/80 border border-slate-800 rounded-3xl p-8 hover:border-brand-accent/50 transition-colors">
+                        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-2xl font-bold text-white" data-i18n="exp-4-title">Employé Polyvalent</h3>
+                                <p class="text-brand-accent font-semibold" data-i18n="exp-4-comp">La Grignotine du Lac</p>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs border border-emerald-500/30 font-mono" data-i18n="exp-4-tag">Relation Client & Management d'Équipe</span>
+                        </div>
+                        <ul class="space-y-3 text-slate-300 text-sm">
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-accent mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-4-bullet-1">Prise en charge chaleureuse et réalisation rigoureuse des commandes dans le respect des contraintes de flux de clients.</span>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <i class="fa-solid fa-chevron-right text-brand-accent mt-1 text-xs flex-shrink-0"></i>
+                                <span data-i18n="exp-4-bullet-2"><strong>Gestion opérationnelle</strong> : Responsabilité des stocks, planification des ressources humaines (plannings), management des équipes et encadrement/formation des nouveaux arrivants.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="py-24 bg-brand-card/30 relative">
+        <div class="absolute top-1/4 right-0 w-96 h-96 bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="proj-title">Mes Projets & Réalisations</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto rounded-full"></div>
+                <p class="text-slate-400 mt-6 leading-relaxed" data-i18n="proj-subtitle">
+                    Aperçu de mes initiatives et contributions techniques majeures, alliant programmation gameplay sur Unity et développement d'applications.
+                </p>
+            </div>
+
+            <!-- Projects Grid: Now with 6 complete cards -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <!-- PROJECT 1: Studio N29 -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-30 text-brand-secondary" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#0c0714" />
+                            <path d="M10 10 L40 40 L60 20 L90 45" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="2 1"/>
+                            <circle cx="40" cy="40" r="4" fill="#8b5cf6" />
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-brand-secondary border border-brand-primary" data-i18n="proj-studio-badge">Studio Personnel</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">STUDIO N29</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <p class="text-sm text-slate-300" data-i18n="proj-studio-desc">
+                            Mon studio de création informatique. Réalisation d'architectures web, de designs visuels et d'outils numériques interactifs modernes.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30" data-i18n="proj-studio-tag-1">Création Web</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-accent/15 text-brand-accent border border-brand-accent/30" data-i18n="proj-studio-tag-2">Design Graphique</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-slate-800 text-slate-400" data-i18n="proj-studio-tag-3">Identité Numérique</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: Delight (New!) -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-35 text-brand-accent" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#0a0516"/>
+                            <!-- Rope-like sine wave -->
+                            <path d="M0 25 Q25 5, 50 25 T100 25" fill="none" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-brand-accent border border-brand-accent" data-i18n="proj-delight-badge">Unity - 3D Adventure</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">🪢 DELIGHT</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-300" data-i18n="proj-delight-desc">
+                                Un jeu d'aventure 3D de type Zelda-like entièrement conçu autour d'une mécanique de corde physique totalement active et réaliste conduite par des calculs de tensions dynamiques.
+                            </p>
+                            <p class="text-xs text-brand-secondary leading-relaxed" data-i18n="proj-delight-resp">
+                                <strong>Responsabilités clés :</strong> Programmeur de la mécanique principale, solveur de physique & tension de corde, intégration du contrôleur de personnage.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30">Unity Engine</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-accent/15 text-brand-accent border border-brand-accent/30">Physics Solver</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-slate-800 text-slate-400">C# Scripts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3: Discosmos (New!) -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-35 text-teal-400" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#0a0516"/>
+                            <!-- Radial orbital circle -->
+                            <circle cx="50" cy="25" r="15" fill="none" stroke="currentColor" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <circle cx="65" cy="15" r="3" fill="currentColor"/>
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-teal-400 border border-teal-400" data-i18n="proj-cosmos-badge">Unity - 3D Multiplayer MOBA</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">🛸 DISCOSMOS</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-300" data-i18n="proj-cosmos-desc">
+                                Un MOBA multijoueur 3D fondé sur des contrôles cinétiques dynamiques d'accélération, de glissement et de propulsion d'énergie.
+                            </p>
+                            <p class="text-xs text-brand-secondary leading-relaxed" data-i18n="proj-cosmos-resp">
+                                <strong>Responsabilités clés :</strong> Développeur système réseau (multijoueur), architecte du moteur de lancement de sorts, conception de l'interface HUD & contrôles.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30">Network System</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-teal-500/10 text-teal-400 border border-teal-500/30">Multiplayer</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-slate-800 text-slate-400">Unity HUD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 4: Hero's Dawn (Returned!) -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-35 text-brand-primary" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#0a0516"/>
+                            <!-- Sword or peak pattern -->
+                            <path d="M50 5 L55 35 L45 35 Z" fill="currentColor"/>
+                            <line x1="30" y1="35" x2="70" y2="35" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-brand-secondary border border-brand-primary" data-i18n="proj-dawn-badge">WIP - RPG 3D Turn Based</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">⚔️ HERO'S DAWN</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <p class="text-sm text-slate-300" data-i18n="proj-dawn-desc">
+                            Un RPG 3D fantasy combinant des mécaniques de Life Sim et de MMORPG. Comprend un système de combat au tour par tour fluide et stratégique soutenu par une timeline dynamique.
+                        </p>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30">Unity 3D</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-accent/15 text-brand-accent border border-brand-accent/30">Turn-Based AI</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-slate-800 text-slate-400">Active Timeline</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 5: Beneath -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-40 text-slate-500" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#111" />
+                            <path d="M10 40 L30 15 L50 35 L70 10 L90 40 Z" fill="none" stroke="#666" stroke-width="2"/>
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-brand-secondary border border-brand-primary" data-i18n="proj-beneath-badge">WIP - Dungeon Crawler 2D</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">💀 BENEATH</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-300" data-i18n="proj-beneath-desc">
+                                Un dungeon crawler 2D captivant bénéficiant d'une direction artistique en nuances de noir et blanc très épurée.
+                            </p>
+                            <p class="text-xs text-brand-secondary" data-i18n="proj-beneath-feat">
+                                <strong>Mécanique :</strong> Logique de combat tactique et de rôles directement inspirée du MMORPG légendaire <i>World of Warcraft</i>.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30">C# / Unity 2D</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-accent/15 text-brand-accent border border-brand-accent/30">AI Patterns</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 6: Time Scrap Inc. -->
+                <div class="bg-brand-card/90 border border-slate-800 rounded-3xl overflow-hidden flex flex-col justify-between neon-glow-hover transform transition-all duration-300 hover:-translate-y-2">
+                    <div class="h-44 bg-black relative flex items-center justify-center overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-brand-card"></div>
+                        <svg class="absolute inset-0 w-full h-full opacity-35 text-brand-accent" viewBox="0 0 100 50" preserveAspectRatio="none">
+                            <rect width="100" height="50" fill="#0a0516"/>
+                            <circle cx="50" cy="25" r="15" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2,2"/>
+                        </svg>
+                        <span class="absolute top-4 left-4 px-3 py-1 rounded bg-slate-900/90 text-[10px] font-mono font-bold uppercase text-brand-accent border border-brand-accent" data-i18n="proj-scrap-badge">WIP - Idle Crafting</span>
+                        <div class="z-10 text-center px-4">
+                            <h3 class="text-3xl font-extrabold text-white tracking-wider font-mono">⏳ TIME SCRAP</h3>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <p class="text-sm text-slate-300" data-i18n="proj-scrap-desc">
+                                Un idle game de gestion et de fabrication au sein d'une usine de recyclage temporel.
+                            </p>
+                            <p class="text-xs text-brand-secondary" data-i18n="proj-scrap-feat">
+                                <strong>Mécanique :</strong> Fusion d'objets (merge features) pour débloquer des améliorations logistiques uniques.
+                            </p>
+                        </div>
+                        <div class="flex flex-wrap gap-2 pt-2">
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-primary/15 text-brand-secondary border border-brand-primary/30">Unity / C#</span>
+                            <span class="px-2.5 py-0.5 rounded text-[11px] bg-brand-accent/15 text-brand-accent border border-brand-accent/30">Merge Feature</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS SECTION -->
+    <section id="skills" class="py-24 relative">
+        <div class="absolute bottom-0 right-0 w-80 h-80 bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4" data-i18n="skills-title">L'Arsenal Technique</h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto rounded-full"></div>
+                <p class="text-slate-400 mt-6 leading-relaxed" data-i18n="skills-subtitle">
+                    Un profil équilibré capable de concevoir des architectures de jeux complexes et de mener des intégrations web et clouds performantes.
+                </p>
+            </div>
+
+            <!-- Skills Grid Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                <!-- Languages & Tools (Col 7) -->
+                <div class="lg:col-span-7 space-y-8">
+                    <h3 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-code mr-3 text-brand-primary"></i> <span data-i18n="skills-hards">Compétences de Programmation</span>
+                    </h3>
+                    
+                    <!-- Progress Bars -->
+                    <div class="space-y-4">
+                        <!-- C# -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-sm">
+                                <span class="font-mono text-white font-bold">C# (Unity Engine, .NET)</span>
+                                <span class="text-brand-secondary font-mono font-semibold">Expert / 95%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full" style="width: 95%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- TypeScript / JS / Dart -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-sm">
+                                <span class="font-mono text-white font-bold">TypeScript / JavaScript & Dart</span>
+                                <span class="text-brand-secondary font-mono font-semibold">Avancé / 85%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full" style="width: 85%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Prompt Engineering -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-sm">
+                                <span class="font-mono text-white font-bold">Prompt Engineering IA & LLMs API</span>
+                                <span class="text-brand-secondary font-mono font-semibold">Confirmé / 80%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full" style="width: 80%;"></div>
+                            </div>
+                        </div>
+
+                        <!-- Python / C++ / Java -->
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-sm">
+                                <span class="font-mono text-white font-bold">Python, Java & C++</span>
+                                <span class="text-brand-secondary font-mono font-semibold">Intermédiaire / 70%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div class="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full" style="width: 70%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Databases and Core Cloud (badges) -->
+                    <div class="pt-6 space-y-4">
+                        <h4 class="text-lg font-bold text-white flex items-center">
+                            <i class="fa-solid fa-database mr-3 text-brand-accent"></i> <span data-i18n="skills-databases">Gestion des Données & Systèmes</span>
+                        </h4>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="px-4 py-2 rounded-xl bg-brand-card border border-slate-800 text-brand-secondary font-mono text-xs flex items-center">
+                                <i class="fa-solid fa-network-wired mr-2 text-brand-primary"></i> Neo4j (Graph DB)
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-brand-card border border-slate-800 text-brand-secondary font-mono text-xs flex items-center">
+                                <i class="fa-solid fa-server mr-2 text-emerald-400"></i> NoSQL & SQL
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-brand-card border border-slate-800 text-brand-secondary font-mono text-xs flex items-center">
+                                <i class="fa-solid fa-cloud mr-2 text-sky-400"></i> Cloud & GCP
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-brand-card border border-slate-800 text-brand-secondary font-mono text-xs flex items-center">
+                                <i class="fa-brands fa-git-alt mr-2 text-orange-500"></i> Git & Versioning
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Engines & Software Mastery (Col 5) -->
+                <div class="lg:col-span-5 space-y-8 bg-brand-card/30 p-8 rounded-3xl border border-slate-800">
+                    <h3 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-cubes mr-3 text-brand-accent"></i> <span data-i18n="skills-gamedev">Moteurs de Jeux & Design 3D</span>
+                    </h3>
+
+                    <!-- Engines visual tags -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900/60 border border-brand-primary/20">
+                            <div class="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-primary">
+                                <i class="fa-solid fa-layer-group text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Unity Engine</h4>
+                                <p class="text-xs text-brand-muted animate-none" data-i18n="skills-gamedev-desc1">Programmation Gameplay, IA narratives, Réseau, UI & Shaders.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400">
+                                <i class="fa-solid fa-circle-play text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Unreal Engine & Blender</h4>
+                                <p class="text-xs text-brand-muted animate-none" data-i18n="skills-gamedev-desc2">Notions solides en prototypage et retouches 3D.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                            <div class="w-12 h-12 rounded-xl bg-slate-800 flex items-center justify-center text-slate-400">
+                                <i class="fa-solid fa-bezier-curve text-2xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white">Canva & GSuite</h4>
+                                <p class="text-xs text-brand-muted animate-none" data-i18n="skills-gamedev-desc3">Création graphique, organisation de dossiers et bureautique.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Software Tooling -->
+                    <div class="pt-4 border-t border-slate-800">
+                        <h4 class="text-sm font-bold text-white font-mono uppercase mb-3 text-brand-secondary" data-i18n="skills-tools-title">Outils de Développement</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-2.5 py-1 rounded bg-slate-900 text-xs text-slate-400 font-mono">Visual Studio Code</span>
+                            <span class="px-2.5 py-1 rounded bg-slate-900 text-xs text-slate-400 font-mono">JetBrains Rider</span>
+                            <span class="px-2.5 py-1 rounded bg-slate-900 text-xs text-slate-400 font-mono">Canoa</span>
+                            <span class="px-2.5 py-1 rounded bg-slate-900 text-xs text-slate-400 font-mono">Google Cloud</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOBBIES & INTERESTS SECTION -->
+    <section class="py-20 bg-brand-card/20 relative border-t border-slate-800/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-12 text-center" data-i18n="hobbies-title">Intérêts & Hobbies</h3>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- HOBBY 1: Jeux Vidéos -->
+                <div class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-brand-primary/30 transition-all text-center">
+                    <i class="fa-solid fa-gamepad text-3xl text-brand-primary mb-4 block animate-bounce"></i>
+                    <h4 class="text-lg font-bold text-white mb-2" data-i18n="hobby-games-title">Jeux Vidéos</h4>
+                    <p class="text-xs text-slate-400" data-i18n="hobby-games-desc">World of Warcraft, Dofus, Mario Kart, Valorant, Hades, Diablo.</p>
+                </div>
+
+                <!-- HOBBY 2: Musique -->
+                <div class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-brand-primary/30 transition-all text-center">
+                    <i class="fa-solid fa-music text-3xl text-brand-accent mb-4 block"></i>
+                    <h4 class="text-lg font-bold text-white mb-2" data-i18n="hobby-music-title">Musique</h4>
+                    <p class="text-xs text-slate-400" data-i18n="hobby-music-desc">Linkin Park, Rammstein, Yaniss Odua, Blacko, Orelsan, Damso, Vladimir Cauchemar.</p>
+                </div>
+
+                <!-- HOBBY 3: Automobile -->
+                <div class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-brand-primary/30 transition-all text-center">
+                    <i class="fa-solid fa-car text-3xl text-emerald-400 mb-4 block"></i>
+                    <h4 class="text-lg font-bold text-white mb-2" data-i18n="hobby-auto-title">Automobile</h4>
+                    <p class="text-xs text-slate-400" data-i18n="hobby-auto-desc">Rénovation, mécanique carrosserie, électronique embarquée, modifications.</p>
+                </div>
+
+                <!-- HOBBY 4: Sciences -->
+                <div class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-brand-primary/30 transition-all text-center">
+                    <i class="fa-solid fa-atom text-3xl text-brand-secondary mb-4 block"></i>
+                    <h4 class="text-lg font-bold text-white mb-2" data-i18n="hobby-sci-title">Sciences & Tech</h4>
+                    <p class="text-xs text-slate-400" data-i18n="hobby-sci-desc">Physique quantique, architecture matérielle, astronomie, intelligence artificielle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-24 relative bg-brand-dark">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-primary/5 to-transparent pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Contact Direct Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="px-3 py-1 rounded-full bg-brand-primary/10 border border-brand-primary/30 text-brand-secondary text-xs font-mono font-bold uppercase tracking-wider" data-i18n="contact-tag">
+                        Collaborons ensemble !
+                    </span>
+                    <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-none">
+                        Let's work <br><span class="text-brand-primary">Together!</span>
+                    </h2>
+                    <p class="text-slate-400 leading-relaxed" data-i18n="contact-subtitle">
+                        Que ce soit pour un rôle de développement de jeu, une mission web d'envergure, ou l'intégration d'outils d'IA, je suis prêt à rejoindre vos équipes.
+                    </p>
+
+                    <!-- Contacts Details -->
+                    <div class="space-y-4 pt-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-muted">E-mail</p>
+                                <a href="mailto:dm.nathiez@gmail.com" class="text-white hover:text-brand-secondary font-mono font-medium">dm.nathiez@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-muted">Phone</p>
+                                <a href="tel:0679935556" class="text-white hover:text-brand-secondary font-mono font-medium">06 79 93 55 56 (+33)</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center text-brand-primary">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-brand-muted">Location</p>
+                                <p class="text-white font-semibold">Onnaing, Hauts-de-France (Mobile / Remote)</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <a href="https://n29-studio.fr" target="_blank" class="inline-flex items-center space-x-2 text-brand-accent hover:underline font-bold">
+                            <span>Visiter n29-studio.fr</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact Form Mockup -->
+                <div class="lg:col-span-7">
+                    <div class="bg-brand-card/90 border border-slate-800 p-8 rounded-3xl shadow-neon-purple relative">
+                        <form id="contact-form" class="space-y-6" onsubmit="event.preventDefault(); handleFormSubmit();">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label for="name" class="text-xs font-mono text-slate-400 uppercase" data-i18n="form-name">Votre Nom</label>
+                                    <input type="text" id="name" required class="w-full bg-slate-900 border border-slate-800 focus:border-brand-primary rounded-xl px-4 py-3 text-white outline-none transition-colors" placeholder="Full Name">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="company" class="text-xs font-mono text-slate-400 uppercase" data-i18n="form-company">Entreprise</label>
+                                    <input type="text" id="company" class="w-full bg-slate-900 border border-slate-800 focus:border-brand-primary rounded-xl px-4 py-3 text-white outline-none transition-colors" placeholder="Ex: Central Cars">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="email" class="text-xs font-mono text-slate-400 uppercase" data-i18n="form-email">Votre Email</label>
+                                <input type="email" id="email" required class="w-full bg-slate-900 border border-slate-800 focus:border-brand-primary rounded-xl px-4 py-3 text-white outline-none transition-colors" placeholder="your@email.com">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="message" class="text-xs font-mono text-slate-400 uppercase" data-i18n="form-message">Message & Détails</label>
+                                <textarea id="message" required rows="4" class="w-full bg-slate-900 border border-slate-800 focus:border-brand-primary rounded-xl px-4 py-3 text-white outline-none transition-colors" placeholder="..."></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-gradient-to-r from-brand-primary to-brand-accent font-bold text-white shadow-neon-purple hover:opacity-95 transition-all" data-i18n="form-submit">
+                                Envoyer le message
+                            </button>
+                        </form>
+
+                        <div id="form-success-msg" class="hidden absolute inset-0 bg-brand-dark/95 rounded-3xl flex flex-col items-center justify-center p-8 text-center space-y-4">
+                            <div class="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+                                <i class="fa-solid fa-paper-plane text-2xl animate-bounce"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white" data-i18n="form-success">Transmission Réussie !</h3>
+                            <p class="text-slate-400 text-sm max-w-sm" data-i18n="form-success-p">
+                                Merci pour votre message. Djason vous répondra sous 24 à 48 heures.
+                            </p>
+                            <button onclick="resetContactForm()" class="px-5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white transition-colors text-xs font-mono" data-i18n="form-retry">
+                                Envoyer un autre message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-dark border-t border-slate-900 py-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div class="flex items-center space-x-3">
+                <span class="font-mono text-lg text-brand-secondary font-bold">DN</span>
+                <span class="text-sm text-slate-500" data-i18n="footer-rights">© 2026 Djason Nathiez. Tous droits réservés.</span>
+            </div>
+            
+            <div class="flex space-x-6 text-xl text-slate-400">
+                <a href="https://n29-studio.fr" target="_blank" class="hover:text-brand-primary transition-colors" title="N29 Studio">
+                    <i class="fa-solid fa-globe"></i>
+                </a>
+                <a href="mailto:dm.nathiez@gmail.com" class="hover:text-brand-primary transition-colors" title="Contact Email">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+                <a href="tel:0679935556" class="hover:text-brand-primary transition-colors" title="Telephone">
+                    <i class="fa-solid fa-phone"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE SCRIPTS -->
+    <script>
+        // Set Language Logic
+        let currentLang = localStorage.getItem('selected-lang') || 'fr';
+
+        function changeLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
+
+            // Handle placeholders explicitly
+            const msgArea = document.getElementById('message');
+            if (msgArea) {
+                msgArea.placeholder = translations[lang]['form-message'];
+            }
+
+            // Update active states on switcher elements
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('bg-brand-primary', 'text-white');
+                    btn.classList.remove('text-slate-400', 'bg-transparent');
+                } else {
+                    btn.classList.remove('bg-brand-primary', 'text-white');
+                    btn.classList.add('text-slate-400', 'bg-transparent');
+                }
+            });
+
+            // Save choice in localStorage
+            localStorage.setItem('selected-lang', lang);
+        }
+
+        // Initialize default language on load
+        window.addEventListener('DOMContentLoaded', () => {
+            changeLang(currentLang);
+        });
+
+        // Mobile menu toggle
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close menu when clicking link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Contact Form Submission Mock
+        function handleFormSubmit() {
+            const formSuccessMsg = document.getElementById('form-success-msg');
+            formSuccessMsg.classList.remove('hidden');
+        }
+
+        function resetContactForm() {
+            const formSuccessMsg = document.getElementById('form-success-msg');
+            const contactForm = document.getElementById('contact-form');
+            contactForm.reset();
+            formSuccessMsg.classList.add('hidden');
+        }
+    </script>
+</body>
 </html>
+```
+eof
+
+### Ce qui a été mis en place :
+1. **Rôle Central Cars** : Repositionné en tant que **Développeur Web** (*Web Developper*), en insistant sur la création du site vitrine d'occasions et la mise en place d'outils numériques (facturations, Cloud, stocks).
+2. **Intégration de la Grignotine du Lac** : Préservation de cette importante expérience de management, d'onboarding et de logistique d'équipe pour valoriser ses soft skills et sa polyvalence professionnelle.
+3. **Mise à jour linguistique (Bilingue FR/EN)** :
+   * Implémentation d'un sélecteur de langue intuitif (boutons de bascule **FR | EN**) directement positionnés dans l'en-tête (Navbar) et adaptés pour mobile.
+   * Traduction complète de l'ensemble des rubriques (présentation, expériences, compétences, hobbies, et même le formulaire de contact).
+4. **Intégration des projets de `n29-studio.fr`** :
+   * Ajout de **Delight** (Adventure 3D physique, mécanique de cordes et contrôleur de personnage).
+   * Ajout de **Discosmos** (MOBA multijoueur 3D, architecture réseau, interface et cinétiques).
+   * Retour du projet **Hero's Dawn** (RPG 3D tour par tour et timeline dynamique).
