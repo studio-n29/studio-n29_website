@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Aventures de Jacky - Édition Anniversaire</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Retro Press Start 2P -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', monospace;
+            background-color: #5c94fc; /* Bleu ciel classique Mario */
+            image-rendering: pixelated;
+        }
+        /* Styles d'ombrages et bordures pixélisés */
+        .retro-border {
+            border: 4px solid #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+        .retro-border-double {
+            border: 8px double #000;
+        }
+        .retro-btn {
+            position: relative;
+            border: 4px solid #000;
+            box-shadow: 0px 6px 0px #000;
+            transition: all 0.1s ease;
+            top: 0;
+        }
+        .retro-btn:active {
+            top: 6px;
+            box-shadow: 0px 0px 0px #000;
+        }
+        /* Animations rétro */
+        @keyframes bounce-custom {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .animate-bounce-custom {
+            animation: bounce-custom 0.6s infinite;
+        }
+        @keyframes float-emoji {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-120px) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+        .emoji-animation {
+            animation: float-emoji 0.7s ease-out forwards;
+        }
+        /* Style des briques rétro */
+        .brick-pattern {
+            background-color: #d85000;
+            background-image: 
+                linear-gradient(90deg, #000 4px, transparent 4px),
+                linear-gradient(0deg, #000 4px, transparent 4px),
+                linear-gradient(90deg, rgba(255,255,255,0.3) 4px, transparent 4px),
+                linear-gradient(0deg, rgba(255,255,255,0.3) 4px, transparent 4px);
+            background-size: 40px 20px;
+            border: 4px solid #000;
+        }
+        /* Style des nuages */
+        .pixel-cloud {
+            background: #fff;
+            box-shadow: 
+                0 8px 0 #fff, 8px 0 0 #fff, -8px 0 0 #fff,
+                0 -8px 0 #fff, 0 16px 0 #fff, 16px 0 0 #fff,
+                -16px 0 0 #fff, 24px 8px 0 #fff, -24px 8px 0 #fff,
+                0 24px 0 #fff, 8px 24px 0 #fff, -8px 24px 0 #fff;
+        }
+        /* Rideau de confettis */
+        @keyframes confetti-fall {
+            0% { transform: translateY(-10%) rotate(0deg); }
+            100% { transform: translateY(110vh) rotate(720deg); }
+        }
+        .confetti {
+            position: fixed;
+            width: 12px;
+            height: 12px;
+            z-index: 40;
+            animation: confetti-fall 4s linear infinite;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex flex-col justify-between overflow-x-hidden relative selection:bg-yellow-400 selection:text-black">
+
+    <!-- Nuages en arrière-plan décoratif -->
+    <div class="absolute top-20 left-10 w-16 h-4 pixel-cloud opacity-60 pointer-events-none hidden md:block"></div>
+    <div class="absolute top-40 right-20 w-24 h-6 pixel-cloud opacity-45 pointer-events-none hidden md:block"></div>
+    <div class="absolute top-80 left-1/4 w-20 h-5 pixel-cloud opacity-30 pointer-events-none hidden md:block"></div>
+
+    <!-- ÉLÉMENTS FESTIFS SILLY (Petite bougie ou chapeau qui flotte) -->
+    <div class="absolute top-1/3 right-10 text-4xl animate-bounce-custom pointer-events-none opacity-80 select-none">🎈</div>
+    <div class="absolute top-2/3 left-8 text-4xl animate-bounce-custom pointer-events-none opacity-80 select-none" style="animation-delay: 0.3s">🍰</div>
+
+    <!-- BARRE DE STATUT (HUD de style Mario) -->
+    <header class="bg-black py-4 px-6 md:px-12 retro-border-double border-b-4 border-black z-30 sticky top-0">
+        <div class="max-w-6xl mx-auto flex flex-wrap gap-4 justify-between items-center text-xs md:text-sm">
+            <div class="text-center">
+                <p class="text-red-500 mb-1">JACKY</p>
+                <p id="hud-score">002500</p>
+            </div>
+            <div class="text-center flex flex-col items-center">
+                <p class="text-yellow-400 mb-1">PIÈCES</p>
+                <p class="flex items-center gap-1 justify-center">
+                    <span class="inline-block w-3 h-4 bg-yellow-400 border border-black animate-pulse rounded-sm"></span>
+                    x<span id="hud-coins">00</span>
+                </p>
+            </div>
+            <div class="text-center">
+                <p class="text-green-500 mb-1">NIVEAU</p>
+                <p>M-DAY</p>
+            </div>
+            <div class="text-center">
+                <p class="text-blue-400 mb-1">ÂGE UP</p>
+                <p id="hud-time">+1 AN</p>
+            </div>
+            <!-- Boutons Audio / Party -->
+            <div class="flex gap-2">
+                <button id="music-toggle" class="bg-yellow-500 hover:bg-yellow-400 text-black px-3 py-2 text-[10px] retro-border cursor-pointer flex items-center gap-1">
+                    <span id="music-icon">🎵</span> <span class="hidden sm:inline">SON : OFF</span>
+                </button>
+                <button id="party-toggle" class="bg-purple-600 hover:bg-purple-500 text-white px-3 py-2 text-[10px] retro-border cursor-pointer flex items-center gap-1">
+                    <span>🎉</span> <span class="hidden sm:inline">PARTY MODE!</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ZONE DE NOTIFICATIONS PERSO -->
+    <div id="toast-container" class="fixed top-24 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="flex-grow flex flex-col items-center justify-center py-8 px-4 z-20 max-w-6xl mx-auto w-full">
+        
+        <!-- EN-TÊTE DU JEU ET SOUHAIT -->
+        <div class="text-center mb-6 w-full">
+            <div class="inline-block bg-[#e52521] px-4 py-2 mb-4 retro-border transform -rotate-1">
+                <span class="text-yellow-300 text-[10px] md:text-xs tracking-widest uppercase animate-pulse">👑 JOYEUX ANNIVERSAIRE JACKY 👑</span>
+            </div>
+            <h1 class="text-2xl md:text-5xl font-extrabold tracking-wider leading-relaxed text-yellow-300 drop-shadow-[4px_4px_0px_rgba(0,0,0,1)] uppercase mb-4">
+                Les Aventures<br>de Jacky
+            </h1>
+            <p class="text-[10px] md:text-xs leading-loose max-w-2xl mx-auto text-white drop-shadow-[2px_2px_0px_rgba(0,0,0,1)] px-4">
+                Le jeu mobile d'arcade légendaire enfin dispo sur ton téléphone ! Tape le bloc mystère pour faire pleuvoir les gâteaux d'anniv' et installe ton APK pour commencer l'aventure !
+            </p>
+        </div>
+
+        <!-- ZONE DU JEU INTERACTIF (BLOC "?" ET TÉLÉCHARGEMENT) -->
+        <div class="w-full flex flex-col lg:flex-row items-center justify-center gap-12 my-6">
+            
+            <!-- BLOC MYSTÈRE INTERACTIF SILLY -->
+            <div class="flex flex-col items-center justify-center p-6 bg-[#202020]/40 rounded-xl retro-border border-dashed w-full max-w-sm relative">
+                <!-- Petit chapeau de fête posé de travers sur le bloc -->
+                <div class="absolute -top-6 left-12 text-3xl transform -rotate-12 select-none">🥳</div>
+                <p class="text-[9px] text-center text-yellow-200 mb-4 animate-pulse">TAPE LE BLOC POUR FAIRE LA FÊTE !</p>
+                
+                <!-- Le fameux bloc "?" de Mario -->
+                <div id="question-block" class="relative w-32 h-32 bg-[#fc9838] retro-border cursor-pointer flex items-center justify-center transform active:scale-95 transition-transform select-none">
+                    <!-- Vis et reliefs du bloc pixel -->
+                    <span class="absolute top-2 left-2 w-2 h-2 bg-black"></span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-black"></span>
+                    <span class="absolute bottom-2 left-2 w-2 h-2 bg-black"></span>
+                    <span class="absolute bottom-2 right-2 w-2 h-2 bg-black"></span>
+                    <!-- Point d'interrogation stylisé pixel -->
+                    <span class="text-6xl font-extrabold text-black drop-shadow-[2px_2px_0px_rgba(255,255,255,0.7)]">?</span>
+                </div>
+
+                <div class="mt-4 text-center">
+                    <p class="text-[9px] text-gray-300">Gâteaux, cadeaux & bêtises cachées !</p>
+                </div>
+            </div>
+
+            <!-- BOUTON CENTRAL DE TÉLÉCHARGEMENT APK -->
+            <div class="text-center flex flex-col items-center justify-center bg-[#f8b800]/20 p-8 rounded-2xl retro-border w-full max-w-lg relative">
+                <!-- Décoration rigolote -->
+                <div class="absolute -top-5 -right-5 text-4xl transform rotate-12 select-none">🦖</div>
+                <!-- Mario Icon SVG / Cadeau rebondissant -->
+                <div id="gift-box" class="mb-4 text-6xl cursor-pointer animate-bounce-custom select-none">🎁</div>
+                
+                <h2 class="text-xs md:text-sm text-yellow-300 mb-6 uppercase tracking-wider drop-shadow-[1px_1px_0px_#000]">
+                    📲 CLIQUE POUR INSTALLER L'APK MOBILE :
+                </h2>
+
+                <!-- ÉNORME BOUTON DE TÉLÉCHARGEMENT -->
+                <button id="download-btn" class="retro-btn bg-[#e52521] hover:bg-[#b81814] text-white font-bold py-6 px-4 md:px-8 text-base md:text-lg rounded-none w-full max-w-md uppercase tracking-wider flex flex-col items-center gap-2">
+                    <span class="flex items-center gap-2">
+                        📥 TÉLÉCHARGER L'APK
+                    </span>
+                    <span class="text-[9px] text-yellow-300 tracking-normal normal-case block mt-1">
+                        (Fichier : jackysadventure.apk - Android 14+ OK)
+                    </span>
+                </button>
+
+                <!-- Barre de progression de téléchargement simulée -->
+                <div id="progress-container" class="w-full bg-black h-8 retro-border p-1 mt-6 hidden">
+                    <div id="progress-bar" class="bg-green-500 h-full w-0 transition-all duration-300 flex items-center justify-center overflow-hidden">
+                        <span class="text-[8px] text-white whitespace-nowrap">PREPARATION DU FICHIER...</span>
+                    </div>
+                </div>
+
+                <p class="text-[8px] text-white/80 mt-6 leading-relaxed">
+                    Autorise les "Sources inconnues" dans tes paramètres Android pour faire triompher Jacky !
+                </p>
+            </div>
+
+        </div>
+
+        <!-- BLOC INTERACTIF SUPPRÊME : MACHINE À SUPER-POUVOIRS DE JACKY -->
+        <section class="w-full mt-12 max-w-2xl bg-black/80 p-6 retro-border text-center relative">
+            <div class="absolute -top-5 left-6 bg-blue-500 px-3 py-1 text-[9px] retro-border">
+                NIVEAU BONUS INTERACTIF
+            </div>
+            
+            <h3 class="text-xs md:text-sm text-yellow-300 mb-4 uppercase mt-2">
+                🔮 La Machine à Super-Pouvoirs d'Anniversaire
+            </h3>
+            <p class="text-[9px] text-gray-300 mb-6">
+                Clique sur le bouton ci-dessous pour révéler ton statut de héros d'anniversaire du jour !
+            </p>
+
+            <button id="power-generator-btn" class="retro-btn bg-green-600 hover:bg-green-500 text-white py-3 px-6 text-[10px] uppercase mb-6">
+                🎲 Générer mon pouvoir !
+            </button>
+
+            <!-- Zone de résultat rigolo -->
+            <div id="power-result" class="bg-[#202020] p-4 retro-border border-dashed min-h-[80px] flex items-center justify-center">
+                <span class="text-[9px] text-yellow-400 italic">En attente de ta destinée de gamer...</span>
+            </div>
+        </section>
+
+        <!-- SECTION CARDS LIVRE D'OR DES AMIS (RIGOLOTE) -->
+        <section class="w-full mt-12 max-w-4xl text-center">
+            <h3 class="text-xs md:text-sm text-yellow-300 mb-8 uppercase drop-shadow-[2px_2px_0px_#000]">
+                --- MESSAGES RIGOLOTS DE LA TEAM COPAINS ---
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                <!-- Message 1 -->
+                <div class="bg-[#4a2e2b] p-5 retro-border border-amber-600 relative">
+                    <div class="absolute -top-3 -right-3 text-2xl">🍄</div>
+                    <p class="text-[10px] text-yellow-300 mb-2 font-bold uppercase">Toad le fêtard :</p>
+                    <p class="text-[10px] leading-relaxed text-gray-300">
+                        "Jacky, j'ai tenté d'installer ton APK sur ma console en briques de champignon, ça a tout fait sauter ! Heureusement que ton jeu mobile déchire tout. Joyeux anniversaire !"
+                    </p>
+                </div>
+                <!-- Message 2 -->
+                <div class="bg-[#1b4332] p-5 retro-border border-green-700 relative">
+                    <div class="absolute -top-3 -right-3 text-2xl">🐢</div>
+                    <p class="text-[10px] text-green-300 mb-2 font-bold uppercase">Koopa repenti :</p>
+                    <p class="text-[10px] leading-relaxed text-gray-300">
+                        "Désolé d'avoir essayé de voler tes bougies d'anniversaire Jacky ! Du coup, j'ai caché un code bonus à l'intérieur du jeu. Télécharge vite pour voir ça !"
+                    </p>
+                </div>
+                <!-- Message 3 -->
+                <div class="bg-[#1d3557] p-5 retro-border border-blue-700 relative">
+                    <div class="absolute -top-3 -right-3 text-2xl">👴</div>
+                    <p class="text-[10px] text-blue-300 mb-2 font-bold uppercase">Le conseil du vieux sage :</p>
+                    <p class="text-[10px] leading-relaxed text-gray-300">
+                        "Attention Jacky ! Prendre un an de plus augmente ta statistique de 'Sagesse' de +1, mais diminue ta 'Résistance au lendemain de fête' de -50%. Bois de l'eau !"
+                    </p>
+                </div>
+                <!-- Message 4 -->
+                <div class="bg-[#582f0e] p-5 retro-border border-amber-900 relative">
+                    <div class="absolute -top-3 -right-3 text-2xl">🍌</div>
+                    <p class="text-[10px] text-amber-300 mb-2 font-bold uppercase">Donkey Kong :</p>
+                    <p class="text-[10px] leading-relaxed text-gray-300">
+                        "J'ai jeté des bananes sur le chemin pour barrer la route aux ans qui passent... mais tu cours trop vite Jacky ! Joyeux Level Up !"
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- SOL EN BRIQUES RETRO (Footer de style Mario) -->
+    <footer class="brick-pattern w-full py-8 text-center relative z-20 mt-12">
+        <div class="bg-black/80 inline-block px-6 py-4 retro-border max-w-lg mx-auto">
+            <p class="text-[10px] text-yellow-300 tracking-wider mb-2">
+                DÉVELOPPÉ POUR L'ANNIVERSAIRE DE JACKY 🎂
+            </p>
+            <p class="text-[8px] text-gray-400">
+                L'aventure ne s'arrête jamais. Joue sur ton smartphone et évite les bananes !
+            </p>
+        </div>
+        
+        <!-- Un tuyau vert rigolo qui sort du sol -->
+        <div class="absolute -top-16 right-4 md:right-24 w-16 h-16 pointer-events-none hidden sm:block">
+            <!-- Tête du tuyau -->
+            <div class="w-20 h-6 bg-green-500 retro-border relative -left-2">
+                <span class="absolute inset-y-0 left-2 w-2 bg-green-300 opacity-50"></span>
+            </div>
+            <!-- Corps du tuyau -->
+            <div class="w-16 h-10 bg-green-600 retro-border border-t-0 relative">
+                <span class="absolute inset-y-0 left-2 w-2 bg-green-400 opacity-50"></span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LOGIQUE JAVASCRIPT EXCLUSIVE -->
+    <script>
+        // --- VARIABLES D'ÉTATS ---
+        let score = 2500;
+        let coins = 0;
+        let isMuted = true;
+        let isDownloading = false;
+        let isPartyMode = false;
+
+        // Éléments du DOM
+        const hudScore = document.getElementById('hud-score');
+        const hudCoins = document.getElementById('hud-coins');
+        const musicToggle = document.getElementById('music-toggle');
+        const partyToggle = document.getElementById('party-toggle');
+        const questionBlock = document.getElementById('question-block');
+        const downloadBtn = document.getElementById('download-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const toastContainer = document.getElementById('toast-container');
+        const powerGeneratorBtn = document.getElementById('power-generator-btn');
+        const powerResult = document.getElementById('power-result');
+        const giftBox = document.getElementById('gift-box');
+
+        // Mettre à jour l'affichage
+        function updateHUD() {
+            hudScore.textContent = String(score).padStart(6, '0');
+            hudCoins.textContent = String(coins).padStart(2, '0');
+        }
+
+        // --- SUPERS POUVOIRS RIGOLOTS DE JACKY ---
+        const funnyPowers = [
+            "👑 LE ROI DE LA SIESTE : Vous pouvez dormir pendant que le jeu tourne en arrière-plan. (+150% d'immunité à la fatigue)",
+            "🛡️ ESQUIVEUR DE CORVÉES : Vous évitez magiquement la vaisselle et le rangement pendant 24h.",
+            "🍻 STAMINA DE CHOC : Votre capacité à lever votre verre est multipliée par 2.",
+            "🚀 SUPER SAUT DE VIEILLESSE : Vous sautez par-dessus les responsabilités d'adulte d'un simple bond.",
+            "👴 SAGESSE CRÉPITANTE : Vos articulations font de la musique 8-bit quand vous vous levez.",
+            "🍕 ABSORPTION DE CALORIES : Vous gagnez du muscle à chaque part de gâteau dévorée aujourd'hui !",
+            "🔥 VISION RADAR : Vous repérez directement où sont cachées les meilleures boissons de la fête."
+        ];
+
+        powerGeneratorBtn.addEventListener('click', () => {
+            playPowerUpSound();
+            // Animation de secousse
+            powerResult.classList.add('scale-105', 'bg-yellow-600/30');
+            powerResult.innerHTML = `<span class="text-[10px] text-green-400 animate-pulse">🔮 ANALYSE DE L'ADN DE JACKY...</span>`;
+
+            setTimeout(() => {
+                powerResult.classList.remove('scale-105', 'bg-yellow-600/30');
+                const randomPower = funnyPowers[Math.floor(Math.random() * funnyPowers.length)];
+                powerResult.innerHTML = `<span class="text-[10px] text-white leading-relaxed">${randomPower}</span>`;
+                showToast("Nouveau pouvoir équipé !", "💪");
+            }, 1000);
+        });
+
+        // Clique sur le cadeau pour un effet rigolo
+        giftBox.addEventListener('click', () => {
+            playPowerUpSound();
+            showToast("🎁 Ne triche pas, télécharge l'APK pour l'ouvrir !");
+            // Secouer le cadeau
+            giftBox.classList.add('animate-spin');
+            setTimeout(() => { giftBox.classList.remove('animate-spin') }, 500);
+        });
+
+        // --- MOTEUR AUDIO RETRO SYNTH (Web Audio API) ---
+        let audioCtx = null;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+
+        function playTone(frequency, duration, type = 'square', volume = 0.1) {
+            if (isMuted) return;
+            initAudio();
+            
+            const osc = audioCtx.createOscillator();
+            const gainNode = audioCtx.createGain();
+            
+            osc.type = type;
+            osc.frequency.value = frequency;
+            
+            gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            
+            osc.connect(gainNode);
+            gainNode.connect(audioCtx.destination);
+            
+            osc.start();
+            osc.stop(audioCtx.currentTime + duration);
+        }
+
+        function playCoinSound() {
+            if (isMuted) return;
+            playTone(987.77, 0.08, 'square', 0.15); // Note B5
+            setTimeout(() => {
+                playTone(1318.51, 0.25, 'square', 0.15); // Note E6
+            }, 80);
+        }
+
+        function playPowerUpSound() {
+            if (isMuted) return;
+            const notes = [261, 329, 392, 523, 659, 784];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    playTone(freq, 0.1, 'triangle', 0.15);
+                }, idx * 70);
+            });
+        }
+
+        function playDeathSound() {
+            if (isMuted) return;
+            const notes = [500, 400, 300, 200, 100];
+            notes.forEach((freq, idx) => {
+                setTimeout(() => {
+                    playTone(freq, 0.15, 'sawtooth', 0.2);
+                }, idx * 100);
+            });
+        }
+
+        function playVictoryTheme() {
+            if (isMuted) return;
+            // Fanfare "Happy Birthday" chiptune accélérée
+            const tempo = 180;
+            const melody = [
+                { f: 261, d: 1 }, { f: 261, d: 1 }, { f: 293, d: 2 }, { f: 261, d: 2 }, { f: 349, d: 2 }, { f: 329, d: 4 },
+                { f: 261, d: 1 }, { f: 261, d: 1 }, { f: 293, d: 2 }, { f: 261, d: 2 }, { f: 392, d: 2 }, { f: 349, d: 4 }
+            ];
+
+            let currentDelay = 0;
+            melody.forEach((note) => {
+                setTimeout(() => {
+                    playTone(note.f, note.d * 0.4, 'square', 0.1);
+                }, currentDelay);
+                currentDelay += note.d * tempo;
+            });
+        }
+
+        // --- SON ET MUSIQUE ---
+        musicToggle.addEventListener('click', () => {
+            isMuted = !isMuted;
+            if (isMuted) {
+                musicToggle.classList.replace('bg-green-500', 'bg-yellow-500');
+                musicToggle.innerHTML = `<span>🎵</span> <span class="hidden sm:inline">SON : OFF</span>`;
+            } else {
+                initAudio();
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                musicToggle.classList.replace('bg-yellow-500', 'bg-green-500');
+                musicToggle.innerHTML = `<span>🔊</span> <span class="hidden sm:inline">SON : ON</span>`;
+                playCoinSound();
+                showToast("🔊 Son activé ! Appuie sur le bloc !", "🎶");
+            }
+        });
+
+        // --- CONFETTIS ET DECORATIONS FUNS (PARTY MODE) ---
+        partyToggle.addEventListener('click', () => {
+            isPartyMode = !isPartyMode;
+            if (isPartyMode) {
+                partyToggle.classList.replace('bg-purple-600', 'bg-red-500');
+                partyToggle.innerHTML = `<span>🛑</span> STOP FÊTE`;
+                startPartyConfetti();
+                playPowerUpSound();
+                showToast("Mode SUPER PARTY activé ! 🎉🍻🎂", "🔥");
+            } else {
+                partyToggle.classList.replace('bg-red-500', 'bg-purple-600');
+                partyToggle.innerHTML = `<span>🎉</span> <span class="hidden sm:inline">PARTY MODE!</span>`;
+                stopPartyConfetti();
+                playDeathSound();
+                showToast("La fête est finie ? Mais non, continue de cliquer !", "😜");
+            }
+        });
+
+        let confettiInterval = null;
+        function startPartyConfetti() {
+            confettiInterval = setInterval(() => {
+                createSingleConfetti();
+            }, 150);
+        }
+
+        function stopPartyConfetti() {
+            clearInterval(confettiInterval);
+        }
+
+        function createSingleConfetti() {
+            const confetti = document.createElement('div');
+            const colors = ['#ff2a2a', '#2aff2a', '#2a2aff', '#ffff2a', '#ff2aff', '#2affff'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            confetti.className = 'confetti';
+            confetti.style.backgroundColor = randomColor;
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            
+            document.body.appendChild(confetti);
+            setTimeout(() => { confetti.remove() }, 5000);
+        }
+
+        // --- TOASTS HILARANTS D'ANNIVERSAIRE ---
+        const birthdayHumorToasts = [
+            "Alerte : Jacky a mangé toute la crème du gâteau d'anniversaire ! 🍰",
+            "Alerte articulations : Jacky gagne +1 an et +10 de craquement de genou ! 👴",
+            "Bowser a peur d'entrer car Jacky est trop survolté aujourd'hui ! 🦖",
+            "La princesse Peach a envoyé un SMS : 'Bon anniv Jacky !' 💌",
+            "Super bonus : Jacky est immunisé contre le réveil matin demain ! 🔋",
+            "Les Goombas ont cotisé pour acheter un cadeau à Jacky ! 🍄"
+        ];
+
+        function showToast(message, emoji = "⭐") {
+            const toast = document.createElement('div');
+            toast.className = "bg-black text-white text-[9px] p-3 retro-border flex items-center gap-2 max-w-xs animate-bounce-custom pointer-events-auto shadow-2xl border-yellow-400 z-50";
+            toast.innerHTML = `<span>${emoji}</span> <span>${message}</span>`;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'transition-opacity', 'duration-500');
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        }
+
+        // --- INTERACTION DU BLOC MYSTÈRE ---
+        const birthdayEmojis = ["🎂", "🎈", "🍻", "🎉", "👴", "🎁", "🍄", "🎮", "🌟", "🍺"];
+
+        questionBlock.addEventListener('click', (e) => {
+            coins++;
+            score += 200;
+            updateHUD();
+            playCoinSound();
+
+            const item = birthdayEmojis[Math.floor(Math.random() * birthdayEmojis.length)];
+
+            const coin = document.createElement('div');
+            coin.className = "absolute pointer-events-none text-2xl z-50 emoji-animation select-none";
+            coin.style.left = `${e.clientX - 16}px`;
+            coin.style.top = `${e.clientY - 40}px`;
+            coin.innerHTML = item;
+            document.body.appendChild(coin);
+
+            setTimeout(() => { coin.remove() }, 700);
+
+            questionBlock.classList.add('-translate-y-2');
+            setTimeout(() => { questionBlock.classList.remove('-translate-y-2') }, 100);
+
+            if (coins % 6 === 0) {
+                const randomHumor = birthdayHumorToasts[Math.floor(Math.random() * birthdayHumorToasts.length)];
+                showToast(randomHumor, "🎉");
+            }
+        });
+
+        // --- TÉLÉCHARGEMENT DE L'APK PHYSIQUE ---
+        downloadBtn.addEventListener('click', () => {
+            if (isDownloading) return;
+            isDownloading = true;
+
+            playPowerUpSound();
+
+            progressContainer.classList.remove('hidden');
+            progressBar.style.width = '0%';
+            downloadBtn.disabled = true;
+            downloadBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.floor(Math.random() * 20) + 5;
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(progressInterval);
+                    
+                    setTimeout(() => {
+                        triggerAPKDownload();
+                        playVictoryTheme();
+                        showToast("Lancement du téléchargement de jackysadventure.apk !", "📱");
+                        
+                        isDownloading = false;
+                        downloadBtn.disabled = false;
+                        downloadBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                        progressContainer.classList.add('hidden');
+                    }, 500);
+                }
+                progressBar.style.width = `${progress}%`;
+                progressBar.querySelector('span').textContent = `PREPARATION : ${progress}%`;
+            }, 100);
+        });
+
+        // Déclenche le téléchargement du vrai fichier APK physique sur le serveur
+        function triggerAPKDownload() {
+            const a = document.createElement('a');
+            a.href = 'jackysadventure.apk'; // Lien vers le fichier physique présent sur votre serveur
+            a.download = 'jackysadventure.apk';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+    </script>
+</body>
+</html>
