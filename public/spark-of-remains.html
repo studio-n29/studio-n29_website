@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark of Remains - Teaser Officiel</title>
+    <!-- Tailwind CSS pour un design ultra-moderne et responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome pour les icônes de jeu et d'interface -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts pour une typographie soignée et cinématique -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            gold: '#dfb76c',
+                            purple: '#7c5295',
+                            darkBg: '#09090b',
+                            cardBg: '#121216',
+                        }
+                    },
+                    boxShadow: {
+                        'glow-gold': '0 0 25px rgba(223, 183, 108, 0.2)',
+                        'glow-purple': '0 0 25px rgba(124, 82, 149, 0.2)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-effect {
+            background: radial-gradient(circle at 50% 50%, rgba(124, 82, 149, 0.12) 0%, rgba(9, 9, 11, 0) 70%);
+        }
+        .text-glow {
+            text-shadow: 0 0 15px rgba(223, 183, 108, 0.35);
+        }
+    </style>
+</head>
+<body class="bg-brand-darkBg text-slate-200 font-sans antialiased selection:bg-brand-gold selection:text-brand-darkBg overflow-x-hidden min-h-screen flex flex-col justify-between">
+
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1400px] h-screen pointer-events-none overflow-hidden z-0">
+        <div class="absolute top-[10%] left-[20%] w-[400px] h-[400px] rounded-full bg-brand-purple/5 blur-[120px]"></div>
+        <div class="absolute top-[40%] right-[20%] w-[450px] h-[450px] rounded-full bg-brand-gold/5 blur-[130px]"></div>
+    </div>
+
+    <header class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
+        <img src="Title_2.jpg" alt="Spark of Remains Logo" class="h-8 md:h-10 object-contain">
+        <span class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-brand-gold border border-brand-gold/30 rounded-full px-4 py-1.5 backdrop-blur-sm bg-zinc-900/40">
+            Projet Coopératif Asymétrique
+        </span>
+    </header>
+
+    <main class="relative z-10 my-auto w-full max-w-4xl mx-auto px-6 py-8 flex flex-col items-center text-center space-y-8">
+        
+        <!-- Illustration immersive avec halo -->
+        <div class="relative w-full max-w-2xl group">
+            <div class="absolute -inset-1.5 rounded-2xl bg-gradient-to-r from-brand-purple to-brand-gold opacity-20 blur-xl group-hover:opacity-30 transition duration-1000"></div>
+            <div class="relative bg-brand-darkBg rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                <img src="Spark Of Remains_2.jpg" alt="Djason et Maëly - La flamme des souvenirs" class="w-full h-auto max-h-[420px] object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-transparent opacity-90"></div>
+            </div>
+        </div>
+
+        <!-- Accroche et pitch épurés -->
+        <div class="space-y-4 max-w-2xl">
+            <h1 class="font-cinzel text-xl md:text-3xl text-brand-gold tracking-widest uppercase text-glow">
+                Chaque souvenir est un labyrinthe.
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base leading-relaxed">
+                Incarnez <strong>Djason</strong> ou <strong>Maëly</strong>, un couple piégé au cœur d’une dimension instable forgée par leur propre passé. Pour survivre et s'échapper, l'individualité n'a plus sa place : vos deux personnages disposent de capacités uniques et complémentaires. Chaque pas, chaque mouvement et chaque obstacle exigeront une <strong>coordination et un jeu asymétrique absolus</strong>.
+            </p>
+        </div>
+
+        <div class="bg-brand-cardBg/80 border border-white/5 p-6 rounded-2xl w-full max-w-md shadow-2xl backdrop-blur-md relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-brand-purple/40 via-brand-gold to-brand-purple/40"></div>
+            
+            <h2 class="text-[10px] uppercase tracking-[0.25em] text-brand-gold/80 mb-3.5 font-bold">Lancement de la Bêta Fermée</h2>
+            
+            <!-- Compteur Grid -->
+            <div class="grid grid-cols-4 gap-2 mb-4">
+                <div class="bg-zinc-950/60 py-2.5 px-1 rounded-xl border border-white/5">
+                    <span id="days" class="block font-cinzel text-lg md:text-2xl font-bold text-brand-gold">--</span>
+                    <span class="text-[9px] text-slate-500 uppercase tracking-wider">Jours</span>
+                </div>
+                <div class="bg-zinc-950/60 py-2.5 px-1 rounded-xl border border-white/5">
+                    <span id="hours" class="block font-cinzel text-lg md:text-2xl font-bold text-brand-gold">--</span>
+                    <span class="text-[9px] text-slate-500 uppercase tracking-wider">Heures</span>
+                </div>
+                <div class="bg-zinc-950/60 py-2.5 px-1 rounded-xl border border-white/5">
+                    <span id="minutes" class="block font-cinzel text-lg md:text-2xl font-bold text-brand-gold">--</span>
+                    <span class="text-[9px] text-slate-500 uppercase tracking-wider">Min</span>
+                </div>
+                <div class="bg-zinc-950/60 py-2.5 px-1 rounded-xl border border-white/5">
+                    <span id="seconds" class="block font-cinzel text-lg md:text-2xl font-bold text-brand-gold">--</span>
+                    <span class="text-[9px] text-slate-500 uppercase tracking-wider">Sec</span>
+                </div>
+            </div>
+
+            <form onsubmit="handleSubmit(event)" id="signupForm" class="space-y-3">
+                <div class="flex flex-col sm:flex-row gap-2">
+                    <input type="email" required id="email" placeholder="Votre adresse e-mail" class="flex-grow bg-zinc-950/80 border border-white/10 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-brand-gold focus:ring-1 focus:ring-brand-gold transition-all">
+                    <button type="submit" class="whitespace-nowrap bg-brand-gold text-brand-darkBg font-bold px-5 py-2.5 rounded-xl text-xs tracking-wider uppercase hover:opacity-90 active:scale-95 transition-all shadow-glow-gold">
+                        S'inscrire
+                    </button>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-snug text-left sm:text-center">
+                    Entrez votre e-mail pour recevoir vos accès d'expédition le <strong>01 Août 2026</strong>.
+                </p>
+            </form>
+
+            <div id="successMessage" class="hidden text-green-400 text-xs py-2 space-y-1">
+                <p class="font-bold"><i class="fa-solid fa-circle-check mr-2"></i>Votre inscription est enregistrée.</p>
+                <p class="text-slate-500 text-[10px]">Surveillez votre boîte mail pour l'activation le 01.08.2026.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="relative z-10 w-full border-t border-white/5 py-8 px-6 text-center text-[10px] text-slate-600 space-y-4">
+        <div class="flex justify-center gap-6 text-slate-500 text-sm">
+            <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-discord"></i></a>
+            <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="hover:text-brand-gold transition-colors"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <p>© 2026 Spark of Remains — Deux âmes, une seule issue.</p>
+    </footer>
+
+    <!-- LOGIQUE JAVASCRIPT -->
+    <script>
+        // Compte à rebours vers le 1er Août 2026
+        const targetDate = new Date("August 1, 2026 00:00:00").getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Gestion d'envoi du formulaire d'inscription
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = document.getElementById("signupForm");
+            const success = document.getElementById("successMessage");
+            if (document.getElementById("email").value) {
+                form.classList.add("hidden");
+                success.classList.remove("hidden");
+            }
+        }
+    </script>
+</body>
+</html>
