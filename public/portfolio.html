@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Djason NATHIEZ - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cosy-bg': '#FDF8F5',
+                        'cosy-brown': '#5D4037',
+                        'cosy-orange': '#FF8A65',
+                        'cosy-orange-hover': '#FF7043',
+                        'cosy-yellow': '#FFD54F',
+                        'cosy-card': '#FFFFFF',
+                        'cosy-shadow': '#E7D4C9',
+                        'editor-blue': '#4FC3F7',
+                    },
+                    fontFamily: {
+                        'title': ['Fredoka', 'sans-serif'],
+                        'body': ['Nunito', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #FDF8F5;
+            background-image: radial-gradient(#E7D4C9 2px, transparent 2px);
+            background-size: 30px 30px;
+            color: #5D4037;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .btn-game {
+            transition: all 0.1s ease-in-out;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+            transform: translateY(0);
+        }
+        
+        .btn-game:active {
+            box-shadow: 0 0px 0 rgba(0,0,0,0.2);
+            transform: translateY(6px);
+        }
+
+        .card-game {
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 8px 0 #E7D4C9;
+            border: 3px solid #5D4037;
+        }
+
+        .card-game:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 13px 0 #E7D4C9;
+        }
+
+        .blob-shape {
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            animation: morph 8s ease-in-out infinite;
+        }
+
+        @keyframes morph {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+            67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
+        }
+
+        .modal-bg { backdrop-filter: blur(5px); }
+        .modal-content {
+            box-shadow: 0 10px 0 #5D4037;
+            border: 4px solid #5D4037;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 12px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #FDF8F5; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background-color: #FF8A65;
+            border-radius: 10px;
+            border: 3px solid #FDF8F5;
+        }
+
+        .game-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 3px solid #5D4037;
+            border-radius: 1rem;
+            background: #fff;
+            font-family: 'Nunito', sans-serif;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 0 #E7D4C9;
+            transition: all 0.2s;
+        }
+        .game-input:focus {
+            outline: none;
+            border-color: #FF8A65;
+            box-shadow: 0 4px 0 #FF8A65;
+        }
+        
+        .edit-badge {
+            animation: pulse-border 2s infinite;
+        }
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(79, 195, 247, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(79, 195, 247, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(79, 195, 247, 0); }
+        }
+    </style>
+</head>
+<body class="font-body custom-scrollbar relative">
+
+    <!-- Navigation -->
+    <nav class="fixed top-4 left-1/2 transform -translate-x-1/2 z-40 w-[90%] max-w-2xl bg-white border-4 border-cosy-brown rounded-full px-6 py-3 shadow-[0_6px_0_#5D4037] flex justify-between items-center">
+        <a href="#hero" class="font-title text-xl font-bold text-cosy-brown flex items-center gap-2">
+            <i onclick="handleSecretClick()" class="ph-fill ph-game-controller text-cosy-orange text-2xl cursor-pointer hover:scale-110 active:scale-90 transition-all" title="Secret Area"></i>
+            Djason
+        </a>
+        <ul class="flex gap-4 md:gap-6 font-bold text-sm md:text-base">
+            <li><a href="#hero" class="hover:text-cosy-orange transition-colors">Qui suis-je ?</a></li>
+            <li><a href="#projets" class="hover:text-cosy-orange transition-colors">Projets</a></li>
+            <li><a href="#contact" class="hover:text-cosy-orange transition-colors">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Bouton Mode Éditeur (Caché par défaut, n'apparaît que quand le mode éditeur est activé pour pouvoir le fermer) -->
+    <button onclick="toggleEditMode()" id="btn-edit-mode" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-editor-blue text-white rounded-full border-4 border-cosy-brown shadow-[0_6px_0_#5D4037] flex items-center justify-center text-2xl btn-game hover:bg-blue-400 hidden">
+        <i class="ph-bold ph-pencil-simple"></i>
+    </button>
+    <div id="edit-indicator" class="fixed bottom-24 right-6 z-40 bg-editor-blue text-white font-title font-bold px-4 py-2 rounded-xl border-2 border-cosy-brown hidden shadow-md">
+        Mode Éditeur Actif
+    </div>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center pt-28 pb-12 relative overflow-hidden px-4">
+        <div class="absolute top-20 left-10 w-32 h-32 bg-cosy-yellow blob-shape opacity-50 -z-10"></div>
+        <div class="absolute bottom-20 right-10 w-48 h-48 bg-cosy-orange blob-shape opacity-30 -z-10" style="animation-delay: 2s;"></div>
+        <div class="absolute top-1/3 right-1/4 text-cosy-yellow text-4xl -z-10 animate-bounce"><i class="ph-fill ph-star"></i></div>
+
+        <div class="max-w-4xl w-full flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 text-center md:text-left">
+                <div class="inline-block bg-cosy-yellow px-4 py-2 rounded-2xl border-2 border-cosy-brown font-title font-bold shadow-[0_4px_0_#5D4037] mb-6 transform -rotate-2">
+                    Level 1 - Junior
+                </div>
+                <h1 class="text-5xl md:text-6xl font-title font-bold mb-4 leading-tight">
+                    Salut ! Moi c'est <br><span class="text-cosy-orange">Djason NATHIEZ</span>
+                </h1>
+                <h2 class="text-2xl md:text-3xl font-title text-cosy-brown mb-6 flex items-center justify-center md:justify-start gap-2">
+                    <i class="ph-fill ph-code-block text-cosy-yellow"></i>
+                    Game Developer
+                </h2>
+                
+                <div class="bg-white p-6 rounded-3xl border-4 border-cosy-brown shadow-[0_8px_0_#E7D4C9] text-lg leading-relaxed mb-8">
+                    <p>
+                        Ancien étudiant de <strong>RUBIKA</strong>, je suis spécialisé dans la <strong>Programmation Gameplay</strong>. 
+                        Depuis la fin de mes études, je façonne les idées que j'ai dans la tête pour créer des expériences de gameplay uniques.
+                    </p>
+                </div>
+
+                <a href="#projets" class="btn-game inline-flex items-center gap-2 bg-cosy-orange text-white font-title font-bold text-xl px-8 py-4 rounded-full border-4 border-cosy-brown" style="box-shadow: 0 6px 0 #D84315;">
+                    Voir mes créations ! <i class="ph-bold ph-arrow-down"></i>
+                </a>
+            </div>
+
+            <div class="w-64 h-64 md:w-80 md:h-80 relative flex-shrink-0">
+                <div class="w-full h-full bg-[#FFE0B2] border-4 border-cosy-brown rounded-[40px] shadow-[0_10px_0_#5D4037] overflow-hidden flex items-center justify-center transform rotate-3 relative">
+                     <i class="ph-fill ph-user-circle-gear text-[12rem] text-cosy-orange"></i>
+                     <div class="absolute bottom-0 w-full h-1/3 bg-cosy-brown opacity-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Projets -->
+    <section id="projets" class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16 relative">
+                <i class="ph-fill ph-sword text-5xl text-cosy-orange absolute -top-6 left-1/2 transform -translate-x-[150%] -rotate-45"></i>
+                <h2 class="text-4xl md:text-5xl font-title font-bold inline-block bg-white px-8 py-3 rounded-3xl border-4 border-cosy-brown shadow-[0_6px_0_#5D4037]">
+                    Mes Projets
+                </h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-grid">
+                <!-- Les projets sont injectés dynamiquement -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Contact -->
+    <section id="contact" class="py-20 px-4 bg-cosy-brown text-white mt-10 relative border-t-8 border-cosy-yellow">
+        <div class="absolute top-[-20px] left-0 w-full overflow-hidden leading-none">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="w-full h-10 transform rotate-180 fill-cosy-brown">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+            </svg>
+        </div>
+        <div class="max-w-4xl mx-auto text-center pt-10">
+            <h2 class="text-4xl font-title font-bold mb-8">Prêt pour une nouvelle quête ?</h2>
+            <p class="text-xl mb-12 opacity-90">N'hésitez pas à me contacter pour discuter de game dev !</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                <a href="mailto:contact@exemple.com" class="btn-game w-full md:w-auto bg-cosy-yellow text-cosy-brown font-title font-bold text-lg px-8 py-4 rounded-2xl border-4 border-cosy-brown flex items-center justify-center gap-3">
+                    <i class="ph-fill ph-envelope-simple text-2xl"></i> Email
+                </a>
+                <a href="tel:+33600000000" class="btn-game w-full md:w-auto bg-[#81C784] text-cosy-brown font-title font-bold text-lg px-8 py-4 rounded-2xl border-4 border-cosy-brown flex items-center justify-center gap-3">
+                    <i class="ph-fill ph-phone text-2xl"></i> Téléphone
+                </a>
+                <a href="https://linkedin.com/" target="_blank" class="btn-game w-full md:w-auto bg-[#64B5F6] text-cosy-brown font-title font-bold text-lg px-8 py-4 rounded-2xl border-4 border-cosy-brown flex items-center justify-center gap-3">
+                    <i class="ph-fill ph-linkedin-logo text-2xl"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modale Visionnage Projet -->
+    <div id="project-modal" class="modal-bg fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-cosy-bg w-full max-w-3xl rounded-[30px] overflow-hidden transform scale-95 transition-transform duration-300 relative flex flex-col max-h-[90vh]">
+            <button onclick="closeModal('project-modal')" class="absolute top-4 right-4 w-12 h-12 bg-red-500 rounded-full border-4 border-cosy-brown text-white flex items-center justify-center font-bold text-xl btn-game z-20 hover:bg-red-600 shadow-[0_4px_0_#8B0000]">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <div id="modal-banner" class="h-48 md:h-64 bg-cosy-orange relative border-b-4 border-cosy-brown flex items-end p-6 bg-cover bg-center">
+                <div id="modal-banner-overlay" class="absolute inset-0 bg-black/20"></div>
+                <h3 id="modal-title" class="text-3xl md:text-5xl font-title font-bold text-white relative z-10 drop-shadow-[0_4px_4px_rgba(93,64,55,1)]">Nom du projet</h3>
+            </div>
+            <div class="p-6 md:p-8 overflow-y-auto custom-scrollbar flex-1">
+                <div class="flex flex-wrap gap-2 mb-6" id="modal-tags"></div>
+                <h4 class="font-title font-bold text-xl mb-2 flex items-center gap-2"><i class="ph-fill ph-scroll"></i> Description de la quête</h4>
+                <div id="modal-desc" class="text-lg leading-relaxed mb-8 bg-white p-5 rounded-2xl border-2 border-cosy-shadow whitespace-pre-wrap"></div>
+                <h4 class="font-title font-bold text-xl mb-2 flex items-center gap-2"><i class="ph-fill ph-wrench"></i> Mes contributions (Gameplay)</h4>
+                <ul id="modal-roles" class="list-disc list-inside space-y-2 text-lg bg-white p-5 rounded-2xl border-2 border-cosy-shadow"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Authentification -->
+    <div id="login-modal" class="modal-bg fixed inset-0 bg-black/60 z-50 hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-cosy-bg w-full max-w-sm rounded-[30px] overflow-hidden transform scale-95 transition-transform duration-300 relative flex flex-col">
+            <button onclick="closeModal('login-modal')" class="absolute top-4 right-4 w-10 h-10 bg-red-500 rounded-full border-4 border-cosy-brown text-white flex items-center justify-center font-bold btn-game z-20">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <div class="bg-cosy-brown text-white p-6 border-b-4 border-cosy-brown flex justify-center items-center">
+                <i class="ph-fill ph-lock-key text-4xl text-cosy-yellow"></i>
+            </div>
+            <div class="p-6">
+                <h3 class="text-2xl font-title font-bold text-center mb-4 text-cosy-brown">Accès Restreint</h3>
+                <p class="text-center mb-4 font-semibold text-sm">Entrez le code secret pour modifier le portfolio.</p>
+                <form onsubmit="verifyPin(event)">
+                    <input type="password" id="login-pin" class="game-input text-center text-2xl tracking-widest" placeholder="****" required>
+                    <p id="login-error" class="text-red-500 text-sm font-bold text-center mb-4 hidden">Code incorrect !</p>
+                    <button type="submit" class="w-full bg-cosy-orange text-white font-title font-bold px-6 py-3 rounded-xl border-4 border-cosy-brown btn-game text-lg hover:bg-cosy-orange-hover">
+                        Déverrouiller
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Édition Projet -->
+    <div id="edit-modal" class="modal-bg fixed inset-0 bg-editor-blue/40 z-50 hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="modal-content bg-cosy-bg w-full max-w-2xl rounded-[30px] overflow-hidden transform scale-95 transition-transform duration-300 relative flex flex-col max-h-[90vh]">
+            
+            <div class="bg-editor-blue text-white p-4 border-b-4 border-cosy-brown flex justify-between items-center">
+                <h3 class="text-2xl font-title font-bold flex items-center gap-2">
+                    <i class="ph-fill ph-pencil-line"></i> <span id="edit-modal-title">Éditer le projet</span>
+                </h3>
+                <button onclick="closeModal('edit-modal')" class="w-10 h-10 bg-white text-editor-blue rounded-full border-4 border-cosy-brown flex items-center justify-center font-bold text-lg btn-game" style="box-shadow: 0 4px 0 rgba(0,0,0,0.2);">
+                    <i class="ph-bold ph-x"></i>
+                </button>
+            </div>
+
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-1">
+                <form id="edit-form" onsubmit="saveProject(event)">
+                    <input type="hidden" id="edit-id">
+                    
+                    <label class="block font-title font-bold mb-1">Titre du jeu</label>
+                    <input type="text" id="edit-title" required class="game-input" placeholder="Ex: Spark of Remains">
+
+                    <div class="flex gap-4 mb-1">
+                        <div class="flex-1">
+                            <label class="block font-title font-bold mb-1">Couleur bannière (Hex)</label>
+                            <div class="flex gap-2 items-center">
+                                <input type="color" id="edit-color-picker" class="w-12 h-12 rounded cursor-pointer border-2 border-cosy-brown p-0">
+                                <input type="text" id="edit-color" required class="game-input mb-0 flex-1" placeholder="#E57373">
+                            </div>
+                        </div>
+                        <div class="flex-1">
+                            <label class="block font-title font-bold mb-1">Classe de l'icône</label>
+                            <input type="text" id="edit-icon" required class="game-input mb-0" placeholder="ph-fire">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 mb-4 mt-1">Trouvez des icônes sur <a href="https://phosphoricons.com/" target="_blank" class="underline text-editor-blue">Phosphor Icons</a></p>
+
+                    <label class="block font-title font-bold mb-1">URL de l'image de fond (Optionnel)</label>
+                    <input type="url" id="edit-image" class="game-input" placeholder="https://images.unsplash.com/... ou lien direct">
+
+                    <label class="block font-title font-bold mb-1">Tags (séparés par des virgules)</label>
+                    <input type="text" id="edit-tags" required class="game-input" placeholder="Unity, C#, Action">
+
+                    <label class="block font-title font-bold mb-1">Description courte (pour la carte)</label>
+                    <textarea id="edit-shortDesc" required class="game-input h-20" placeholder="Une aventure enflammée..."></textarea>
+
+                    <label class="block font-title font-bold mb-1">Description longue (pour la popup)</label>
+                    <textarea id="edit-longDesc" required class="game-input h-32" placeholder="Détails du projet..."></textarea>
+
+                    <label class="block font-title font-bold mb-1">Contributions (Une par ligne)</label>
+                    <textarea id="edit-contribs" required class="game-input h-32" placeholder="Développement du système d'inventaire..."></textarea>
+
+                    <div class="flex justify-between items-center mt-6 pt-4 border-t-2 border-cosy-shadow">
+                        <button type="button" id="btn-delete" onclick="handleDelete()" class="bg-red-500 text-white font-title font-bold px-4 py-2 rounded-xl border-2 border-cosy-brown shadow-[0_4px_0_#8B0000] hidden">
+                            <i class="ph-bold ph-trash"></i> Supprimer
+                        </button>
+                        
+                        <button type="submit" class="bg-cosy-yellow text-cosy-brown font-title font-bold px-6 py-3 rounded-xl border-4 border-cosy-brown btn-game ml-auto text-lg flex items-center gap-2">
+                            <i class="ph-bold ph-floppy-disk"></i> Sauvegarder
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // État de l'application
+        let isEditMode = false;
+        
+        // Base de données par défaut (9 projets originaux demandés)
+        const defaultProjets = [
+            {
+                id: 'spark',
+                title: "Spark of Remains",
+                bannerColor: "#E57373",
+                icon: "ph-fire",
+                imageUrl: "",
+                tags: ["Unity", "C#", "Action-Aventure"],
+                shortDesc: "Une aventure enflammée où chaque étincelle compte.",
+                longDesc: "Spark of Remains est un jeu d'action-aventure où le joueur incarne une flamme cherchant à raviver un monde éteint. Le jeu se concentre sur l'exploration et des combats dynamiques basés sur la gestion de la lumière.",
+                contributions: [
+                    "Développement du contrôleur principal du personnage.",
+                    "Création du système de propagation du feu sur l'environnement.",
+                    "Intégration et ajustement du Game Feel."
+                ]
+            },
+            {
+                id: 'alterego',
+                title: "Alter Ego",
+                bannerColor: "#BA68C8",
+                icon: "ph-mask-happy",
+                imageUrl: "",
+                tags: ["Unreal Engine", "C++", "Puzzle"],
+                shortDesc: "Contrôlez deux entités liées par un même destin.",
+                longDesc: "Un puzzle-platformer narratif où le joueur doit alterner entre deux mondes parallèles et deux personnages aux capacités asymétriques.",
+                contributions: [
+                    "Programmation du système de switch entre les dimensions.",
+                    "Implémentation des mécaniques de puzzles.",
+                    "Création d'outils (Tools) pour les Level Designers."
+                ]
+            },
+            {
+                id: 'jackys-adventure',
+                title: "Jacky's Adventure",
+                bannerColor: "#4DB6AC",
+                icon: "ph-backpack",
+                imageUrl: "",
+                tags: ["Unity", "C#", "Platformer 3D"],
+                shortDesc: "Sautez, courez et explorez des mondes merveilleux.",
+                longDesc: "Un jeu de plateformes tridimensionnel rétro et cartoon plein de charme où vous explorez de vastes environnements pour récolter de précieux reliques.",
+                contributions: [
+                    "Conception d'un contrôleur de déplacement 3D fluide avec inertie ajustable.",
+                    "Gestion dynamique de la caméra de suivi de troisième personne.",
+                    "Implémentation du comportement de l'IA de patrouille et détection de présence."
+                ]
+            },
+            {
+                id: 'time-scrap',
+                title: "Time Scrap Inc.",
+                bannerColor: "#7986CB",
+                icon: "ph-hourglass-high",
+                imageUrl: "",
+                tags: ["C++", "Moteur Custom", "Simulation"],
+                shortDesc: "Gérez votre empire de récupération temporelle.",
+                longDesc: "Un jeu de stratégie et d'organisation temporelle où vous pilotez des flottes de drones pour récupérer des débris et minerais rares à travers différentes époques.",
+                contributions: [
+                    "Écriture du moteur physique et de détection de collisions en C++.",
+                    "Développement de la logique comportementale des flottes autonomes.",
+                    "Optimisation de l'affichage de milliers d'entités de débris spatio-temporels."
+                ]
+            },
+            {
+                id: 'delight',
+                title: "Delight",
+                bannerColor: "#FFF176",
+                textColor: "#5D4037",
+                icon: "ph-lightbulb",
+                imageUrl: "",
+                tags: ["Unity", "C#", "Asymétrique Coop"],
+                shortDesc: "Illuminez les mystères cachés en duo local.",
+                longDesc: "Un jeu asymétrique en coopération où l'un des joueurs incarne la lanterne magique et guide son coéquipier perdu dans un labyrinthe obscurci.",
+                contributions: [
+                    "Mise en place de la gestion des périphériques multiples (Multi-Input System).",
+                    "Développement des filtres d'affichage de lumière et de brouillard de guerre dynamique.",
+                    "Création d'énigmes interactives réagissant à la portée lumineuse."
+                ]
+            },
+            {
+                id: 'discosmos',
+                title: "Discosmos",
+                bannerColor: "#F06292",
+                icon: "ph-planet",
+                imageUrl: "",
+                tags: ["Godot", "GDScript", "Rythme"],
+                shortDesc: "Préparez-vous à faire swinguer toute la galaxie !",
+                longDesc: "Mélange déjanté de jeu d'arcade et de rythme. Défendez vos planètes contre l'invasion des extraterrestres groovys en tirant parfaitement en mesure sur la musique.",
+                contributions: [
+                    "Conception du système de synchronisation audio/animations au tempo près (BPM).",
+                    "Programmation des attaques d'ennemis synchronisées sur la bande-son.",
+                    "Interface utilisateur interactive animée par les données spectrales de la musique."
+                ]
+            },
+            {
+                id: 'beatstrike',
+                title: "BeatStrike",
+                bannerColor: "#FF8A65",
+                icon: "ph-boxing-glove",
+                imageUrl: "",
+                tags: ["Unity", "C#", "Action-Rythme"],
+                shortDesc: "Frappez au bon tempo pour terrasser vos rivaux.",
+                longDesc: "Beat'em up rythmique frénétique où chaque coup de poing et esquive doit s'aligner sur le rythme de la basse pour infliger un maximum de dégâts.",
+                contributions: [
+                    "Mise en œuvre du gestionnaire central de rythme de combat.",
+                    "Animation de l'environnement s'adaptant à l'intensité de la piste.",
+                    "Algorithme d'évaluation de la précision temporelle des touches (Perfect / Good / Miss)."
+                ]
+            },
+            {
+                id: 'hard-club-mama',
+                title: "Hard Club Mama",
+                bannerColor: "#4DD0E1",
+                icon: "ph-cooking-pot",
+                imageUrl: "",
+                tags: ["Unreal Engine", "Blueprints", "Party Game"],
+                shortDesc: "La cuisine et le chaos s'invitent au club de nuit.",
+                longDesc: "Party game loufoque multijoueur où les mères de famille prennent d'assaut la cuisine d'un club huppé pour y servir des plats énergisants en un temps record.",
+                contributions: [
+                    "Développement des mécaniques physiques de lancer d'ingrédients de cuisine.",
+                    "Gestion asynchrone des commandes de la file d'attente.",
+                    "Intégration d'effets visuels cartoons (Stickers, Popups, Onomatopées)."
+                ]
+            },
+            {
+                id: 'ruins',
+                title: "RUINS",
+                bannerColor: "#90A4AE",
+                icon: "ph-castle-turret",
+                imageUrl: "",
+                tags: ["Unity", "C#", "Rogue-lite"],
+                shortDesc: "Explorez des ruines antiques en constante évolution.",
+                longDesc: "Un rogue-lite d'exploration de donjons générés de manière procédurale, remplis de monstres et de pièges à déjouer.",
+                contributions: [
+                    "Conception de l'algorithme procédural d'assemblage des salles du donjon.",
+                    "Modélisation comportementale des vagues d'ennemis (State Machines).",
+                    "Implémentation du système de compétences et d'artefacts cumulatifs."
+                ]
+            }
+        ];
+
+        // Chargement depuis le LocalStorage ou utilisation des valeurs par défaut
+        let projets = JSON.parse(localStorage.getItem('djason_portfolio_projets')) || defaultProjets;
+
+        function saveToLocalStorage() {
+            localStorage.setItem('djason_portfolio_projets', JSON.stringify(projets));
+        }
+
+        // Rendu de la grille
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            projets.forEach((projet) => {
+                const card = document.createElement('div');
+                card.className = "card-game bg-cosy-card rounded-[30px] p-2 flex flex-col relative";
+                if(isEditMode) card.classList.add('edit-badge', 'cursor-pointer');
+                
+                // Clic comportement selon mode
+                card.onclick = (e) => {
+                    if(e.target.closest('button')) return; 
+                    if(isEditMode) openEditModal(projet.id);
+                    else openViewModal(projet.id);
+                };
+
+                const textColor = projet.textColor || "text-white";
+                
+                // Style dynamique de bannière si image de fond
+                const bannerStyle = projet.imageUrl ? 
+                    `background-color: ${projet.bannerColor}; background-image: url('${projet.imageUrl}'); background-size: cover; background-position: center;` : 
+                    `background-color: ${projet.bannerColor};`;
+
+                const iconHtml = projet.imageUrl ? 
+                    `<div class="absolute inset-0 bg-black/40"></div>` : 
+                    `<i class="ph-fill ${projet.icon || 'ph-game-controller'} text-6xl ${textColor} opacity-50 absolute right-4 bottom-4 transform -rotate-12"></i>`;
+
+                card.innerHTML = `
+                    <div class="h-40 rounded-t-[22px] rounded-b-xl flex items-center justify-center relative overflow-hidden" style="${bannerStyle}">
+                        ${iconHtml}
+                        <h3 class="font-title font-bold text-2xl text-white z-10 px-4 text-center drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">${projet.title}</h3>
+                        ${isEditMode ? `
+                            <div class="absolute top-2 right-2 bg-editor-blue text-white rounded-full p-2 border-2 border-cosy-brown shadow-md z-20">
+                                <i class="ph-bold ph-pencil-simple text-xl"></i>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col pointer-events-none">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            ${projet.tags.map(tag => `<span class="bg-cosy-bg text-cosy-brown border-2 border-cosy-shadow px-2 py-1 rounded-lg text-xs font-bold">${tag.trim()}</span>`).join('')}
+                        </div>
+                        <p class="text-sm font-semibold mb-4 flex-1">${projet.shortDesc}</p>
+                        ${!isEditMode ? `
+                        <button class="bg-cosy-yellow pointer-events-auto text-cosy-brown font-title font-bold py-2 rounded-xl border-2 border-cosy-brown shadow-[0_4px_0_#5D4037] hover:translate-y-1 hover:shadow-[0_0px_0_#5D4037] transition-all">
+                            Découvrir <i class="ph-bold ph-arrow-right"></i>
+                        </button>` : ''}
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Carte d'ajout si mode éditeur
+            if(isEditMode) {
+                const addCard = document.createElement('div');
+                addCard.className = "bg-transparent rounded-[30px] p-2 flex flex-col justify-center items-center cursor-pointer border-4 border-dashed border-editor-blue opacity-70 hover:opacity-100 transition-opacity min-h-[300px]";
+                addCard.onclick = () => openEditModal(null);
+                addCard.innerHTML = `
+                    <div class="w-20 h-20 rounded-full bg-editor-blue text-white flex items-center justify-center text-4xl mb-4 border-4 border-cosy-brown shadow-[0_4px_0_#5D4037]">
+                        <i class="ph-bold ph-plus"></i>
+                    </div>
+                    <h3 class="font-title font-bold text-xl text-editor-blue">Nouveau Projet</h3>
+                `;
+                grid.appendChild(addCard);
+            }
+        }
+
+        // Basculer mode Éditeur
+        function toggleEditMode() {
+            if (!isEditMode) {
+                showModal('login-modal');
+                document.getElementById('login-pin').value = '';
+                document.getElementById('login-error').classList.add('hidden');
+                return;
+            }
+            activateEditMode(false);
+        }
+
+        function verifyPin(e) {
+            e.preventDefault();
+            const pin = document.getElementById('login-pin').value;
+            if (pin === "Maely2103!2906") {
+                closeModal('login-modal');
+                activateEditMode(true);
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        // Variables pour la détection du clic secret
+        let secretClickCount = 0;
+        let secretClickTimeout;
+
+        function handleSecretClick() {
+            secretClickCount++;
+            
+            // Réinitialise le compteur après 2.5 secondes de pause
+            clearTimeout(secretClickTimeout);
+            secretClickTimeout = setTimeout(() => {
+                secretClickCount = 0;
+            }, 2500);
+
+            // Déclenchement au bout de 5 clics rapides
+            if (secretClickCount === 5) {
+                secretClickCount = 0;
+                if (isEditMode) {
+                    // Si déjà actif, on désactive directement
+                    activateEditMode(false);
+                } else {
+                    // Sinon, on demande le mot de passe
+                    showModal('login-modal');
+                    document.getElementById('login-pin').value = '';
+                    document.getElementById('login-error').classList.add('hidden');
+                }
+            }
+        }
+
+        function activateEditMode(active) {
+            isEditMode = active;
+            
+            const btn = document.getElementById('btn-edit-mode');
+            const indicator = document.getElementById('edit-indicator');
+            
+            if(isEditMode) {
+                btn.classList.remove('hidden'); // Affiche le bouton vert de validation pendant que vous éditez
+                btn.classList.add('bg-green-500');
+                btn.classList.remove('bg-editor-blue');
+                btn.innerHTML = '<i class="ph-bold ph-check"></i>';
+                indicator.classList.remove('hidden');
+            } else {
+                btn.classList.add('hidden'); // Cache complètement le bouton une fois l'édition terminée
+                btn.classList.remove('bg-green-500');
+                btn.classList.add('bg-editor-blue');
+                btn.innerHTML = '<i class="ph-bold ph-pencil-simple"></i>';
+                indicator.classList.add('hidden');
+            }
+            
+            renderProjects();
+        }
+
+        // --- GESTION MODALE DE VISIONNAGE ---
+        function openViewModal(id) {
+            const p = projets.find(x => x.id === id);
+            if(!p) return;
+
+            document.getElementById('modal-title').textContent = p.title;
+            
+            const banner = document.getElementById('modal-banner');
+            const overlay = document.getElementById('modal-banner-overlay');
+            
+            banner.style.backgroundColor = p.bannerColor;
+            if (p.imageUrl) {
+                banner.style.backgroundImage = `url('${p.imageUrl}')`;
+                overlay.className = "absolute inset-0 bg-black/40";
+            } else {
+                banner.style.backgroundImage = 'none';
+                overlay.className = "absolute inset-0 bg-black/20";
+            }
+            
+            document.getElementById('modal-tags').innerHTML = p.tags.map(tag => 
+                `<span class="bg-cosy-yellow text-cosy-brown border-2 border-cosy-brown px-3 py-1 rounded-xl font-bold shadow-[0_2px_0_#5D4037]">${tag.trim()}</span>`
+            ).join('');
+            
+            document.getElementById('modal-desc').textContent = p.longDesc;
+            document.getElementById('modal-roles').innerHTML = p.contributions.map(c => `<li>${c}</li>`).join('');
+
+            showModal('project-modal');
+        }
+
+        // --- GESTION MODALE D'ÉDITION ---
+        let deleteConfirmStep = false;
+
+        function syncColorPicker() {
+            document.getElementById('edit-color').value = document.getElementById('edit-color-picker').value.toUpperCase();
+        }
+        document.getElementById('edit-color-picker').addEventListener('input', syncColorPicker);
+        document.getElementById('edit-color').addEventListener('input', (e) => {
+            if(/^#[0-9A-F]{6}$/i.test(e.target.value)) {
+                document.getElementById('edit-color-picker').value = e.target.value;
+            }
+        });
+
+        function openEditModal(id) {
+            const form = document.getElementById('edit-form');
+            form.reset();
+            deleteConfirmStep = false;
+            document.getElementById('edit-image').value = '';
+            
+            const btnDelete = document.getElementById('btn-delete');
+            btnDelete.innerHTML = '<i class="ph-bold ph-trash"></i> Supprimer';
+            btnDelete.classList.replace('bg-orange-500', 'bg-red-500');
+
+            if(id) {
+                // Mode édition
+                const p = projets.find(x => x.id === id);
+                document.getElementById('edit-modal-title').textContent = "Éditer le projet";
+                document.getElementById('edit-id').value = p.id;
+                document.getElementById('edit-title').value = p.title;
+                document.getElementById('edit-color').value = p.bannerColor;
+                document.getElementById('edit-color-picker').value = p.bannerColor;
+                document.getElementById('edit-icon').value = p.icon;
+                document.getElementById('edit-image').value = p.imageUrl || '';
+                document.getElementById('edit-tags').value = p.tags.join(', ');
+                document.getElementById('edit-shortDesc').value = p.shortDesc;
+                document.getElementById('edit-longDesc').value = p.longDesc;
+                document.getElementById('edit-contribs').value = p.contributions.join('\n');
+                
+                btnDelete.classList.remove('hidden');
+            } else {
+                // Mode création
+                document.getElementById('edit-modal-title').textContent = "Créer un projet";
+                document.getElementById('edit-id').value = 'new_' + Date.now();
+                document.getElementById('edit-color').value = '#FF8A65';
+                document.getElementById('edit-color-picker').value = '#FF8A65';
+                document.getElementById('edit-icon').value = 'ph-game-controller';
+                
+                btnDelete.classList.add('hidden');
+            }
+
+            showModal('edit-modal');
+        }
+
+        function saveProject(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('edit-id').value;
+            const newProject = {
+                id: id,
+                title: document.getElementById('edit-title').value,
+                bannerColor: document.getElementById('edit-color').value,
+                icon: document.getElementById('edit-icon').value,
+                imageUrl: document.getElementById('edit-image').value,
+                tags: document.getElementById('edit-tags').value.split(',').filter(t => t.trim() !== ''),
+                shortDesc: document.getElementById('edit-shortDesc').value,
+                longDesc: document.getElementById('edit-longDesc').value,
+                contributions: document.getElementById('edit-contribs').value.split('\n').filter(c => c.trim() !== '')
+            };
+
+            const existingIndex = projets.findIndex(x => x.id === id);
+            if(existingIndex >= 0) {
+                projets[existingIndex] = newProject; // Update
+            } else {
+                projets.push(newProject); // Create
+            }
+
+            saveToLocalStorage();
+            renderProjects();
+            closeModal('edit-modal');
+        }
+
+        function handleDelete() {
+            const btn = document.getElementById('btn-delete');
+            if(!deleteConfirmStep) {
+                deleteConfirmStep = true;
+                btn.innerHTML = 'Sûr ? (Cliquez encore)';
+                btn.classList.replace('bg-red-500', 'bg-orange-500');
+            } else {
+                const id = document.getElementById('edit-id').value;
+                projets = projets.filter(x => x.id !== id);
+                saveToLocalStorage();
+                renderProjects();
+                closeModal('edit-modal');
+            }
+        }
+
+        // --- UTILITAIRES MODALES ---
+        function showModal(modalId) {
+            const m = document.getElementById(modalId);
+            const content = m.querySelector('.modal-content');
+            m.classList.remove('hidden');
+            m.classList.add('flex');
+            
+            setTimeout(() => {
+                m.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        }
+
+        function closeModal(modalId) {
+            const m = document.getElementById(modalId);
+            const content = m.querySelector('.modal-content');
+            m.classList.add('opacity-0');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                m.classList.add('hidden');
+                m.classList.remove('flex');
+                if(document.querySelectorAll('.modal-bg:not(.hidden)').length === 0) {
+                    document.body.style.overflow = 'auto'; 
+                }
+            }, 300);
+        }
+
+        // Fermeture escape & click extérieur pour toutes les modales
+        document.querySelectorAll('.modal-bg').forEach(m => {
+            m.addEventListener('click', (e) => {
+                if (e.target === m) closeModal(m.id);
+            });
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-bg:not(.hidden)').forEach(m => closeModal(m.id));
+            }
+        });
+
+        // Init au chargement
+        renderProjects();
+    </script>
+</body>
+</html>
