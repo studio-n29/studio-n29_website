@@ -508,7 +508,7 @@
                 `<span class="bg-cosy-yellow text-cosy-brown border-2 border-cosy-brown px-3 py-1 rounded-xl font-bold shadow-[0_2px_0_#5D4037]">${tag.trim()}</span>`
             ).join('');
             
-            document.getElementById('modal-desc').textContent = p.longDesc;
+            document.getElementById('modal-desc').innerHTML = p.longDesc;
             document.getElementById('modal-roles').innerHTML = p.contributions.map(c => `<li>${c}</li>`).join('');
 
             showModal('project-modal');
