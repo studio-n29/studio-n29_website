@@ -220,6 +220,7 @@ nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
 }
 .form-status { margin-top: 1rem; font-family: var(--font-heading); text-align: center; display: none; }
 .form-status.success { display: block; color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
+.form-status.error { display: block; color: #ff0044; text-shadow: 0 0 10px #ff0044; }
 
 /* Footer */
 footer { padding: 3rem 0; border-top: 2px solid rgba(255,136,0,0.3); background: #000; text-align: center; }

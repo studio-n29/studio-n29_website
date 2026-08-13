@@ -344,20 +344,21 @@
                         </div>
                     </div>
                     <div class="contact-form-container">
-                        <form id="contact-form" class="retro-form">
+                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="retro-form">
+                            <input type="hidden" name="access_key" value="aaf5797a-a98a-408f-8f49-8d14c94f61a2">
                             <div class="form-header">TRANSMISSION DE DONNÉES</div>
                             <div class="form-body">
                                 <div class="form-group">
                                     <label for="name">NOM_JOUEUR</label>
-                                    <input type="text" id="name" required placeholder="Votre nom">
+                                    <input type="text" name="name" id="name" required placeholder="Votre nom">
                                 </div>
                                 <div class="form-group">
                                     <label for="email">E-MAIL_RETOUR</label>
-                                    <input type="email" id="email" required placeholder="votre@email.com">
+                                    <input type="email" name="email" id="email" required placeholder="votre@email.com">
                                 </div>
                                 <div class="form-group">
                                     <label for="pole">SÉLECTION_NIVEAU</label>
-                                    <select id="pole">
+                                    <select name="pole" id="pole">
                                         <option value="labs">NIV 1 : LABS (Dev/Web/JV)</option>
                                         <option value="forge">NIV 2 : FORGE (IT/Réseau)</option>
                                         <option value="academie">NIV 3 : ACADÉMIE (IA/Formation)</option>
@@ -366,7 +367,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="message">MESSAGE_SYSTÈME</label>
-                                    <textarea id="message" rows="4" required placeholder="Tapez votre message ici..."></textarea>
+                                    <textarea name="message" id="message" rows="4" required placeholder="Tapez votre message ici..."></textarea>
                                 </div>
                                 <button type="submit" class="btn-neon-solid w-100">
                                     ENVOYER LE MESSAGE

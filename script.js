@@ -69,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 6. Form Submission Simulation
+    // 6. Form Submission (Web3Forms)
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = contactForm.querySelector('button');
         const originalText = btn.innerHTML;
@@ -81,18 +81,38 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.innerHTML = 'PROCESSING...';
         btn.disabled = true;
 
+        const formData = new FormData(contactForm);
+
+        try {
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                formStatus.textContent = 'DATA TRANSMITTED SUCCESSFULLY.';
+                formStatus.className = 'form-status success';
+                contactForm.reset();
+            } else {
+                formStatus.textContent = 'SYSTEM ERROR. TRY AGAIN.';
+                formStatus.className = 'form-status error';
+                console.error('Web3Forms Error:', data);
+            }
+        } catch (error) {
+            formStatus.textContent = 'CONNECTION ERROR.';
+            formStatus.className = 'form-status error';
+            console.error('Fetch Error:', error);
+        }
+
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+        
         setTimeout(() => {
-            formStatus.textContent = 'DATA TRANSMITTED SUCCESSFULLY.';
-            formStatus.className = 'form-status success';
-            contactForm.reset();
-            
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            
-            setTimeout(() => {
-                formStatus.style.display = 'none';
-                formStatus.className = 'form-status';
-            }, 4000);
-        }, 1200);
+            formStatus.style.display = 'none';
+            formStatus.className = 'form-status';
+            setTimeout(() => { formStatus.style.display = ''; formStatus.textContent = ''; }, 50);
+        }, 4000);
     });
 });
