@@ -1,167 +1,397 @@
 <!DOCTYPE html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STUDIO N29</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Studio N29</title>
     
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Studio N29 est votre partenaire technologique dans le Valenciennois et la Porte du Hainaut. Expertises en développement web, ingénierie logicielle, maintenance IT, et conseil en Intelligence Artificielle pour les PME.">
+    <meta name="keywords" content="développement web, ingénierie tech, intelligence artificielle, maintenance informatique, création site internet, valenciennes, porte du hainaut, studio n29, agence web, IA">
+    <meta name="author" content="Studio N29">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.n29-studio.fr/">
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #050505;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
+    <!-- Open Graph (Facebook, LinkedIn, AI crawlers) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.n29-studio.fr/">
+    <meta property="og:title" content="Studio N29 | Développement, IT & IA">
+    <meta property="og:description" content="Développement web, logiciels sur-mesure, maintenance IT et conseil en Intelligence Artificielle dans le Valenciennois.">
+    <meta property="og:image" content="https://www.n29-studio.fr/favicon.svg">
 
-        .font-game { font-family: 'Orbitron', sans-serif; }
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Studio N29 | Développement, IT & IA">
+    <meta name="twitter:description" content="Partenaire technologique dans le Valenciennois. Développement, maintenance IT et conseil en Intelligence Artificielle.">
 
-        .glass-shard {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            pointer-events: none;
-            animation: float 20s infinite ease-in-out;
-        }
+    <!-- Schema.org JSON-LD (Optimisation IA / Rich Snippets) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Studio N29",
+      "description": "Studio de développement logiciel, d'ingénierie technologique et de conseil en Intelligence Artificielle.",
+      "url": "https://www.n29-studio.fr",
+      "logo": "https://www.n29-studio.fr/favicon.svg",
+      "email": "contact@n29-studio.fr",
+      "telephone": "+33983923685",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Valenciennes",
+        "addressRegion": "Hauts-de-France",
+        "addressCountry": "FR"
+      },
+      "areaServed": ["Valenciennois", "Porte du Hainaut"],
+      "priceRange": "€€",
+      "knowsAbout": ["Développement Web", "Intelligence Artificielle", "Maintenance Informatique", "Cybersécurité", "Jeux Vidéo"]
+    }
+    </script>
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
-            50% { transform: translateY(-50px) rotate(10deg); opacity: 0.6; }
-        }
-
-        .hero-gradient {
-            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #050505 80%);
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
+<body>
+    <!-- CRT Overlay (Adouci) -->
+    <div class="crt-overlay"></div>
+    <div class="scanlines"></div>
 
-<body class="antialiased selection:bg-amber-500/30">
+    <!-- 3D World Globe Background -->
+    <div class="world-background">
+        <div class="css-globe">
+            <div class="ring-y"></div>
+            <div class="ring-y" style="transform: rotateY(30deg);"></div>
+            <div class="ring-y" style="transform: rotateY(60deg);"></div>
+            <div class="ring-y" style="transform: rotateY(90deg);"></div>
+            <div class="ring-y" style="transform: rotateY(120deg);"></div>
+            <div class="ring-y" style="transform: rotateY(150deg);"></div>
+            <div class="ring-x equator"></div>
+            <div class="ring-x latitude" style="transform: rotateX(90deg) translateZ(150px) scale(0.86);"></div>
+            <div class="ring-x latitude" style="transform: rotateX(90deg) translateZ(-150px) scale(0.86);"></div>
+        </div>
+    </div>
 
-    <header class="fixed w-full z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex flex-col">
-                <span class="text-lg md:text-xl font-game font-black tracking-tighter text-white">STUDIO N29</span>
-            </div>
-            <nav class="flex space-x-4 md:space-x-8 text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-300">
-                <a href="#expertises" class="hover:text-amber-400 transition">Services</a>
-                <a href="https://n29-studio.fr/portfolio.html" class="text-amber-400 border-b border-amber-500 transition">Portfolio</a>
-                <a href="#contact" class="hover:text-amber-400 transition">Contact</a>
+    <!-- Custom Cursor -->
+    <div id="cursor-retro"></div>
+
+    <!-- Preloader Elegant -->
+    <div id="preloader-elegant">
+        <div class="preloader-logo">STUDIO <span class="logo-accent">N29</span></div>
+    </div>
+
+    <header id="header">
+        <div class="container navbar">
+            <a href="#" class="logo">Studio <span class="logo-accent">N29</span></a>
+            <nav id="nav-menu">
+                <ul>
+                    <li><a href="#expertises">EXPERTISES</a></li>
+                    <li><a href="#engagements">ENGAGEMENTS</a></li>
+                    <li><a href="#tarifs">TARIFS</a></li>
+                    <li><a href="#contact" class="btn-neon-outline">CONTACT</a></li>
+                </ul>
             </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </header>
 
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-20">
-        <!-- Glass Shards -->
-        <div class="absolute inset-0 z-0 overflow-hidden">
-            <div class="glass-shard top-10 left-5 md:top-20 md:left-10 w-32 h-48 md:w-40 md:h-64 rotate-12" style="animation-delay: 0s;"></div>
-            <div class="glass-shard top-1/2 right-0 md:top-40 md:right-20 w-48 h-32 md:w-64 md:h-40 -rotate-12" style="animation-delay: -2s;"></div>
-            <div class="glass-shard bottom-20 left-10 md:left-1/4 w-24 h-24 md:w-32 md:h-32 rotate-45" style="animation-delay: -4s;"></div>
-        </div>
-
-        <div class="max-w-4xl mx-auto text-center relative z-10 px-6">
-            <div class="inline-block mb-6 px-4 py-1 border border-amber-500/30 bg-amber-500/10 text-amber-500 text-[10px] uppercase tracking-[0.3em] font-bold">
-                Développeur de Jeux Vidéo Indépendant
-            </div>
-            <h1 class="text-5xl md:text-8xl font-game font-black uppercase leading-tight mb-8 text-white">
-                Studio N29<br>
-                <span class="text-2xl md:text-4xl text-slate-400 font-light tracking-normal block mt-4">Architecte de Réalités</span>
-            </h1>
-            <p class="text-base md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed px-2">
-                Je façonne des expériences numériques uniques. De la conception technique à l'immersion totale, donnons vie à vos visions.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://n29-studio.fr/portfolio.html" class="px-8 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-amber-400 transition-all">
-                    Découvrir mes jeux
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="expertises" class="py-20 px-6 max-w-7xl mx-auto">
-        <h2 class="text-2xl md:text-3xl font-game font-black mb-16 text-center uppercase tracking-tighter text-white">
-            Mon Laboratoire de Création
-        </h2>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-gradient-to-b from-amber-500/10 to-transparent p-6 md:p-8 border-t border-amber-500">
-                <i class="fas fa-gamepad text-3xl text-amber-500 mb-6"></i>
-                <h3 class="text-base font-bold mb-4 uppercase">Jeux Vidéo (Indie)</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Développement complet de jeux originaux. Création de systèmes de jeu, narration interactive et polissage.
-                </p>
-            </div>
-
-            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
-                <i class="fas fa-globe text-3xl text-slate-500 mb-6"></i>
-                <h3 class="text-base font-bold mb-4 uppercase">Web Immersif</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Sites interactifs et interfaces haute performance. L'élégance technique pour vos projets digitaux.
-                </p>
-            </div>
-
-            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
-                <i class="fas fa-microchip text-3xl text-slate-500 mb-6"></i>
-                <h3 class="text-base font-bold mb-4 uppercase">Logiciels Sur-mesure</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Outils métiers complexes optimisés pour la productivité. Automatisation et architecture de données.
-                </p>
-            </div>
-
-            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
-                <i class="fas fa-server text-3xl text-slate-500 mb-6"></i>
-                <h3 class="text-base font-bold mb-4 uppercase">Infra & Web</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">
-                    Gestion d'infrastructures mails, domaines et serveurs. Assurer la pérennité et la sécurité de vos outils.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="py-20 px-6 bg-slate-950/80">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-2xl md:text-3xl font-game font-black mb-8 text-center uppercase text-white">Invoquer Studio N29</h2>
-            <form action="https://formspree.io/f/mlgwvjga" method="POST" id="contactForm" class="space-y-6">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="text" name="nom" placeholder="Votre nom" required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white">
-                    <input type="email" name="email" placeholder="Votre email" required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white">
+    <main>
+        <section id="hero" class="hero-section">
+            <div class="container relative z-10">
+                <div class="hero-content">
+                    <div class="badge-retro reveal-up">L'ATELIER DU FUTUR</div>
+                    <h1 class="reveal-up chrome-text" data-text="L'INNOVATION">L'INNOVATION<br><span class="neon-text-orange">SUR-MESURE.</span></h1>
+                    <p class="subtitle reveal-up">L'IA, le jeu vidéo et l'ingénierie tech à portée de main dans le Valenciennois & la Porte du Hainaut.</p>
+                    <div class="hero-cta reveal-up">
+                        <a href="#contact" class="btn-neon-solid">
+                            ► DIAGNOSTIC IA [START]
+                        </a>
+                        <a href="#expertises" class="btn-neon-ghost">
+                            DÉCOUVRIR LES OFFRES
+                        </a>
+                    </div>
                 </div>
-                <textarea name="message" rows="5" placeholder="Parlez-moi de votre projet..." required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white"></textarea>
-                <button type="submit" class="w-full py-4 bg-amber-600 font-bold uppercase tracking-widest text-sm text-white hover:bg-amber-500 transition-all active:scale-[0.98]">
-                    Transmettre la requête
-                </button>
-            </form>
-            <div id="successMsg" class="hidden mt-6 p-4 text-center text-amber-500 border border-amber-500/30 bg-amber-500/10 font-bold text-sm">
-                Requête reçue. Analyse en cours.
+            </div>
+        </section>
+
+        <!-- Expertises -->
+        <section id="expertises" class="section">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title neon-text-cyan">PÔLES D'EXPERTISE</h2>
+                    <p class="section-desc">Entrez dans la nouvelle dimension technologique.</p>
+                </div>
+                
+                <div class="grid cards-grid">
+                    <div class="arcade-card card-labs reveal-up">
+                        <div class="card-inner">
+                            <div class="card-icon neon-text-cyan">🕹️</div>
+                            <h3>LABS</h3>
+                            <p class="card-subtitle">Dev. Idées & Expériences</p>
+                            <ul class="card-list">
+                                <li>Jeux Vidéo (Unity 3D/C#)</li>
+                                <li>Prototypes & PoC</li>
+                                <li>Apps Web & Mobile</li>
+                                <li>Sites Vitrines Modernes</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="arcade-card card-forge reveal-up" style="transition-delay: 0.1s;">
+                        <div class="card-inner">
+                            <div class="card-icon neon-text-orange">🔧</div>
+                            <h3>FORGE</h3>
+                            <p class="card-subtitle">Secu. & Opti. Parc IT</p>
+                            <ul class="card-list">
+                                <li>Dépannage & Maintenance</li>
+                                <li>Diagnostic Système</li>
+                                <li>Infrastructure Réseau</li>
+                                <li>Postes de Travail</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="arcade-card card-academy reveal-up" style="transition-delay: 0.2s;">
+                        <div class="card-inner">
+                            <div class="card-icon neon-text-green">🎓</div>
+                            <h3>ACADÉMIE</h3>
+                            <p class="card-subtitle">L'ère de l'IA pour l'entreprise</p>
+                            <ul class="card-list">
+                                <li>Diagnostic Opportunité IA</li>
+                                <li>Formation Pratique</li>
+                                <li>Conseil & Stratégie Digitale</li>
+                                <li>Automatisation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Engagements -->
+        <section id="engagements" class="section">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title neon-text-orange">POURQUOI NOUS ?</h2>
+                </div>
+                <div class="grid features-grid">
+                    <div class="feature-item reveal-up">
+                        <div class="feature-icon">⏳</div>
+                        <h4>GAIN DE TEMPS</h4>
+                        <p>Automatisation des tâches répétitives (jusqu'à 8h libérées/semaine).</p>
+                    </div>
+                    <div class="feature-item reveal-up" style="transition-delay: 0.1s;">
+                        <div class="feature-icon">💰</div>
+                        <h4>GAIN D'ARGENT</h4>
+                        <p>Des tarifs ultra-accessibles et transparents pour les PME locales.</p>
+                    </div>
+                    <div class="feature-item reveal-up" style="transition-delay: 0.2s;">
+                        <div class="feature-icon">🛡️</div>
+                        <h4>TRANSFORMATION</h4>
+                        <p>Valorisation du travail humain et montée en compétences via l'IA.</p>
+                    </div>
+                    <div class="feature-item reveal-up" style="transition-delay: 0.3s;">
+                        <div class="feature-icon">📍</div>
+                        <h4>PROXIMITÉ</h4>
+                        <p>Partenaire local (Bruille-Saint-Amand/Valenciennes). Réactivité maximale.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tarifs -->
+        <section id="tarifs" class="section">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title chrome-text" data-text="TARIFICATION">TARIFICATION</h2>
+                    <p class="section-desc">Aucun frais caché, devis gratuits. Des interventions adaptées aux PME, indépendants et particuliers.</p>
+                </div>
+                
+                <div class="pricing-grid">
+                    <!-- LABS -->
+                    <div class="pricing-category reveal-up">
+                        <h3 class="neon-text-cyan"><span class="icon">🕹️</span> LABS (Dev & Création)</h3>
+                        <div class="pricing-table-wrapper">
+                            <table class="neon-table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Site Vitrine & Présentation Web</strong>
+                                            <div class="pricing-details">Jusqu'à 5 pages (Accueil, Services, À propos, Contact, Légal), SEO, nom de domaine & hébergement.</div>
+                                        </td>
+                                        <td class="price">Dès <span>490 €</span> <small>HT</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Prototypage & PoC Jeux Vidéo</strong>
+                                            <div class="pricing-details">Unity 3D / C#, mécaniques principales, UI/UX de base, build exécutable (PC / WebGL / Mobile).</div>
+                                        </td>
+                                        <td class="price">Dès <span>650 €</span> <small>HT</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Application Web & Mobile (MVP)</strong>
+                                            <div class="pricing-details">Architectures de bases de données, interface réactive, API, déploiement.</div>
+                                        </td>
+                                        <td class="price">Dès <span>950 €</span> <small>HT</small></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- FORGE -->
+                    <div class="pricing-category reveal-up">
+                        <h3 class="neon-text-orange"><span class="icon">🔧</span> FORGE (IT & Maintenance)</h3>
+                        <div class="pricing-table-wrapper">
+                            <table class="neon-table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Diagnostic Système & Pré-expertise</strong>
+                                            <div class="pricing-details">Analyse complète (panne, ralentissement, virus). <em>Offert si la prestation de réparation est effectuée.</em></div>
+                                        </td>
+                                        <td class="price"><span>29 €</span> <small>HT</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Maintenance & Optimisation PC</strong>
+                                            <div class="pricing-details">Dépoussiérage, désinfection, réinstallation OS (Windows/Linux), pilotes, sauvegardes.</div>
+                                        </td>
+                                        <td class="price"><span>49 €</span> <small>HT / poste</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Assistance & Config IT (Sur site/Distance)</strong>
+                                            <div class="pricing-details">Config réseau/Wi-Fi, périphériques, sauvegarde, sécurité. (Forfait demi-journée dispo).</div>
+                                        </td>
+                                        <td class="price"><span>39 €</span> <small>HT / heure</small></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- ACADÉMIE -->
+                    <div class="pricing-category reveal-up">
+                        <h3 class="neon-text-green"><span class="icon">🎓</span> ACADÉMIE (IA & Stratégie)</h3>
+                        <div class="pricing-table-wrapper">
+                            <table class="neon-table">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Diagnostic & Audit d'Opportunité IA</strong>
+                                            <div class="pricing-details">Analyse de vos flux sur site, identification des gains de temps/coûts, plan d'action priorisé.</div>
+                                        </td>
+                                        <td class="price free">GRATUIT</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Formation & Atelier Pratique IA</strong>
+                                            <div class="pricing-details">Demi-journée. Cas d'usage réels (ChatGPT, automatisation emails/docs), support et suivi.</div>
+                                        </td>
+                                        <td class="price">Dès <span>190 €</span> <small>HT / sess.</small></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Conseil & Stratégie Digitalisation / IA</strong>
+                                            <div class="pricing-details">Accompagnement individuel/dirigeant (Choix logiciels, souveraineté données, orga interne).</div>
+                                        </td>
+                                        <td class="price"><span>45 €</span> <small>HT / heure</small></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-wrapper reveal-up">
+                    <div class="contact-info">
+                        <h2 class="section-title neon-text-cyan" style="text-align: left; margin-bottom: 1rem;">LANCER LE PROJET</h2>
+                        <p>Prêt à passer au niveau supérieur ?</p>
+                        <div class="contact-methods">
+                            <a href="mailto:contact@n29-studio.fr" class="contact-method">
+                                <div class="cm-icon">✉️</div>
+                                <div>
+                                    <div class="cm-label">E-MAIL</div>
+                                    <div class="cm-value">contact@n29-studio.fr</div>
+                                </div>
+                            </a>
+                            <a href="tel:0983923685" class="contact-method">
+                                <div class="cm-icon">📞</div>
+                                <div>
+                                    <div class="cm-label">TÉLÉPHONE</div>
+                                    <div class="cm-value">09 83 92 36 85</div>
+                                </div>
+                            </a>
+                            <div class="contact-method">
+                                <div class="cm-icon">📍</div>
+                                <div>
+                                    <div class="cm-label">LOCALISATION</div>
+                                    <div class="cm-value">Porte du Hainaut</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contact-form-container">
+                        <form id="contact-form" class="retro-form">
+                            <div class="form-header">TRANSMISSION DE DONNÉES</div>
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label for="name">NOM_JOUEUR</label>
+                                    <input type="text" id="name" required placeholder="Votre nom">
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">E-MAIL_RETOUR</label>
+                                    <input type="email" id="email" required placeholder="votre@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pole">SÉLECTION_NIVEAU</label>
+                                    <select id="pole">
+                                        <option value="labs">NIV 1 : LABS (Dev/Web/JV)</option>
+                                        <option value="forge">NIV 2 : FORGE (IT/Réseau)</option>
+                                        <option value="academie">NIV 3 : ACADÉMIE (IA/Formation)</option>
+                                        <option value="autre">NIV 99 : AUTRE</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">MESSAGE_SYSTÈME</label>
+                                    <textarea id="message" rows="4" required placeholder="Tapez votre message ici..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-neon-solid w-100">
+                                    ENVOYER LE MESSAGE
+                                </button>
+                                <div id="form-status" class="form-status"></div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="#" class="logo">Studio <span class="logo-accent">N29</span></a>
+                <p>Est. 2026 // PRESS START</p>
+            </div>
+            <div class="footer-links">
+                <p>COPYRIGHT © STUDIO N29. TOUS DROITS RÉSERVÉS.</p>
             </div>
         </div>
-    </section>
-
-    <footer class="py-12 text-center text-slate-600 text-[10px] uppercase tracking-widest">
-        © 2026 Studio N29 — Créateur d'expériences uniques
     </footer>
 
-    <script>
-        const form = document.getElementById('contactForm');
-        const successMsg = document.getElementById('successMsg');
-
-        form.addEventListener('submit', async function(e) {
-            e.preventDefault();
-            const data = new FormData(form);
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: data,
-                headers: { 'Accept': 'application/json' }
-            });
-
-            if (response.ok) {
-                form.classList.add('hidden');
-                successMsg.classList.remove('hidden');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

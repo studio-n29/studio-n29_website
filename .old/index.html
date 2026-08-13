@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STUDIO N29</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #050505;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        .font-game { font-family: 'Orbitron', sans-serif; }
+
+        .glass-shard {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-50px) rotate(10deg); opacity: 0.6; }
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at 50% 50%, #1e1b4b 0%, #050505 80%);
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-amber-500/30">
+
+    <header class="fixed w-full z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex flex-col">
+                <span class="text-lg md:text-xl font-game font-black tracking-tighter text-white">STUDIO N29</span>
+            </div>
+            <nav class="flex space-x-4 md:space-x-8 text-[10px] md:text-xs font-bold uppercase tracking-widest text-slate-300">
+                <a href="#expertises" class="hover:text-amber-400 transition">Services</a>
+                <a href="https://n29-studio.fr/portfolio.html" class="text-amber-400 border-b border-amber-500 transition">Portfolio</a>
+                <a href="#contact" class="hover:text-amber-400 transition">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden hero-gradient pt-20">
+        <!-- Glass Shards -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <div class="glass-shard top-10 left-5 md:top-20 md:left-10 w-32 h-48 md:w-40 md:h-64 rotate-12" style="animation-delay: 0s;"></div>
+            <div class="glass-shard top-1/2 right-0 md:top-40 md:right-20 w-48 h-32 md:w-64 md:h-40 -rotate-12" style="animation-delay: -2s;"></div>
+            <div class="glass-shard bottom-20 left-10 md:left-1/4 w-24 h-24 md:w-32 md:h-32 rotate-45" style="animation-delay: -4s;"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10 px-6">
+            <div class="inline-block mb-6 px-4 py-1 border border-amber-500/30 bg-amber-500/10 text-amber-500 text-[10px] uppercase tracking-[0.3em] font-bold">
+                Développeur de Jeux Vidéo Indépendant
+            </div>
+            <h1 class="text-5xl md:text-8xl font-game font-black uppercase leading-tight mb-8 text-white">
+                Studio N29<br>
+                <span class="text-2xl md:text-4xl text-slate-400 font-light tracking-normal block mt-4">Architecte de Réalités</span>
+            </h1>
+            <p class="text-base md:text-xl text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed px-2">
+                Je façonne des expériences numériques uniques. De la conception technique à l'immersion totale, donnons vie à vos visions.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="https://n29-studio.fr/portfolio.html" class="px-8 py-4 bg-white text-black font-bold uppercase text-xs tracking-widest hover:bg-amber-400 transition-all">
+                    Découvrir mes jeux
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="expertises" class="py-20 px-6 max-w-7xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-game font-black mb-16 text-center uppercase tracking-tighter text-white">
+            Mon Laboratoire de Création
+        </h2>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="bg-gradient-to-b from-amber-500/10 to-transparent p-6 md:p-8 border-t border-amber-500">
+                <i class="fas fa-gamepad text-3xl text-amber-500 mb-6"></i>
+                <h3 class="text-base font-bold mb-4 uppercase">Jeux Vidéo (Indie)</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Développement complet de jeux originaux. Création de systèmes de jeu, narration interactive et polissage.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
+                <i class="fas fa-globe text-3xl text-slate-500 mb-6"></i>
+                <h3 class="text-base font-bold mb-4 uppercase">Web Immersif</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Sites interactifs et interfaces haute performance. L'élégance technique pour vos projets digitaux.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
+                <i class="fas fa-microchip text-3xl text-slate-500 mb-6"></i>
+                <h3 class="text-base font-bold mb-4 uppercase">Logiciels Sur-mesure</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Outils métiers complexes optimisés pour la productivité. Automatisation et architecture de données.
+                </p>
+            </div>
+
+            <div class="bg-slate-900/50 p-6 md:p-8 border-t border-white/10">
+                <i class="fas fa-server text-3xl text-slate-500 mb-6"></i>
+                <h3 class="text-base font-bold mb-4 uppercase">Infra & Web</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                    Gestion d'infrastructures mails, domaines et serveurs. Assurer la pérennité et la sécurité de vos outils.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6 bg-slate-950/80">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-2xl md:text-3xl font-game font-black mb-8 text-center uppercase text-white">Invoquer Studio N29</h2>
+            <form action="https://formspree.io/f/mlgwvjga" method="POST" id="contactForm" class="space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" name="nom" placeholder="Votre nom" required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white">
+                    <input type="email" name="email" placeholder="Votre email" required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white">
+                </div>
+                <textarea name="message" rows="5" placeholder="Parlez-moi de votre projet..." required class="bg-black border border-white/10 p-4 w-full rounded focus:border-amber-500 focus:outline-none text-sm text-white"></textarea>
+                <button type="submit" class="w-full py-4 bg-amber-600 font-bold uppercase tracking-widest text-sm text-white hover:bg-amber-500 transition-all active:scale-[0.98]">
+                    Transmettre la requête
+                </button>
+            </form>
+            <div id="successMsg" class="hidden mt-6 p-4 text-center text-amber-500 border border-amber-500/30 bg-amber-500/10 font-bold text-sm">
+                Requête reçue. Analyse en cours.
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 text-center text-slate-600 text-[10px] uppercase tracking-widest">
+        © 2026 Studio N29 — Créateur d'expériences uniques
+    </footer>
+
+    <script>
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('successMsg');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const data = new FormData(form);
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: data,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                form.classList.add('hidden');
+                successMsg.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
