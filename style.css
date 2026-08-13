@@ -67,7 +67,7 @@ body.loading { overflow: hidden; }
 
 /* 3D World Globe */
 .world-background {
-    position: fixed; top: 50%; left: 80%; width: 100vw; height: 100vh;
+    position: fixed; top: 50%; left: 80%; width: 100%; height: 100vh;
     transform: translate(-50%, -50%); z-index: -1; pointer-events: none; overflow: hidden;
     opacity: 0.15; filter: drop-shadow(0 0 20px var(--neon-cyan));
 }
@@ -119,6 +119,8 @@ header.scrolled { padding: 15px 0; background: rgba(11, 8, 24, 0.8); backdrop-fi
 .logo { font-size: 2rem; color: #fff; text-decoration: none; text-shadow: 0 0 10px rgba(255,255,255,0.5); }
 .logo-accent { color: var(--neon-orange); text-shadow: 0 0 15px var(--neon-orange); }
 
+.hamburger { display: none; background: transparent; border: none; cursor: pointer; }
+
 nav ul { display: flex; list-style: none; gap: 2rem; align-items: center; }
 nav a { text-decoration: none; color: #fff; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; font-family: var(--font-heading); transition: var(--transition); }
 nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
@@ -142,7 +144,7 @@ nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
 .w-100 { width: 100%; text-align: center; }
 
 /* Hero */
-.hero-section { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; }
+.hero-section { min-height: 100vh; display: flex; align-items: center; padding-top: 80px; padding-bottom: 60px; }
 .badge-retro {
     display: inline-block; padding: 5px 15px; border: 1px solid var(--neon-cyan);
     color: var(--neon-cyan); margin-bottom: 2rem; box-shadow: inset 0 0 10px rgba(0,243,255,0.2);
@@ -152,7 +154,7 @@ nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
 
 /* Grid / Cards */
 .grid { display: grid; gap: 2rem; }
-.cards-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.cards-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
 
 .arcade-card {
     background: rgba(20, 15, 40, 0.8); border: 2px solid #333;
@@ -177,13 +179,14 @@ nav a:hover { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
 .card-list li::before { content: '>'; position: absolute; left: 0; color: var(--neon-magenta); font-family: var(--font-heading); }
 
 /* Features */
-.features-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.features-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); }
 .feature-item { text-align: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.05); background: rgba(0,0,0,0.3); }
 .feature-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 10px rgba(255,136,0,0.5)); }
 .feature-item h4 { font-size: 1.3rem; margin-bottom: 1rem; color: #fff; }
 
 /* Pricing */
 .pricing-grid { display: grid; gap: 3rem; margin-top: 2rem; }
+.pricing-category { min-width: 0; }
 .pricing-category h3 { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; font-size: 1.5rem; font-family: var(--font-heading); }
 .pricing-table-wrapper { overflow-x: auto; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,136,0,0.3); box-shadow: inset 0 0 20px rgba(255,136,0,0.1); border-radius: 8px; }
 .neon-table { width: 100%; border-collapse: collapse; min-width: 600px; }
