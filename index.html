@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio N29</title>
+    <title>Studio N29 | Développement Web, Maintenance IT & IA à Valenciennes</title>
     
     <!-- SEO Meta Tags -->
     <meta name="description" content="Studio N29 est votre partenaire technologique dans le Valenciennois et la Porte du Hainaut. Expertises en développement web, ingénierie logicielle, maintenance IT, et conseil en Intelligence Artificielle pour les PME.">
@@ -28,22 +28,107 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "ProfessionalService",
-      "name": "Studio N29",
-      "description": "Studio de développement logiciel, d'ingénierie technologique et de conseil en Intelligence Artificielle.",
-      "url": "https://www.n29-studio.fr",
-      "logo": "https://www.n29-studio.fr/favicon.svg",
-      "email": "contact@n29-studio.fr",
-      "telephone": "+33983923685",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Valenciennes",
-        "addressRegion": "Hauts-de-France",
-        "addressCountry": "FR"
-      },
-      "areaServed": ["Valenciennois", "Porte du Hainaut"],
-      "priceRange": "€€",
-      "knowsAbout": ["Développement Web", "Intelligence Artificielle", "Maintenance Informatique", "Cybersécurité", "Jeux Vidéo"]
+      "@graph": [
+        {
+          "@type": "ProfessionalService",
+          "@id": "https://www.n29-studio.fr/#organization",
+          "name": "Studio N29",
+          "description": "Studio d'ingénierie technologique spécialisé en développement web, logiciels sur-mesure, maintenance IT et conseil en Intelligence Artificielle.",
+          "url": "https://www.n29-studio.fr",
+          "logo": "https://www.n29-studio.fr/favicon.svg",
+          "email": "contact@n29-studio.fr",
+          "telephone": "+33983923685",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Valenciennes",
+            "addressRegion": "Hauts-de-France",
+            "addressCountry": "FR"
+          },
+          "areaServed": ["Valenciennois", "Porte du Hainaut", "Hauts-de-France"],
+          "priceRange": "€€",
+          "knowsAbout": ["Développement Web", "Intelligence Artificielle", "Maintenance Informatique", "Création de sites internet"],
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Services Studio N29",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Création Site Vitrine & Développement Web"
+                },
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "490.00",
+                  "priceCurrency": "EUR"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Diagnostic Système et Maintenance IT"
+                },
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "29.00",
+                  "priceCurrency": "EUR"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Formation IA & Conseil en Digitalisation"
+                },
+                "priceSpecification": {
+                  "@type": "PriceSpecification",
+                  "price": "190.00",
+                  "priceCurrency": "EUR"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://www.n29-studio.fr/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Quels types de solutions web développez-vous ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nous concevons des sites vitrines modernes, des applications web sur-mesure, ainsi que des prototypes de jeux vidéo."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Intervenez-vous physiquement pour la maintenance informatique ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Oui, nous proposons une assistance IT et une configuration réseau directement sur site pour les professionnels situés dans le Valenciennois et la Porte du Hainaut."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Comment se déroule un diagnostic IA pour mon entreprise ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Le diagnostic consiste en une analyse gratuite de vos processus actuels afin d'identifier les tâches répétitives que l'Intelligence Artificielle peut automatiser, vous faisant gagner du temps et de l'argent."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quels sont vos tarifs ?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Nos tarifs sont transparents : création de site web à partir de 490€ HT, maintenance PC à 49€ HT par poste, et formations IA dès 190€ HT la session."
+              }
+            }
+          ]
+        }
+      ]
     }
     </script>
 
@@ -53,28 +138,8 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
-<body>
-    <!-- CRT Overlay (Adouci) -->
-    <div class="crt-overlay"></div>
-    <div class="scanlines"></div>
+<body class="bg-home">
 
-    <!-- 3D World Globe Background -->
-    <div class="world-background">
-        <div class="css-globe">
-            <div class="ring-y"></div>
-            <div class="ring-y" style="transform: rotateY(30deg);"></div>
-            <div class="ring-y" style="transform: rotateY(60deg);"></div>
-            <div class="ring-y" style="transform: rotateY(90deg);"></div>
-            <div class="ring-y" style="transform: rotateY(120deg);"></div>
-            <div class="ring-y" style="transform: rotateY(150deg);"></div>
-            <div class="ring-x equator"></div>
-            <div class="ring-x latitude" style="transform: rotateX(90deg) translateZ(150px) scale(0.86);"></div>
-            <div class="ring-x latitude" style="transform: rotateX(90deg) translateZ(-150px) scale(0.86);"></div>
-        </div>
-    </div>
-
-    <!-- Custom Cursor -->
-    <div id="cursor-retro"></div>
 
     <!-- Preloader Elegant -->
     <div id="preloader-elegant">
@@ -86,10 +151,18 @@
             <a href="#" class="logo">Studio <span class="logo-accent">N29</span></a>
             <nav id="nav-menu">
                 <ul>
-                    <li><a href="#expertises">EXPERTISES</a></li>
-                    <li><a href="#engagements">ENGAGEMENTS</a></li>
-                    <li><a href="#tarifs">TARIFS</a></li>
-                    <li><a href="#contact" class="btn-neon-outline">CONTACT</a></li>
+                    <li class="dropdown">
+                        <a href="index.html#expertises">EXPERTISES ▾</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="developpement-web-logiciel.html">Développement Web (Labs)</a></li>
+                            <li><a href="maintenance-informatique-reseau.html">Maintenance IT (Forge)</a></li>
+                            <li><a href="conseil-formation-ia.html">Formation IA (Académie)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="game-studio.html">GAME STUDIO</a></li>
+                    <li><a href="index.html#engagements">ENGAGEMENTS</a></li>
+                    <li><a href="index.html#tarifs">TARIFS</a></li>
+                    <li><a href="index.html#contact" class="btn-neon-outline">CONTACT</a></li>
                 </ul>
             </nav>
             <button class="hamburger" id="hamburger" aria-label="Menu">
@@ -101,20 +174,25 @@
     </header>
 
     <main>
-        <section id="hero" class="hero-section">
-            <div class="container relative z-10">
-                <div class="hero-content">
-                    <div class="badge-retro reveal-up">L'ATELIER DU FUTUR</div>
-                    <h1 class="reveal-up chrome-text" data-text="L'INNOVATION">L'INNOVATION<br><span class="neon-text-orange">SUR-MESURE.</span></h1>
-                    <p class="subtitle reveal-up">L'IA, le jeu vidéo et l'ingénierie tech à portée de main dans le Valenciennois & la Porte du Hainaut.</p>
-                    <div class="hero-cta reveal-up">
-                        <a href="#contact" class="btn-neon-solid">
-                            ► DIAGNOSTIC IA [START]
+                <section id="hero" class="hero-section" style="padding-top: 100px; padding-bottom: 50px;">
+            <div class="hero-bg-accent"></div>
+            <div class="container relative z-10 hero-dynamic" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; min-height: 80vh;">
+                <div class="hero-dynamic-content">
+                    <div class="badge-modern reveal-up">Partenaire Technologique & IA</div>
+                    <h1 class="reveal-up" style="font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,255,255,0.3);">L'innovation tech, web & IA <br><span class="text-accent" style="color: #00f0ff;">sur-mesure.</span></h1>
+                    <p class="subtitle reveal-up" style="font-size: 1.2rem; color: #a0aec0; margin-bottom: 2.5rem; max-width: 500px;">Accélérez la croissance de votre PME avec nos solutions en développement logiciel, maintenance IT et automatisation intelligente dans le Valenciennois.</p>
+                    <div class="hero-cta reveal-up" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#contact" class="btn-modern-solid" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #fff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 10px 20px rgba(0,240,255,0.3);">
+                            Démarrer un projet
                         </a>
-                        <a href="#expertises" class="btn-neon-ghost">
-                            DÉCOUVRIR LES OFFRES
+                        <a href="#expertises" class="btn-modern-outline" style="border: 2px solid #00f0ff; color: #00f0ff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold;">
+                            Découvrir nos offres
                         </a>
                     </div>
+                </div>
+                <div class="hero-dynamic-visual reveal-up" style="transition-delay: 0.2s;">
+                    <img src="assets/index_hero.jpg" alt="Software Architecture" class="floating-hero-img hero-img-1" style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
+                    <img src="assets/web_ui_design.jpg" alt="UI Design" class="floating-hero-img hero-img-2" style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(0, 255, 255, 0.3);">
                 </div>
             </div>
         </section>
@@ -134,11 +212,14 @@
                             <h3>LABS</h3>
                             <p class="card-subtitle">Dev. Idées & Expériences</p>
                             <ul class="card-list">
-                                <li>Jeux Vidéo (Unity 3D/C#)</li>
-                                <li>Prototypes & PoC</li>
-                                <li>Apps Web & Mobile</li>
+                                <li>Applications Web & Mobile</li>
                                 <li>Sites Vitrines Modernes</li>
+                                <li>Prototypes & PoC</li>
+                                <li>Ingénierie Logicielle</li>
                             </ul>
+                            <div style="margin-top: 2rem;">
+                                <a href="developpement-web-logiciel.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
+                            </div>
                         </div>
                     </div>
                     
@@ -153,6 +234,9 @@
                                 <li>Infrastructure Réseau</li>
                                 <li>Postes de Travail</li>
                             </ul>
+                            <div style="margin-top: 2rem;">
+                                <a href="maintenance-informatique-reseau.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
+                            </div>
                         </div>
                     </div>
                     
@@ -167,8 +251,12 @@
                                 <li>Conseil & Stratégie Digitale</li>
                                 <li>Automatisation</li>
                             </ul>
+                            <div style="margin-top: 2rem;">
+                                <a href="conseil-formation-ia.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -312,6 +400,66 @@
             </div>
         </section>
 
+        <!-- FAQ -->
+        <section id="faq" class="section bg-darker">
+            <div class="container">
+                <div class="section-header reveal-up">
+                    <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
+                    <p class="section-desc">Tout ce que vous devez savoir pour démarrer avec Studio N29.</p>
+                </div>
+                
+                <div class="faq-container reveal-up">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Quels types de solutions web développez-vous ?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Nous concevons des sites vitrines modernes pour améliorer votre visibilité, des applications web sur-mesure pour vos processus métier, ainsi que des prototypes de jeux vidéo sous Unity.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Intervenez-vous physiquement pour la maintenance informatique ?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Absolument. Nous proposons une assistance IT et une configuration réseau directement sur site pour les professionnels situés dans le Valenciennois et la Porte du Hainaut (rayon d'action : 20km autour de Bruille-Saint-Amand).
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Comment se déroule un diagnostic IA pour mon entreprise ?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                Le diagnostic (qui est offert) consiste en une analyse de vos processus actuels afin d'identifier les tâches chronophages que l'Intelligence Artificielle peut automatiser (rédaction, tri de données, support client). L'objectif est de vous faire gagner du temps et de l'argent de façon mesurable.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>Quels sont vos tarifs ?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <div class="faq-answer-inner">
+                                La transparence avant tout : la création d'un site web qualitatif démarre à 490€ HT, la maintenance de poste à 49€ HT, et nos formations de vulgarisation et de prise en main de l'IA dès 190€ HT la session.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact -->
         <section id="contact" class="section">
             <div class="container">
@@ -343,36 +491,36 @@
                             </div>
                         </div>
                     </div>
-                    <div class="contact-form-container">
-                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="retro-form">
+                                        <div class="contact-form-container reveal-up" style="transition-delay: 0.2s;">
+                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="glass-form-container">
                             <input type="hidden" name="access_key" value="aaf5797a-a98a-408f-8f49-8d14c94f61a2">
-                            <div class="form-header">TRANSMISSION DE DONNÉES</div>
+                            <h3 style="margin-bottom: 2rem; color: #fff; text-align: center; font-size: 1.5rem;">Écrivez-nous</h3>
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label for="name">NOM_JOUEUR</label>
-                                    <input type="text" name="name" id="name" required placeholder="Votre nom">
+                                    <input type="text" name="name" id="name" required>
+                                    <label for="name">Votre nom complet</label>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">E-MAIL_RETOUR</label>
-                                    <input type="email" name="email" id="email" required placeholder="votre@email.com">
+                                    <input type="email" name="email" id="email" required>
+                                    <label for="email">Adresse E-mail</label>
                                 </div>
-                                <div class="form-group">
-                                    <label for="pole">SÉLECTION_NIVEAU</label>
-                                    <select name="pole" id="pole">
-                                        <option value="labs">NIV 1 : LABS (Dev/Web/JV)</option>
-                                        <option value="forge">NIV 2 : FORGE (IT/Réseau)</option>
-                                        <option value="academie">NIV 3 : ACADÉMIE (IA/Formation)</option>
-                                        <option value="autre">NIV 99 : AUTRE</option>
+                                <div class="form-group" style="margin-bottom: 2rem;">
+                                    <select name="pole" id="pole" style="width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.2rem; color: var(--text-color); font-size: 1rem; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none;">
+                                        <option value="" disabled selected>Sélectionnez votre besoin</option>
+                                        <option value="labs" style="color: #000;">LABS (Création Site / Logiciel / App)</option>
+                                        <option value="forge" style="color: #000;">FORGE (Dépannage / Parc IT / Cybersécurité)</option>
+                                        <option value="academie" style="color: #000;">ACADÉMIE (Formation IA / Conseil Digitalisation)</option>
+                                        <option value="autre" style="color: #000;">Autre demande</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="message">MESSAGE_SYSTÈME</label>
-                                    <textarea name="message" id="message" rows="4" required placeholder="Tapez votre message ici..."></textarea>
+                                    <textarea name="message" id="message" required></textarea>
+                                    <label for="message">Comment pouvons-nous vous aider ?</label>
                                 </div>
-                                <button type="submit" class="btn-neon-solid w-100">
-                                    ENVOYER LE MESSAGE
+                                <button type="submit" class="btn-modern-solid w-100" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 10px 20px rgba(0,240,255,0.3); font-size: 1.1rem; transition: transform 0.3s ease;">
+                                    Envoyer le message
                                 </button>
-                                <div id="form-status" class="form-status"></div>
+                                <div id="form-status" class="form-status" style="margin-top: 1rem; text-align: center;"></div>
                             </div>
                         </form>
                     </div>
@@ -396,3 +544,5 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+

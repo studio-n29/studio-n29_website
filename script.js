@@ -1,22 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Custom Retro Cursor
-    const cursor = document.getElementById('cursor-retro');
-    const hoverElements = document.querySelectorAll('a, button, input, select, textarea');
-    
-    // Only enable cursor logic if not on mobile/touch
-    if (window.matchMedia("(pointer: fine)").matches) {
-        document.addEventListener('mousemove', (e) => {
-            requestAnimationFrame(() => {
-                cursor.style.left = `${e.clientX}px`;
-                cursor.style.top = `${e.clientY}px`;
-            });
-        });
-
-        hoverElements.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-        });
-    }
+    // 1. (Custom Cursor Removed)
 
     // 2. Preloader Elegant
     const preloader = document.getElementById('preloader-elegant');
@@ -73,46 +56,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
 
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const btn = contactForm.querySelector('button');
-        const originalText = btn.innerHTML;
-        
-        btn.innerHTML = 'PROCESSING...';
-        btn.disabled = true;
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = contactForm.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = 'PROCESSING...';
+            btn.disabled = true;
 
-        const formData = new FormData(contactForm);
+            const formData = new FormData(contactForm);
 
-        try {
-            const response = await fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                body: formData
-            });
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
 
-            const data = await response.json();
+                const data = await response.json();
 
-            if (data.success) {
-                formStatus.textContent = 'DATA TRANSMITTED SUCCESSFULLY.';
-                formStatus.className = 'form-status success';
-                contactForm.reset();
-            } else {
-                formStatus.textContent = 'SYSTEM ERROR. TRY AGAIN.';
+                if (data.success) {
+                    formStatus.textContent = 'DATA TRANSMITTED SUCCESSFULLY.';
+                    formStatus.className = 'form-status success';
+                    contactForm.reset();
+                } else {
+                    formStatus.textContent = 'SYSTEM ERROR. TRY AGAIN.';
+                    formStatus.className = 'form-status error';
+                    console.error('Web3Forms Error:', data);
+                }
+            } catch (error) {
+                formStatus.textContent = 'CONNECTION ERROR.';
                 formStatus.className = 'form-status error';
-                console.error('Web3Forms Error:', data);
+                console.error('Fetch Error:', error);
             }
-        } catch (error) {
-            formStatus.textContent = 'CONNECTION ERROR.';
-            formStatus.className = 'form-status error';
-            console.error('Fetch Error:', error);
-        }
 
-        btn.innerHTML = originalText;
-        btn.disabled = false;
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            
+            setTimeout(() => {
+                formStatus.style.display = 'none';
+                formStatus.className = 'form-status';
+                setTimeout(() => { formStatus.style.display = ''; formStatus.textContent = ''; }, 50);
+            }, 4000);
+        });
+    }
+
+    // 7. FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        const answer = item.querySelector('.faq-answer');
         
-        setTimeout(() => {
-            formStatus.style.display = 'none';
-            formStatus.className = 'form-status';
-            setTimeout(() => { formStatus.style.display = ''; formStatus.textContent = ''; }, 50);
-        }, 4000);
+        question.addEventListener('click', () => {
+            const isActive = item.classList.contains('active');
+            
+            // Close all
+            faqItems.forEach(faq => {
+                faq.classList.remove('active');
+                faq.querySelector('.faq-answer').style.maxHeight = null;
+            });
+            
+            // Open clicked if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            }
+        });
     });
 });

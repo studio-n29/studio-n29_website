@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark of Remains | Studio N29 Game Studio</title>
+    <meta name="description" content="Spark of Remains, le jeu d'aventure coopératif asymétrique par Studio N29. Explorez la Dimension des Souvenirs avec Djason et Maëly.">
+    <link rel="canonical" href="https://www.n29-studio.fr/spark-of-remains.html">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Spark of Remains",
+      "applicationCategory": "GameApplication",
+      "operatingSystem": "PC",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Studio N29 Game Studio"
+      },
+      "description": "Jeu d'aventure coopératif asymétrique."
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        .page-sor { --accent-color: #ff00ff; }
+        .sor-hero {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(8,11,18,1)), url('assets/sor_exploration.jpg');
+            background-size: cover;
+            background-position: center;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .sor-hero h1 { font-size: 5rem; text-shadow: 0 0 20px rgba(255,0,255,0.5); }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .feature-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,0,255,0.2); padding: 2rem; border-radius: 12px; }
+        .feature-card h3 { color: #ff00ff; margin-bottom: 1rem; }
+    </style>
+</head>
+<body class="bg-game page-sor">
+    <header id="header">
+        <div class="container navbar">
+            <a href="index.html" class="logo">Studio <span class="logo-accent">N29</span></a>
+            <nav id="nav-menu">
+                <ul>
+                    <li class="dropdown">
+                        <a href="index.html#expertises">EXPERTISES ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="developpement-web-logiciel.html">Développement Web (Labs)</a></li>
+                            <li><a href="maintenance-informatique-reseau.html">Maintenance IT (Forge)</a></li>
+                            <li><a href="conseil-formation-ia.html">Formation IA (Académie)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="game-studio.html">GAME STUDIO</a></li>
+                    <li><a href="index.html#engagements">ENGAGEMENTS</a></li>
+                    <li><a href="index.html#tarifs">TARIFS</a></li>
+                    <li><a href="index.html#contact" class="btn-neon-outline">CONTACT</a></li>
+                </ul>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="sor-hero reveal-up">
+            <div class="container">
+                <div class="badge-modern" style="border-color: #ff00ff; color: #ff00ff;">En Développement</div>
+                <h1>Spark of Remains</h1>
+                <p class="subtitle" style="font-size: 1.4rem; max-width: 700px; margin: 1rem auto;">Une aventure coopérative asymétrique au cœur de la Dimension des Souvenirs.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="split-section reveal-up">
+                    <div class="split-content">
+                        <h2>Le Concept</h2>
+                        <p><strong>Spark of Remains</strong> vous plonge dans un monde étrange et onirique où la coopération est la seule clé de survie. Vous incarnez le duo Djason et Maëly, perdus dans un royaume où les souvenirs se matérialisent sous forme d'énigmes mortelles.</p>
+                        <p>Ce qui rend l'expérience unique ? Une <strong>asymétrie totale</strong> des capacités. Chaque joueur possède une vision et des pouvoirs distincts. Vous devrez communiquer constamment pour franchir les obstacles.</p>
+                    </div>
+                    <div class="split-content" style="background: rgba(255,0,255,0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(255,0,255,0.2);">
+                        <h3>Les Protagonistes</h3>
+                        <ul style="margin-top: 1rem;">
+                            <li><strong>Maëly :</strong> La Perception. Elle possède le don de voir l'invisible (marques cachées, plateformes spectrales).</li>
+                            <li><strong>Djason :</strong> L'Architecture. Il a le pouvoir de matérialiser des blocs physiques pour créer des chemins là où il n'y en a pas.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="feature-grid reveal-up">
+                    <div class="feature-card">
+                        <h3>Énigmes Coopératives</h3>
+                        <p>Des niveaux comme <em>Le pont des Limbes</em> forcent les joueurs à se séparer (un en haut, un en bas) et à synchroniser leurs actions à l'aveugle pour ne pas faire chuter leur partenaire.</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Genres Multiples</h3>
+                        <p>Le jeu ne s'arrête pas aux puzzles. Il alterne brillamment entre réflexion asymétrique, séquences de course poursuite en voiture, et affrontements FPS nerveux contre les "Effaceurs".</p>
+                    </div>
+                    <div class="feature-card">
+                        <h3>Un Bestiaire Éprouvant</h3>
+                        <p>Affrontez le "Parasite de Mélancolie" ou les "Ombres de Doute", des entités qui exploitent vos peurs et nécessitent une coordination militaire pour être vaincues.</p>
+                    </div>
+                </div>
+                
+                <div class="w-100 reveal-up" style="margin-top: 5rem; text-align: center;">
+                    <a href="game-studio.html" class="btn-neon-outline">Retour au Game Studio</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <a href="index.html" class="logo">Studio <span class="logo-accent">N29</span></a>
+                <p>Est. 2026 // PRESS START</p>
+            </div>
+            <div class="footer-links">
+                <p>COPYRIGHT © STUDIO N29. TOUS DROITS RÉSERVÉS.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
+
