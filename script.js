@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // 1. (Custom Cursor Removed)
 
     // 2. Preloader Elegant
