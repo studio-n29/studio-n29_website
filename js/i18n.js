@@ -1,22 +1,14 @@
 /* FR / EN switch. French text is pre-rendered in the HTML (SEO, no flash);
-   this script swaps in English (or French) from /i18n/*.json when needed. */
+   dictionaries are embedded in js/i18n-data.js (generated), so no fetch is needed
+   and the switch also works when the page is opened from disk (file://). */
 (() => {
   const root = document.documentElement;
-  const base = root.dataset.root || "";
   const KEY = "n29-lang";
-  const cache = {};
+  const dicts = window.N29_I18N || {};
 
   const detect = () => {
     try { const s = localStorage.getItem(KEY); if (s === "fr" || s === "en") return s; } catch (e) { /* storage unavailable */ }
     return (navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en";
-  };
-
-  const load = async (lang) => {
-    if (!cache[lang]) {
-      const res = await fetch(`${base}i18n/${lang}.json`);
-      cache[lang] = await res.json();
-    }
-    return cache[lang];
   };
 
   const apply = (dict, lang) => {
@@ -44,9 +36,9 @@
     document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));
   };
 
-  const set = async (lang, persist = true) => {
+  const set = (lang, persist = true) => {
     try {
-      apply(await load(lang), lang);
+      apply(dicts[lang], lang);
       if (persist) { try { localStorage.setItem(KEY, lang); } catch (e) { /* ignore */ } }
       document.dispatchEvent(new CustomEvent("n29:lang", { detail: lang }));
     } catch (err) {
@@ -55,12 +47,11 @@
   };
 
   window.N29 = window.N29 || {};
-  window.N29.t = (key) => (cache[root.lang] || {})[key] || "";
+  window.N29.t = (key) => (dicts[root.lang] || {})[key] || "";
 
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => set(b.dataset.lang)));
     const lang = detect();
     if (lang !== "fr") set(lang, false);
-    else load("fr"); // warm the cache for form messages
   });
 })();

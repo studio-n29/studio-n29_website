@@ -19,12 +19,19 @@ const t = (k) => {
 const tx = (tag, key, cls = "", html = false, extra = "") =>
   `<${tag}${cls ? ` class="${cls}"` : ""}${extra ? " " + extra : ""} ${html ? "data-i18n-html" : "data-i18n"}="${key}">${t(key)}</${tag}>`;
 
+const m = (slug, list) => list.map(([f, w, h]) => ({ src: `${slug}/${f}`, w, h }));
 const PROJECTS = [
-  { slug: "discosmos", name: "Discosmos", cover: "discosmos-cover.svg", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Multiplayer"], c: 4 },
-  { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike-cover.svg", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Addressables", "Pooling"], c: 4 },
+  { slug: "discosmos", name: "Discosmos", cover: "discosmos/06.webp", coverPos: "50% 14%", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Netcode"], c: 4,
+    media: m("discosmos", [["06.webp", 1326, 2048], ["01.webp", 512, 394], ["02.webp", 512, 364], ["03.webp", 512, 353], ["04.webp", 527, 445], ["05.webp", 601, 513]]) },
+  { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike/01.webp", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Rhythm engine"], c: 5,
+    media: m("beat-strike", [["01.webp", 1913, 1011], ["04.webp", 1253, 711], ["02.webp", 279, 635], ["03.webp", 296, 239], ["05.webp", 294, 284], ["06.webp", 512, 503], ["07.webp", 362, 646], ["08.webp", 294, 640]]) },
+  { slug: "delight", name: "Delight", cover: "delight/07.webp", engine: "Unity 6", tech: ["Unity 6", "C#", "FSM AI", "Audio"], c: 5, status: "wip",
+    video: "https://www.youtube.com/watch?v=Ls7xzg5Ivjg",
+    media: m("delight", [["07.webp", 1124, 554], ["01.webp", 890, 490], ["02.webp", 512, 408], ["03.webp", 512, 309], ["04.webp", 638, 508], ["05.webp", 512, 224], ["06.webp", 638, 508]]) },
+  { slug: "sweet-courrier", name: "Sweet Courrier", cover: "sweet-courrier/02.webp", engine: "Unity", tech: ["Unity", "C#", "Physics", "Local co-op"], c: 3,
+    media: m("sweet-courrier", [["02.webp", 512, 304], ["03.webp", 512, 272], ["04.webp", 667, 211], ["05.webp", 612, 442], ["06.webp", 512, 272]]) },
   { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn-cover.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Mobile", "Game design"], c: 4, status: "wip",
-    gallery: [["hd-hq.jpg", "pg.gallery.hq"], ["hd-operations.jpg", "pg.gallery.ops"], ["hd-roster.jpg", "pg.gallery.roster"]] },
-  { slug: "delight", name: "Delight", cover: "delight-cover.svg", engine: "Unity 6", tech: ["Unity 6", "C#", "Render pipeline", "Migration"], c: 4, status: "wip" },
+    media: [{ src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-hq.jpg", w: 1000, h: 563 }, { src: "hd-operations.jpg", w: 1000, h: 563 }, { src: "hd-roster.jpg", w: 1000, h: 563 }] },
   { slug: "project-x", name: "Project X", cover: "project-x-cover.svg", engine: "Unity", tech: ["Unity", "C#"], c: 3, status: "nda", nda: true },
 ];
 
@@ -86,16 +93,17 @@ const footer = () => `<footer class="site-footer">
   </div>
 </footer>`;
 
-const scripts = (prefix, form) => `<script src="${prefix}js/i18n.js" defer></script>
+const scripts = (prefix, form, lightbox) => `<script src="${prefix}js/i18n-data.js" defer></script>
+<script src="${prefix}js/i18n.js" defer></script>
 <script src="${prefix}js/ui.js" defer></script>
-${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}</body>
+${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}${lightbox ? `<script src="${prefix}js/lightbox.js" defer></script>\n` : ""}</body>
 </html>
 `;
 
 const card = (p, prefix = "") => {
   const badge = p.status ? `<span class="badge badge--${p.status}" data-i18n="status.${p.status}">${t("status." + p.status)}</span>` : "";
   return `<article class="card reveal${p.nda ? " card--nda" : ""}">
-        <div class="card-media"><img src="${prefix}assets/projects/${p.cover}" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-media"><img src="${prefix}assets/projects/${p.cover}" alt="" loading="lazy" decoding="async" width="1200" height="750"${p.coverPos ? ` style="object-position:${p.coverPos}"` : ""}></div>
         <div class="card-body">
           <div class="card-meta">${tx("span", `p.${p.slug}.type`)}${badge}</div>
           <h3><a class="card-link" href="${prefix}projects/${p.slug}.html">${p.name}</a></h3>
@@ -166,7 +174,7 @@ ${header("", true)}
         </div>
         ${tx("p", "projects.lead", "lead reveal", false, 'style="--d:.1s"')}
       </div>
-      <div class="projects-grid featured">
+      <div class="projects-grid">
       ${PROJECTS.map((p) => card(p)).join("\n      ")}
       </div>
     </div>
@@ -183,7 +191,7 @@ ${header("", true)}
         ${tx("p", "about.p2")}
         ${tx("p", "about.p3")}
         <div class="facts">
-          <div class="fact"><b>5</b>${tx("span", "about.f1.l")}</div>
+          <div class="fact"><b>6</b>${tx("span", "about.f1.l")}</div>
           <div class="fact"><b>C#</b>${tx("span", "about.f2.l")}</div>
           <div class="fact"><b>2019–23</b>${tx("span", "about.f3.l")}</div>
           <div class="fact">${tx("b", "about.f4.n")}${tx("span", "about.f4.l")}</div>
@@ -232,6 +240,7 @@ ${header("", true)}
         ${tx("p", "contact.lead", "lead")}
         <div class="contact-list">
           <a href="mailto:${EMAIL}">${tx("small", "contact.email")}<span>${EMAIL}</span></a>
+          <a href="https://www.linkedin.com/in/djason-nathiez-391b2b365" target="_blank" rel="noopener">${tx("small", "contact.linkedin")}<span>linkedin.com/in/djason-nathiez</span></a>
           <a href="${SITE}/">${tx("small", "contact.web")}<span>n29-studio.fr</span></a>
           <div>${tx("small", "contact.where")}${tx("span", "contact.where.v")}</div>
         </div>
@@ -280,7 +289,10 @@ ${header("../", false)}
       ${tx("p", k("tagline"), "tagline")}
     </div>
   </section>
-  <div class="p-cover reveal"><img src="../assets/projects/${p.cover}" alt="${p.name}" width="1600" height="900"></div>
+  ${p.media ? `<section class="shots"><div class="wrap">
+    <div class="gallery" data-gallery>${p.media.map((x, i) => `<button type="button" class="shot reveal" style="--d:${(i % 3) * 0.07}s" aria-label="${t("pg.zoom")}" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/${x.src}" alt="${p.name} — ${i + 1}" width="${x.w}" height="${x.h}" loading="lazy" decoding="async"></button>`).join("")}</div>
+    ${p.video ? `<p style="margin-top:1.5rem"><a class="btn btn--ghost btn--sm" href="${p.video}" target="_blank" rel="noopener"><span aria-hidden="true">▶</span><span data-i18n="pg.watch">${t("pg.watch")}</span></a></p>` : ""}
+  </div></section>` : `<div class="p-cover reveal"><img src="../assets/projects/${p.cover}" alt="${p.name}" width="1600" height="900"></div>`}
   <section class="section" style="padding-top:3rem">
     <div class="wrap">
       <div class="p-meta">
@@ -301,10 +313,6 @@ ${header("../", false)}
             ${contrib}
         </ul>
       </div>
-      ${p.gallery ? `<div class="p-block reveal">
-        ${tx("h2", "pg.gallery", "", false, 'style="font-size:1.7rem;letter-spacing:-.02em"')}
-        <div class="gallery">${p.gallery.map(([f, c]) => `<figure><img src="../assets/projects/${f}" alt="" loading="lazy" width="1000" height="563"><figcaption data-i18n="${c}">${t(c)}</figcaption></figure>`).join("")}</div>
-      </div>` : ""}
     </div>
   </section>
   <section class="section section--cut">
@@ -325,9 +333,11 @@ ${header("../", false)}
   </section>
 </main>
 ${footer()}
-${scripts("../", false)}`;
+${scripts("../", false, !!p.media)}`;
 };
 
+const en = JSON.parse(readFileSync(join(ROOT, "i18n/en.json"), "utf8"));
+writeFileSync(join(ROOT, "js/i18n-data.js"), `/* Generated by tools/build.mjs from i18n/*.json — do not edit */\nwindow.N29_I18N = ${JSON.stringify({ fr, en })};\n`);
 mkdirSync(join(ROOT, "projects"), { recursive: true });
 writeFileSync(join(ROOT, "index.html"), index);
 PROJECTS.forEach((p) => writeFileSync(join(ROOT, "projects", `${p.slug}.html`), projectPage(p)));

@@ -50,7 +50,10 @@
       <p class="tagline" data-i18n="p.heroes-dawn.tagline">Un RPG mobile où chaque tour se lit sur une timeline.</p>
     </div>
   </section>
-  <div class="p-cover reveal"><img src="../assets/projects/heroes-dawn-cover.jpg" alt="Heroes Dawn" width="1600" height="900"></div>
+  <section class="shots"><div class="wrap">
+    <div class="gallery" data-gallery><button type="button" class="shot reveal" style="--d:0s" aria-label="Agrandir" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/heroes-dawn-cover.jpg" alt="Heroes Dawn — 1" width="1600" height="900" loading="lazy" decoding="async"></button><button type="button" class="shot reveal" style="--d:0.07s" aria-label="Agrandir" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/hd-hq.jpg" alt="Heroes Dawn — 2" width="1000" height="563" loading="lazy" decoding="async"></button><button type="button" class="shot reveal" style="--d:0.14s" aria-label="Agrandir" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/hd-operations.jpg" alt="Heroes Dawn — 3" width="1000" height="563" loading="lazy" decoding="async"></button><button type="button" class="shot reveal" style="--d:0s" aria-label="Agrandir" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/hd-roster.jpg" alt="Heroes Dawn — 4" width="1000" height="563" loading="lazy" decoding="async"></button></div>
+    
+  </div></section>
   <section class="section" style="padding-top:3rem">
     <div class="wrap">
       <div class="p-meta">
@@ -74,10 +77,6 @@
             <li data-i18n-html="p.heroes-dawn.c4"><strong>Univers cohérent</strong> : l'Apex Universe, partagé entre les projets de Studio N29.</li>
         </ul>
       </div>
-      <div class="p-block reveal">
-        <h2 style="font-size:1.7rem;letter-spacing:-.02em" data-i18n="pg.gallery">Aperçus</h2>
-        <div class="gallery"><figure><img src="../assets/projects/hd-hq.jpg" alt="" loading="lazy" width="1000" height="563"><figcaption data-i18n="pg.gallery.hq">Maquette UI — QG</figcaption></figure><figure><img src="../assets/projects/hd-operations.jpg" alt="" loading="lazy" width="1000" height="563"><figcaption data-i18n="pg.gallery.ops">Maquette UI — Opérations</figcaption></figure><figure><img src="../assets/projects/hd-roster.jpg" alt="" loading="lazy" width="1000" height="563"><figcaption data-i18n="pg.gallery.roster">Maquette UI — Effectif</figcaption></figure></div>
-      </div>
     </div>
   </section>
   <section class="section section--cut">
@@ -93,37 +92,47 @@
       <div class="reveal"><span class="eyebrow" data-i18n="pg.more">Autres projets</span></div>
       <div class="projects-grid" style="margin-top:2rem">
         <article class="card reveal">
-        <div class="card-media"><img src="../assets/projects/discosmos-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-media"><img src="../assets/projects/discosmos/06.webp" alt="" loading="lazy" decoding="async" width="1200" height="750" style="object-position:50% 14%"></div>
         <div class="card-body">
-          <div class="card-meta"><span data-i18n="p.discosmos.type">Multijoueur</span></div>
+          <div class="card-meta"><span data-i18n="p.discosmos.type">MOBA 3D · 2 mois</span></div>
           <h3><a class="card-link" href="../projects/discosmos.html">Discosmos</a></h3>
-          <p class="role" data-i18n="p.discosmos.role">Système réseau complet + système de sorts</p>
-          <p data-i18n="p.discosmos.desc">Implémentation de toute la couche réseau et du système de sorts des personnages d'un jeu multijoueur sous Unity.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li><li>Photon</li><li>Multiplayer</li></ul>
+          <p class="role" data-i18n="p.discosmos.role">Lead réseau & sorts</p>
+          <p data-i18n="p.discosmos.desc">Infrastructure réseau synchrone et architecture des sorts d'un MOBA 3D compétitif, réalisé en deux mois.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Photon</li><li>Netcode</li></ul>
         </div>
       </article>
         <article class="card reveal">
-        <div class="card-media"><img src="../assets/projects/beat-strike-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-media"><img src="../assets/projects/beat-strike/01.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
         <div class="card-body">
-          <div class="card-meta"><span data-i18n="p.beat-strike.type">Combat rythmique</span></div>
+          <div class="card-meta"><span data-i18n="p.beat-strike.type">Rythme mobile</span></div>
           <h3><a class="card-link" href="../projects/beat-strike.html">Beat Strike</a></h3>
-          <p class="role" data-i18n="p.beat-strike.role">Outil de rythme + boucle de gameplay principale</p>
-          <p data-i18n="p.beat-strike.desc">Création de l'outil de composition de patterns rythmiques et de la boucle de gameplay qui orchestre combats, défense et progression.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li><li>Editor tools</li><li>Addressables</li><li>Pooling</li></ul>
+          <p class="role" data-i18n="p.beat-strike.role">Moteur de rythme & outil d'éditeur</p>
+          <p data-i18n="p.beat-strike.desc">Moteur de rythme haute précision sur mobile, boucle de gameplay principale et outil Unity pour composer les patterns.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Editor tools</li><li>Rhythm engine</li></ul>
         </div>
       </article>
         <article class="card reveal">
-        <div class="card-media"><img src="../assets/projects/delight-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-media"><img src="../assets/projects/delight/07.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
         <div class="card-body">
-          <div class="card-meta"><span data-i18n="p.delight.type">Projet de groupe</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
+          <div class="card-meta"><span data-i18n="p.delight.type">Aventure 3D</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
           <h3><a class="card-link" href="../projects/delight.html">Delight</a></h3>
-          <p class="role" data-i18n="p.delight.role">Programmation & migration vers Unity 6</p>
-          <p data-i18n="p.delight.desc">Projet de groupe Rubika en cours de migration vers Unity 6 : mise à niveau du projet, des plugins et du rendu.</p>
-          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Render pipeline</li><li>Migration</li></ul>
+          <p class="role" data-i18n="p.delight.role">Gameplay Programmer</p>
+          <p data-i18n="p.delight.desc">Contrôleur de personnage 3D, IA ennemie par machines à états et architecture audio, sur un projet de groupe Rubika.</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>FSM AI</li><li>Audio</li></ul>
+        </div>
+      </article>
+        <article class="card reveal">
+        <div class="card-media"><img src="../assets/projects/sweet-courrier/02.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.sweet-courrier.type">Twin stick coop</span></div>
+          <h3><a class="card-link" href="../projects/sweet-courrier.html">Sweet Courrier</a></h3>
+          <p class="role" data-i18n="p.sweet-courrier.role">Gameplay Engineer</p>
+          <p data-i18n="p.sweet-courrier.desc">Shooter arcade coopératif : physique arcade, inputs multijoueur local et game feel.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Physics</li><li>Local co-op</li></ul>
         </div>
       </article>
         <article class="card reveal card--nda">
-        <div class="card-media"><img src="../assets/projects/project-x-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-media"><img src="../assets/projects/project-x-cover.svg" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
         <div class="card-body">
           <div class="card-meta"><span data-i18n="p.project-x.type">Confidentiel</span><span class="badge badge--nda" data-i18n="status.nda">NDA</span></div>
           <h3><a class="card-link" href="../projects/project-x.html">Project X</a></h3>
@@ -143,7 +152,9 @@
     <div class="foot-links"><a href="mailto:dm.nathiez@gmail.com">dm.nathiez@gmail.com</a></div>
   </div>
 </footer>
+<script src="../js/i18n-data.js" defer></script>
 <script src="../js/i18n.js" defer></script>
 <script src="../js/ui.js" defer></script>
+<script src="../js/lightbox.js" defer></script>
 </body>
 </html>
