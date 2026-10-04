@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://n29-studio.fr/sitemap.xml

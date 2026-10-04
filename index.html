@@ -1,548 +1,267 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="fr" data-root="">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio N29 | Développement Web, Maintenance IT & IA à Valenciennes</title>
-    
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Studio N29 est votre partenaire technologique dans le Valenciennois et la Porte du Hainaut. Expertises en développement web, ingénierie logicielle, maintenance IT, et conseil en Intelligence Artificielle pour les PME.">
-    <meta name="keywords" content="développement web, ingénierie tech, intelligence artificielle, maintenance informatique, création site internet, valenciennes, porte du hainaut, studio n29, agence web, IA">
-    <meta name="author" content="Studio N29">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://www.n29-studio.fr/">
-
-    <!-- Open Graph (Facebook, LinkedIn, AI crawlers) -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.n29-studio.fr/">
-    <meta property="og:title" content="Studio N29 | Développement, IT & IA">
-    <meta property="og:description" content="Développement web, logiciels sur-mesure, maintenance IT et conseil en Intelligence Artificielle dans le Valenciennois.">
-    <meta property="og:image" content="https://www.n29-studio.fr/favicon.svg">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Studio N29 | Développement, IT & IA">
-    <meta name="twitter:description" content="Partenaire technologique dans le Valenciennois. Développement, maintenance IT et conseil en Intelligence Artificielle.">
-
-    <!-- Schema.org JSON-LD (Optimisation IA / Rich Snippets) -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "ProfessionalService",
-          "@id": "https://www.n29-studio.fr/#organization",
-          "name": "Studio N29",
-          "description": "Studio d'ingénierie technologique spécialisé en développement web, logiciels sur-mesure, maintenance IT et conseil en Intelligence Artificielle.",
-          "url": "https://www.n29-studio.fr",
-          "logo": "https://www.n29-studio.fr/favicon.svg",
-          "email": "contact@n29-studio.fr",
-          "telephone": "+33983923685",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Valenciennes",
-            "addressRegion": "Hauts-de-France",
-            "addressCountry": "FR"
-          },
-          "areaServed": ["Valenciennois", "Porte du Hainaut", "Hauts-de-France"],
-          "priceRange": "€€",
-          "knowsAbout": ["Développement Web", "Intelligence Artificielle", "Maintenance Informatique", "Création de sites internet"],
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Services Studio N29",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Création Site Vitrine & Développement Web"
-                },
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "price": "490.00",
-                  "priceCurrency": "EUR"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Diagnostic Système et Maintenance IT"
-                },
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "price": "29.00",
-                  "priceCurrency": "EUR"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Formation IA & Conseil en Digitalisation"
-                },
-                "priceSpecification": {
-                  "@type": "PriceSpecification",
-                  "price": "190.00",
-                  "priceCurrency": "EUR"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "@type": "FAQPage",
-          "@id": "https://www.n29-studio.fr/#faq",
-          "mainEntity": [
-            {
-              "@type": "Question",
-              "name": "Quels types de solutions web développez-vous ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nous concevons des sites vitrines modernes, des applications web sur-mesure, ainsi que des prototypes de jeux vidéo."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Intervenez-vous physiquement pour la maintenance informatique ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Oui, nous proposons une assistance IT et une configuration réseau directement sur site pour les professionnels situés dans le Valenciennois et la Porte du Hainaut."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Comment se déroule un diagnostic IA pour mon entreprise ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Le diagnostic consiste en une analyse gratuite de vos processus actuels afin d'identifier les tâches répétitives que l'Intelligence Artificielle peut automatiser, vous faisant gagner du temps et de l'argent."
-              }
-            },
-            {
-              "@type": "Question",
-              "name": "Quels sont vos tarifs ?",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "Nos tarifs sont transparents : création de site web à partir de 490€ HT, maintenance PC à 49€ HT par poste, et formations IA dès 190€ HT la session."
-              }
-            }
-          ]
-        }
-      ]
-    }
-    </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Righteous&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Djason Nathiez — Développeur Unity Gameplay freelance | STUDIO N29</title>
+<meta name="description" content="Portfolio de Djason Nathiez, développeur Unity freelance spécialisé en programmation gameplay, systèmes et réseau multijoueur. Projets : Discosmos, Beat Strike, Heroes Dawn, Delight.">
+<meta name="theme-color" content="#07070a">
+<link rel="canonical" href="https://n29-studio.fr/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STUDIO N29">
+<meta property="og:title" content="Djason Nathiez — Développeur Unity Gameplay freelance | STUDIO N29">
+<meta property="og:description" content="Portfolio de Djason Nathiez, développeur Unity freelance spécialisé en programmation gameplay, systèmes et réseau multijoueur. Projets : Discosmos, Beat Strike, Heroes Dawn, Delight.">
+<meta property="og:url" content="https://n29-studio.fr/">
+<meta property="og:image" content="https://n29-studio.fr/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Djason Nathiez","jobTitle":"Unity Gameplay Programmer (freelance)","url":"https://n29-studio.fr/","email":"dm.nathiez@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Rubika — Supinfogame"},"worksFor":{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/"},"knowsAbout":["Unity","C#","Gameplay programming","Multiplayer networking","Photon","Editor tooling","Game development"],"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}}</script>
 </head>
-<body class="bg-home">
-
-
-    <!-- Preloader Elegant -->
-    <div id="preloader-elegant">
-        <div class="preloader-logo">STUDIO <span class="logo-accent">N29</span></div>
+<body id="top">
+<a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+<div class="page-slash" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="STUDIO N29"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg><span>STUDIO N29</span></a>
+    <nav class="nav" id="nav" aria-label="Navigation">
+      <a href="#projects" data-i18n="nav.projects">Projets</a>
+      <a href="#about" data-i18n="nav.about">À propos</a>
+      <a href="#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="#journey" data-i18n="nav.journey">Parcours</a>
+      <a href="#contact" data-i18n="nav.contact">Contact</a>
+      <a class="btn btn--solid btn--sm" href="#contact"><span data-i18n="nav.cta">Me contacter</span></a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-attr="aria-label:nav.menu"><span></span><span></span><span></span></button>
     </div>
-
-    <header id="header">
-        <div class="container navbar">
-            <a href="#" class="logo">Studio <span class="logo-accent">N29</span></a>
-            <nav id="nav-menu">
-                <ul>
-                    <li class="dropdown">
-                        <a href="index.html#expertises">EXPERTISES ▾</a>
-                        <ul class="dropdown-menu">
-                            <li><a href="developpement-web-logiciel.html">Développement Web (Labs)</a></li>
-                            <li><a href="maintenance-informatique-reseau.html">Maintenance IT (Forge)</a></li>
-                            <li><a href="conseil-formation-ia.html">Formation IA (Académie)</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="game-studio.html">GAME STUDIO</a></li>
-                    <li><a href="index.html#engagements">ENGAGEMENTS</a></li>
-                    <li><a href="index.html#tarifs">TARIFS</a></li>
-                    <li><a href="index.html#contact" class="btn-neon-outline">CONTACT</a></li>
-                </ul>
-            </nav>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  </div>
+</header>
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="hero-status intro" style="--d:.1s"><i></i><span data-i18n="hero.status">Disponible pour missions freelance</span></span>
+        <h1><span class="line"><span style="--d:.15s" data-i18n="hero.l1">Du gameplay</span></span><span class="line"><span style="--d:.3s" data-i18n-html="hero.l2">qui se <span class="accent">ressent.</span></span></span></h1>
+        <p class="hero-role intro" style="--d:.6s" data-i18n-html="hero.role"><strong>Djason Nathiez</strong> — Unity Gameplay Programmer</p>
+        <p class="hero-lead intro" style="--d:.7s" data-i18n="hero.lead">Développeur Unity freelance spécialisé en gameplay, systèmes et réseau. Je transforme une intention de design en mécaniques solides, lisibles et agréables à jouer.</p>
+        <div class="hero-cta intro" style="--d:.85s">
+          <a class="btn btn--solid" href="#projects"><span data-i18n="hero.cta1">Voir les projets</span><span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn btn--ghost" href="#contact"><span data-i18n="hero.cta2">Me contacter</span></a>
         </div>
-    </header>
+      </div>
+      <div class="hero-art" aria-hidden="true"><span class="slash"></span><svg class="logo-big" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg></div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span data-i18n="hero.scroll">Défiler</span></div>
+  </section>
 
-    <main>
-                <section id="hero" class="hero-section" style="padding-top: 100px; padding-bottom: 50px;">
-            <div class="hero-bg-accent"></div>
-            <div class="container relative z-10 hero-dynamic" style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; min-height: 80vh;">
-                <div class="hero-dynamic-content">
-                    <div class="badge-modern reveal-up">Partenaire Technologique & IA</div>
-                    <h1 class="reveal-up" style="font-size: 3.5rem; line-height: 1.2; margin-bottom: 1.5rem; text-shadow: 0 0 20px rgba(0,255,255,0.3);">L'innovation tech, web & IA <br><span class="text-accent" style="color: #00f0ff;">sur-mesure.</span></h1>
-                    <p class="subtitle reveal-up" style="font-size: 1.2rem; color: #a0aec0; margin-bottom: 2.5rem; max-width: 500px;">Accélérez la croissance de votre PME avec nos solutions en développement logiciel, maintenance IT et automatisation intelligente dans le Valenciennois.</p>
-                    <div class="hero-cta reveal-up" style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                        <a href="#contact" class="btn-modern-solid" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #fff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; box-shadow: 0 10px 20px rgba(0,240,255,0.3);">
-                            Démarrer un projet
-                        </a>
-                        <a href="#expertises" class="btn-modern-outline" style="border: 2px solid #00f0ff; color: #00f0ff; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-weight: bold;">
-                            Découvrir nos offres
-                        </a>
-                    </div>
-                </div>
-                <div class="hero-dynamic-visual reveal-up" style="transition-delay: 0.2s;">
-                    <img src="assets/index_hero.jpg" alt="Software Architecture" class="floating-hero-img hero-img-1" style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);">
-                    <img src="assets/web_ui_design.jpg" alt="UI Design" class="floating-hero-img hero-img-2" style="border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); border: 1px solid rgba(0, 255, 255, 0.3);">
-                </div>
-            </div>
-        </section>
+  <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Unity</span><span>C#</span><span>Gameplay</span><span>Photon</span><span>Editor tools</span><span>Game feel</span><span>Netcode</span><span>Systems</span><span>Unity 6</span><span>Freelance</span><span>Unity</span><span>C#</span><span>Gameplay</span><span>Photon</span><span>Editor tools</span><span>Game feel</span><span>Netcode</span><span>Systems</span><span>Unity 6</span><span>Freelance</span></div></div>
 
-        <!-- Expertises -->
-        <section id="expertises" class="section">
-            <div class="container">
-                <div class="section-header reveal-up">
-                    <h2 class="section-title neon-text-cyan">PÔLES D'EXPERTISE</h2>
-                    <p class="section-desc">Entrez dans la nouvelle dimension technologique.</p>
-                </div>
-                
-                <div class="grid cards-grid">
-                    <div class="arcade-card card-labs reveal-up">
-                        <div class="card-inner">
-                            <div class="card-icon neon-text-cyan">🕹️</div>
-                            <h3>LABS</h3>
-                            <p class="card-subtitle">Dev. Idées & Expériences</p>
-                            <ul class="card-list">
-                                <li>Applications Web & Mobile</li>
-                                <li>Sites Vitrines Modernes</li>
-                                <li>Prototypes & PoC</li>
-                                <li>Ingénierie Logicielle</li>
-                            </ul>
-                            <div style="margin-top: 2rem;">
-                                <a href="developpement-web-logiciel.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="arcade-card card-forge reveal-up" style="transition-delay: 0.1s;">
-                        <div class="card-inner">
-                            <div class="card-icon neon-text-orange">🔧</div>
-                            <h3>FORGE</h3>
-                            <p class="card-subtitle">Secu. & Opti. Parc IT</p>
-                            <ul class="card-list">
-                                <li>Dépannage & Maintenance</li>
-                                <li>Diagnostic Système</li>
-                                <li>Infrastructure Réseau</li>
-                                <li>Postes de Travail</li>
-                            </ul>
-                            <div style="margin-top: 2rem;">
-                                <a href="maintenance-informatique-reseau.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="arcade-card card-academy reveal-up" style="transition-delay: 0.2s;">
-                        <div class="card-inner">
-                            <div class="card-icon neon-text-green">🎓</div>
-                            <h3>ACADÉMIE</h3>
-                            <p class="card-subtitle">L'ère de l'IA pour l'entreprise</p>
-                            <ul class="card-list">
-                                <li>Diagnostic Opportunité IA</li>
-                                <li>Formation Pratique</li>
-                                <li>Conseil & Stratégie Digitale</li>
-                                <li>Automatisation</li>
-                            </ul>
-                            <div style="margin-top: 2rem;">
-                                <a href="conseil-formation-ia.html" class="btn-neon-ghost" style="font-size: 0.85rem; padding: 10px 20px;">En savoir plus</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Engagements -->
-        <section id="engagements" class="section">
-            <div class="container">
-                <div class="section-header reveal-up">
-                    <h2 class="section-title neon-text-orange">POURQUOI NOUS ?</h2>
-                </div>
-                <div class="grid features-grid">
-                    <div class="feature-item reveal-up">
-                        <div class="feature-icon">⏳</div>
-                        <h4>GAIN DE TEMPS</h4>
-                        <p>Automatisation des tâches répétitives (jusqu'à 8h libérées/semaine).</p>
-                    </div>
-                    <div class="feature-item reveal-up" style="transition-delay: 0.1s;">
-                        <div class="feature-icon">💰</div>
-                        <h4>GAIN D'ARGENT</h4>
-                        <p>Des tarifs ultra-accessibles et transparents pour les PME locales.</p>
-                    </div>
-                    <div class="feature-item reveal-up" style="transition-delay: 0.2s;">
-                        <div class="feature-icon">🛡️</div>
-                        <h4>TRANSFORMATION</h4>
-                        <p>Valorisation du travail humain et montée en compétences via l'IA.</p>
-                    </div>
-                    <div class="feature-item reveal-up" style="transition-delay: 0.3s;">
-                        <div class="feature-icon">📍</div>
-                        <h4>PROXIMITÉ</h4>
-                        <p>Partenaire local (Bruille-Saint-Amand/Valenciennes). Réactivité maximale.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tarifs -->
-        <section id="tarifs" class="section">
-            <div class="container">
-                <div class="section-header reveal-up">
-                    <h2 class="section-title chrome-text" data-text="TARIFICATION">TARIFICATION</h2>
-                    <p class="section-desc">Aucun frais caché, devis gratuits. Des interventions adaptées aux PME, indépendants et particuliers.</p>
-                </div>
-                
-                <div class="pricing-grid">
-                    <!-- LABS -->
-                    <div class="pricing-category reveal-up">
-                        <h3 class="neon-text-cyan"><span class="icon">🕹️</span> LABS (Dev & Création)</h3>
-                        <div class="pricing-table-wrapper">
-                            <table class="neon-table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Site Vitrine & Présentation Web</strong>
-                                            <div class="pricing-details">Jusqu'à 5 pages (Accueil, Services, À propos, Contact, Légal), SEO, nom de domaine & hébergement.</div>
-                                        </td>
-                                        <td class="price">Dès <span>490 €</span> <small>HT</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Prototypage & PoC Jeux Vidéo</strong>
-                                            <div class="pricing-details">Unity 3D / C#, mécaniques principales, UI/UX de base, build exécutable (PC / WebGL / Mobile).</div>
-                                        </td>
-                                        <td class="price">Dès <span>650 €</span> <small>HT</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Application Web & Mobile (MVP)</strong>
-                                            <div class="pricing-details">Architectures de bases de données, interface réactive, API, déploiement.</div>
-                                        </td>
-                                        <td class="price">Dès <span>950 €</span> <small>HT</small></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- FORGE -->
-                    <div class="pricing-category reveal-up">
-                        <h3 class="neon-text-orange"><span class="icon">🔧</span> FORGE (IT & Maintenance)</h3>
-                        <div class="pricing-table-wrapper">
-                            <table class="neon-table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Diagnostic Système & Pré-expertise</strong>
-                                            <div class="pricing-details">Analyse complète (panne, ralentissement, virus). <em>Offert si la prestation de réparation est effectuée.</em></div>
-                                        </td>
-                                        <td class="price"><span>29 €</span> <small>HT</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Maintenance & Optimisation PC</strong>
-                                            <div class="pricing-details">Dépoussiérage, désinfection, réinstallation OS (Windows/Linux), pilotes, sauvegardes.</div>
-                                        </td>
-                                        <td class="price"><span>49 €</span> <small>HT / poste</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Assistance & Config IT (Sur site/Distance)</strong>
-                                            <div class="pricing-details">Config réseau/Wi-Fi, périphériques, sauvegarde, sécurité. (Forfait demi-journée dispo).</div>
-                                        </td>
-                                        <td class="price"><span>39 €</span> <small>HT / heure</small></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <!-- ACADÉMIE -->
-                    <div class="pricing-category reveal-up">
-                        <h3 class="neon-text-green"><span class="icon">🎓</span> ACADÉMIE (IA & Stratégie)</h3>
-                        <div class="pricing-table-wrapper">
-                            <table class="neon-table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong>Diagnostic & Audit d'Opportunité IA</strong>
-                                            <div class="pricing-details">Analyse de vos flux sur site, identification des gains de temps/coûts, plan d'action priorisé.</div>
-                                        </td>
-                                        <td class="price free">GRATUIT</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Formation & Atelier Pratique IA</strong>
-                                            <div class="pricing-details">Demi-journée. Cas d'usage réels (ChatGPT, automatisation emails/docs), support et suivi.</div>
-                                        </td>
-                                        <td class="price">Dès <span>190 €</span> <small>HT / sess.</small></td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Conseil & Stratégie Digitalisation / IA</strong>
-                                            <div class="pricing-details">Accompagnement individuel/dirigeant (Choix logiciels, souveraineté données, orga interne).</div>
-                                        </td>
-                                        <td class="price"><span>45 €</span> <small>HT / heure</small></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- FAQ -->
-        <section id="faq" class="section bg-darker">
-            <div class="container">
-                <div class="section-header reveal-up">
-                    <h2 class="section-title">QUESTIONS FRÉQUENTES</h2>
-                    <p class="section-desc">Tout ce que vous devez savoir pour démarrer avec Studio N29.</p>
-                </div>
-                
-                <div class="faq-container reveal-up">
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Quels types de solutions web développez-vous ?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Nous concevons des sites vitrines modernes pour améliorer votre visibilité, des applications web sur-mesure pour vos processus métier, ainsi que des prototypes de jeux vidéo sous Unity.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Intervenez-vous physiquement pour la maintenance informatique ?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Absolument. Nous proposons une assistance IT et une configuration réseau directement sur site pour les professionnels situés dans le Valenciennois et la Porte du Hainaut (rayon d'action : 20km autour de Bruille-Saint-Amand).
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Comment se déroule un diagnostic IA pour mon entreprise ?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                Le diagnostic (qui est offert) consiste en une analyse de vos processus actuels afin d'identifier les tâches chronophages que l'Intelligence Artificielle peut automatiser (rédaction, tri de données, support client). L'objectif est de vous faire gagner du temps et de l'argent de façon mesurable.
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="faq-item">
-                        <button class="faq-question">
-                            <span>Quels sont vos tarifs ?</span>
-                            <span class="faq-icon">+</span>
-                        </button>
-                        <div class="faq-answer">
-                            <div class="faq-answer-inner">
-                                La transparence avant tout : la création d'un site web qualitatif démarre à 490€ HT, la maintenance de poste à 49€ HT, et nos formations de vulgarisation et de prise en main de l'IA dès 190€ HT la session.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact -->
-        <section id="contact" class="section">
-            <div class="container">
-                <div class="contact-wrapper reveal-up">
-                    <div class="contact-info">
-                        <h2 class="section-title neon-text-cyan" style="text-align: left; margin-bottom: 1rem;">LANCER LE PROJET</h2>
-                        <p>Prêt à passer au niveau supérieur ?</p>
-                        <div class="contact-methods">
-                            <a href="mailto:contact@n29-studio.fr" class="contact-method">
-                                <div class="cm-icon">✉️</div>
-                                <div>
-                                    <div class="cm-label">E-MAIL</div>
-                                    <div class="cm-value">contact@n29-studio.fr</div>
-                                </div>
-                            </a>
-                            <a href="tel:0983923685" class="contact-method">
-                                <div class="cm-icon">📞</div>
-                                <div>
-                                    <div class="cm-label">TÉLÉPHONE</div>
-                                    <div class="cm-value">09 83 92 36 85</div>
-                                </div>
-                            </a>
-                            <div class="contact-method">
-                                <div class="cm-icon">📍</div>
-                                <div>
-                                    <div class="cm-label">LOCALISATION</div>
-                                    <div class="cm-value">Porte du Hainaut</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                                        <div class="contact-form-container reveal-up" style="transition-delay: 0.2s;">
-                        <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" class="glass-form-container">
-                            <input type="hidden" name="access_key" value="aaf5797a-a98a-408f-8f49-8d14c94f61a2">
-                            <h3 style="margin-bottom: 2rem; color: #fff; text-align: center; font-size: 1.5rem;">Écrivez-nous</h3>
-                            <div class="form-body">
-                                <div class="form-group">
-                                    <input type="text" name="name" id="name" required>
-                                    <label for="name">Votre nom complet</label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" name="email" id="email" required>
-                                    <label for="email">Adresse E-mail</label>
-                                </div>
-                                <div class="form-group" style="margin-bottom: 2rem;">
-                                    <select name="pole" id="pole" style="width: 100%; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 1.2rem; color: var(--text-color); font-size: 1rem; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none;">
-                                        <option value="" disabled selected>Sélectionnez votre besoin</option>
-                                        <option value="labs" style="color: #000;">LABS (Création Site / Logiciel / App)</option>
-                                        <option value="forge" style="color: #000;">FORGE (Dépannage / Parc IT / Cybersécurité)</option>
-                                        <option value="academie" style="color: #000;">ACADÉMIE (Formation IA / Conseil Digitalisation)</option>
-                                        <option value="autre" style="color: #000;">Autre demande</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <textarea name="message" id="message" required></textarea>
-                                    <label for="message">Comment pouvons-nous vous aider ?</label>
-                                </div>
-                                <button type="submit" class="btn-modern-solid w-100" style="background: linear-gradient(135deg, #00f0ff, #0080ff); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; border: none; cursor: pointer; box-shadow: 0 10px 20px rgba(0,240,255,0.3); font-size: 1.1rem; transition: transform 0.3s ease;">
-                                    Envoyer le message
-                                </button>
-                                <div id="form-status" class="form-status" style="margin-top: 1rem; text-align: center;"></div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="container footer-content">
-            <div class="footer-brand">
-                <a href="#" class="logo">Studio <span class="logo-accent">N29</span></a>
-                <p>Est. 2026 // PRESS START</p>
-            </div>
-            <div class="footer-links">
-                <p>COPYRIGHT © STUDIO N29. TOUS DROITS RÉSERVÉS.</p>
-            </div>
+  <section class="section" id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="reveal">
+          <span class="eyebrow" data-i18n="projects.eyebrow">Projets</span>
+          <h2 class="section-title" data-i18n="projects.title">Ce que j'ai construit.</h2>
         </div>
-    </footer>
+        <p class="lead reveal" style="--d:.1s" data-i18n="projects.lead">Réseau, sorts, rythme, systèmes de combat. Pour chaque projet : ce que j'ai réellement réalisé.</p>
+      </div>
+      <div class="projects-grid featured">
+      <article class="card reveal">
+        <div class="card-media"><img src="assets/projects/discosmos-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.discosmos.type">Multijoueur</span></div>
+          <h3><a class="card-link" href="projects/discosmos.html">Discosmos</a></h3>
+          <p class="role" data-i18n="p.discosmos.role">Système réseau complet + système de sorts</p>
+          <p data-i18n="p.discosmos.desc">Implémentation de toute la couche réseau et du système de sorts des personnages d'un jeu multijoueur sous Unity.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Photon</li><li>Multiplayer</li></ul>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-media"><img src="assets/projects/beat-strike-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.beat-strike.type">Combat rythmique</span></div>
+          <h3><a class="card-link" href="projects/beat-strike.html">Beat Strike</a></h3>
+          <p class="role" data-i18n="p.beat-strike.role">Outil de rythme + boucle de gameplay principale</p>
+          <p data-i18n="p.beat-strike.desc">Création de l'outil de composition de patterns rythmiques et de la boucle de gameplay qui orchestre combats, défense et progression.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Editor tools</li><li>Addressables</li><li>Pooling</li></ul>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-media"><img src="assets/projects/heroes-dawn-cover.jpg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.heroes-dawn.type">RPG tour par tour</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
+          <h3><a class="card-link" href="projects/heroes-dawn.html">Heroes Dawn</a></h3>
+          <p class="role" data-i18n="p.heroes-dawn.role">Conception & développement</p>
+          <p data-i18n="p.heroes-dawn.desc">RPG 3D fantasy mobile : combat au tour par tour avec timeline active, gestion de QG et mécaniques de life sim / MMORPG.</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Mobile</li><li>Game design</li></ul>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="card-media"><img src="assets/projects/delight-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.delight.type">Projet de groupe</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
+          <h3><a class="card-link" href="projects/delight.html">Delight</a></h3>
+          <p class="role" data-i18n="p.delight.role">Programmation & migration vers Unity 6</p>
+          <p data-i18n="p.delight.desc">Projet de groupe Rubika en cours de migration vers Unity 6 : mise à niveau du projet, des plugins et du rendu.</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Render pipeline</li><li>Migration</li></ul>
+        </div>
+      </article>
+      <article class="card reveal card--nda">
+        <div class="card-media"><img src="assets/projects/project-x-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.project-x.type">Confidentiel</span><span class="badge badge--nda" data-i18n="status.nda">NDA</span></div>
+          <h3><a class="card-link" href="projects/project-x.html">Project X</a></h3>
+          <p class="role" data-i18n="p.project-x.role">Développement Unity</p>
+          <p data-i18n="p.project-x.desc">Un projet en cours de développement, sous accord de confidentialité. Les détails seront publiés après la levée du NDA.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li></ul>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
 
-    <script src="script.js"></script>
+  <section class="section section--cut" id="about">
+    <div class="wrap about-grid">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="about.eyebrow">À propos</span>
+        <h2 class="section-title" data-i18n="about.title">Développeur gameplay, formé à Rubika.</h2>
+      </div>
+      <div class="about-text reveal" style="--d:.1s">
+        <p data-i18n-html="about.p1">Je suis <strong>développeur Unity</strong>, spécialisé en <strong>programmation gameplay</strong>, systèmes et réseau. J'ai étudié à Rubika (Supinfogame) en Bachelor Programmation, et je travaille aujourd'hui en freelance sous la bannière de <strong>STUDIO N29</strong>.</p>
+        <p data-i18n="about.p2">J'aime les mécaniques qui se sentent bien entre les mains : un combat lisible, un sort qui répond au bon moment, un réseau qui ne se remarque pas. Mes expériences m'ont aussi donné des compétences full-stack web, en LLM / IA et en prompt engineering.</p>
+        <p data-i18n="about.p3">Je m'intègre vite à une équipe, je communique clairement et j'aime livrer du code que d'autres peuvent reprendre.</p>
+        <div class="facts">
+          <div class="fact"><b>5</b><span data-i18n="about.f1.l">projets présentés</span></div>
+          <div class="fact"><b>C#</b><span data-i18n="about.f2.l">langage principal</span></div>
+          <div class="fact"><b>2019–23</b><span data-i18n="about.f3.l">Rubika · Bachelor Programmation</span></div>
+          <div class="fact"><b data-i18n="about.f4.n">Freelance</b><span data-i18n="about.f4.l">ouvert aux missions</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="skills">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="skills.eyebrow">Compétences</span>
+        <h2 class="section-title" data-i18n="skills.title">Ce que je peux prendre en charge.</h2>
+      </div>
+      <div class="skills-grid">
+        <article class="skill reveal" style="--d:0s">
+          <span class="idx">01</span>
+          <h3 data-i18n="skills.1.t">Gameplay programming</h3>
+          <p data-i18n="skills.1.d">Mécaniques de jeu, combat, sorts et capacités, boucle de jeu, prise en main et game feel.</p>
+          <ul class="chips"><li>C#</li><li>Unity</li><li>State machines</li><li>ScriptableObjects</li><li>Game feel</li></ul>
+        </article>
+        <article class="skill reveal" style="--d:0.08s">
+          <span class="idx">02</span>
+          <h3 data-i18n="skills.2.t">Réseau & multijoueur</h3>
+          <p data-i18n="skills.2.d">Architecture réseau, synchronisation d'état, actions répliquées et cohérence entre joueurs.</p>
+          <ul class="chips"><li>Photon</li><li>RPC</li><li>State sync</li><li>Rooms</li></ul>
+        </article>
+        <article class="skill reveal" style="--d:0.16s">
+          <span class="idx">03</span>
+          <h3 data-i18n="skills.3.t">Outils d'éditeur</h3>
+          <p data-i18n="skills.3.d">Outils Unity pour les designers : éditeurs de patterns, inspecteurs personnalisés, workflows data-driven.</p>
+          <ul class="chips"><li>Editor scripting</li><li>Custom inspectors</li><li>Data-driven</li></ul>
+        </article>
+        <article class="skill reveal" style="--d:0s">
+          <span class="idx">04</span>
+          <h3 data-i18n="skills.4.t">Architecture & systèmes</h3>
+          <p data-i18n="skills.4.d">Managers, pooling, sérialisation et chargement de données : un code propre qui tient à l'échelle.</p>
+          <ul class="chips"><li>Object pooling</li><li>Addressables</li><li>Serialization</li><li>Design patterns</li></ul>
+        </article>
+        <article class="skill reveal" style="--d:0.08s">
+          <span class="idx">05</span>
+          <h3 data-i18n="skills.5.t">Full-stack & IA</h3>
+          <p data-i18n="skills.5.d">API back-end, bases de données graphes, intégration de LLM et prompt engineering.</p>
+          <ul class="chips"><li>TypeScript</li><li>Python</li><li>Neo4j</li><li>SQL / NoSQL</li><li>Dart</li></ul>
+        </article>
+        <article class="skill reveal" style="--d:0.16s">
+          <span class="idx">06</span>
+          <h3 data-i18n="skills.6.t">Outils & pipeline</h3>
+          <p data-i18n="skills.6.d">Git, cloud, 3D (Blender, Unreal) et collaboration avec les équipes art et design.</p>
+          <ul class="chips"><li>Git</li><li>Google Cloud</li><li>Blender</li><li>Unreal Engine</li><li>C++</li></ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--cut" id="journey">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="journey.eyebrow">Parcours</span>
+        <h2 class="section-title" data-i18n="journey.title">D'où je viens.</h2>
+      </div>
+      <div class="timeline">
+        <div class="t-item reveal">
+          <div class="t-date" data-i18n="journey.1.date">Juin 2026 → Janv. 2027</div>
+          <div><h3><span data-i18n="journey.1.t">Fullstack Developer</span><small data-i18n="journey.1.o">IdentityOS</small></h3><p data-i18n="journey.1.d">Création d'une API back-end basée sur l'IA et les bases de données graphes, et d'un jeu narratif sous Unity qui utilise cette API.</p></div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-date" data-i18n="journey.2.date">Août 2024 → Nov. 2025</div>
+          <div><h3><span data-i18n="journey.2.t">Web Developer</span><small data-i18n="journey.2.o">Central Cars</small></h3><p data-i18n="journey.2.d">Site vitrine de véhicules d'occasion avec interface administrateur, et mise en place des outils numériques (cloud, facturation, stock).</p></div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-date" data-i18n="journey.3.date">Mars → Mai 2024</div>
+          <div><h3><span data-i18n="journey.3.t">Technicien IT</span><small data-i18n="journey.3.o">Simoldes Plasticos</small></h3><p data-i18n="journey.3.d">Gestion du matériel hardware et software, et création d'une application de suivi des consommables par scan de QR code.</p></div>
+        </div>
+        <div class="t-item reveal">
+          <div class="t-date" data-i18n="journey.4.date">2019 → 2023</div>
+          <div><h3><span data-i18n="journey.4.t">Bachelor Programmation</span><small data-i18n="journey.4.o">Rubika — Supinfogame</small></h3><p data-i18n="journey.4.d">Formation à la programmation de jeux vidéo : gameplay, systèmes et réseau.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap contact-grid">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
+        <h2 class="section-title" data-i18n="contact.title">Un projet ? Parlons gameplay.</h2>
+        <p class="lead" data-i18n="contact.lead">Prototype, renfort d'équipe, système réseau, outil d'éditeur : décrivez-moi votre besoin et je reviens vers vous rapidement.</p>
+        <div class="contact-list">
+          <a href="mailto:dm.nathiez@gmail.com"><small data-i18n="contact.email">E-mail</small><span>dm.nathiez@gmail.com</span></a>
+          <a href="https://n29-studio.fr/"><small data-i18n="contact.web">Site</small><span>n29-studio.fr</span></a>
+          <div><small data-i18n="contact.where">Localisation</small><span data-i18n="contact.where.v">Hauts-de-France · remote possible</span></div>
+        </div>
+      </div>
+      <form class="form reveal" id="contact-form" style="--d:.1s">
+        <input type="hidden" name="access_key" value="aaf5797a-a98a-408f-8f49-8d14c94f61a2">
+        <input type="hidden" name="subject" value="Nouveau message — portfolio STUDIO N29">
+        <input type="hidden" name="from_name" value="Portfolio STUDIO N29">
+        <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field"><label for="f-name" data-i18n="form.name">Nom</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
+        <div class="field"><label for="f-email" data-i18n="form.email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        <div class="field"><label for="f-topic" data-i18n="form.topic">Votre besoin</label>
+          <select id="f-topic" name="topic" required>
+            <option value="" disabled selected data-i18n="form.topic.0">Choisir…</option>
+            <option value="freelance" data-i18n="form.topic.1">Mission freelance</option>
+            <option value="collab" data-i18n="form.topic.2">Collaboration / projet</option>
+            <option value="other" data-i18n="form.topic.3">Autre</option>
+          </select></div>
+        <div class="field"><label for="f-message" data-i18n="form.message">Message</label><textarea id="f-message" name="message" required></textarea></div>
+        <button class="btn btn--solid" type="submit" data-i18n="form.send">Envoyer le message</button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> STUDIO N29 — Djason Nathiez</span>
+    <span data-i18n="foot.nda">Project X est soumis à un accord de confidentialité.</span>
+    <div class="foot-links"><a href="mailto:dm.nathiez@gmail.com">dm.nathiez@gmail.com</a></div>
+  </div>
+</footer>
+<script src="js/i18n.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/form.js" defer></script>
 </body>
 </html>
-
-

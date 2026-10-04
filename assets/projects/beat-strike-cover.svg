@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 750" preserveAspectRatio="xMidYMid slice">
+  <defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#07070a"/><stop offset="1" stop-color="#1c1040"/></linearGradient></defs>
+  <rect width="1200" height="750" fill="url(#g)"/>
+  <g stroke="#f2f0ea" stroke-opacity=".14"><line x1="300" y1="0" x2="300" y2="750"/><line x1="500" y1="0" x2="500" y2="750"/><line x1="700" y1="0" x2="700" y2="750"/><line x1="900" y1="0" x2="900" y2="750"/></g>
+  <g stroke="#f2f0ea" stroke-opacity=".08"><line x1="0" y1="150" x2="1200" y2="150"/><line x1="0" y1="300" x2="1200" y2="300"/><line x1="0" y1="450" x2="1200" y2="450"/></g>
+  <g fill="#f2f0ea"><polygon points="270,100 330,100 318,150 258,150"/><polygon points="670,210 730,210 718,260 658,260"/><polygon points="470,330 530,330 518,380 458,380"/><polygon points="870,60 930,60 918,110 858,110"/></g>
+  <g fill="#8a5cff"><polygon points="470,20 530,20 518,70 458,70"/><polygon points="270,250 330,250 318,300 258,300"/><polygon points="870,400 930,400 918,450 858,450"/></g>
+  <polygon points="0,560 1200,520 1200,560 0,600" fill="#8a5cff"/>
+  <polygon points="0,560 1200,520 1200,526 0,566" fill="#f2f0ea" opacity=".9"/>
+  <g fill="none" stroke="#8a5cff" stroke-width="2"><polygon points="450,520 550,520 538,570 438,570"/><polygon points="650,520 750,520 738,570 638,570" stroke-opacity=".5"/></g>
+  <g fill="#f2f0ea" opacity=".9"><rect x="80" y="660" width="8" height="40"/><rect x="104" y="640" width="8" height="60"/><rect x="128" y="620" width="8" height="80"/><rect x="152" y="650" width="8" height="50"/><rect x="176" y="630" width="8" height="70"/></g>
+</svg>

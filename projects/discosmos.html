@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr" data-root="../" data-project="discosmos" data-project-name="Discosmos">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Discosmos — Projet | Djason Nathiez, développeur Unity freelance</title>
+<meta name="description" content="Un jeu multijoueur où le réseau et les sorts forment le cœur du gameplay.">
+<meta name="theme-color" content="#07070a">
+<link rel="canonical" href="https://n29-studio.fr/projects/discosmos.html">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="STUDIO N29">
+<meta property="og:title" content="Discosmos — Projet | Djason Nathiez, développeur Unity freelance">
+<meta property="og:description" content="Un jeu multijoueur où le réseau et les sorts forment le cœur du gameplay.">
+<meta property="og:url" content="https://n29-studio.fr/projects/discosmos.html">
+<meta property="og:image" content="https://n29-studio.fr/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../css/base.css">
+<link rel="stylesheet" href="../css/components.css">
+<link rel="stylesheet" href="../css/animations.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="skip">Aller au contenu</a>
+<div class="page-slash" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"></div>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="STUDIO N29"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg><span>STUDIO N29</span></a>
+    <nav class="nav" id="nav" aria-label="Navigation">
+      <a href="../index.html#projects" data-i18n="nav.projects">Projets</a>
+      <a href="../index.html#about" data-i18n="nav.about">À propos</a>
+      <a href="../index.html#skills" data-i18n="nav.skills">Compétences</a>
+      <a href="../index.html#journey" data-i18n="nav.journey">Parcours</a>
+      <a href="../index.html#contact" data-i18n="nav.contact">Contact</a>
+      <a class="btn btn--solid btn--sm" href="../index.html#contact"><span data-i18n="nav.cta">Me contacter</span></a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="fr" aria-pressed="true">FR</button><button type="button" data-lang="en" aria-pressed="false">EN</button></div>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-attr="aria-label:nav.menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+<main id="main">
+  <section class="p-hero">
+    <div class="wrap">
+      <a class="back" href="../index.html#projects"><span aria-hidden="true">←</span><span data-i18n="pg.back">Tous les projets</span></a>
+      <div style="margin-top:1.8rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap"><span class="eyebrow" data-i18n="p.discosmos.type">Multijoueur</span></div>
+      <h1>Discosmos</h1>
+      <p class="tagline" data-i18n="p.discosmos.tagline">Un jeu multijoueur où le réseau et les sorts forment le cœur du gameplay.</p>
+    </div>
+  </section>
+  <div class="p-cover reveal"><img src="../assets/projects/discosmos-cover.svg" alt="Discosmos" width="1600" height="900"></div>
+  <section class="section" style="padding-top:3rem">
+    <div class="wrap">
+      <div class="p-meta">
+        <div><small data-i18n="pg.role">Rôle</small><span data-i18n="p.discosmos.meta.role">Réseau & sorts</span></div>
+        <div><small data-i18n="pg.engine">Moteur</small><span>Unity (URP)</span></div>
+        <div><small data-i18n="pg.team">Contexte</small><span data-i18n="p.discosmos.meta.team">Projet d'équipe</span></div>
+        <div><small data-i18n="pg.tech">Technos</small><span>Unity · C# · Photon</span></div>
+      </div>
+      <div style="height:clamp(3rem,7vw,6rem)"></div>
+      
+      <div class="p-block p-body reveal">
+        <h2 data-i18n="pg.context">Le projet</h2>
+        <p data-i18n="p.discosmos.ctx">Discosmos est un jeu multijoueur développé sous Unity avec Photon. J'ai pris en charge l'ensemble du système réseau ainsi que le système de sorts des personnages : deux briques qui doivent rester parfaitement cohérentes pour que la partie soit juste et lisible pour tous les joueurs.</p>
+      </div>
+      <div class="p-block p-body reveal">
+        <h2 data-i18n="pg.contrib">Ma contribution</h2>
+        <ul class="checks">
+            <li data-i18n-html="p.discosmos.c1"><strong>Architecture réseau</strong> : connexion, salles, gestion des joueurs et synchronisation de l'état de jeu avec Photon.</li>
+            <li data-i18n-html="p.discosmos.c2"><strong>Système de sorts</strong> : définition des sorts, lancement et application des effets sur les personnages.</li>
+            <li data-i18n-html="p.discosmos.c3"><strong>Cohérence multijoueur</strong> : les sorts sont déclenchés et répliqués via le réseau pour que chaque joueur voie la même partie.</li>
+            <li data-i18n-html="p.discosmos.c4"><strong>Code extensible</strong> : structuré pour que l'équipe puisse ajouter des sorts sans retoucher à la couche réseau.</li>
+        </ul>
+      </div>
+      
+    </div>
+  </section>
+  <section class="section section--cut">
+    <div class="wrap">
+      <div class="next reveal">
+        <h2 data-i18n="pg.next.title">Un projet similaire ? Parlons-en.</h2>
+        <a class="btn btn--solid" href="../index.html#contact"><span data-i18n="pg.next.cta">Me contacter</span><span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="reveal"><span class="eyebrow" data-i18n="pg.more">Autres projets</span></div>
+      <div class="projects-grid" style="margin-top:2rem">
+        <article class="card reveal">
+        <div class="card-media"><img src="../assets/projects/beat-strike-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.beat-strike.type">Combat rythmique</span></div>
+          <h3><a class="card-link" href="../projects/beat-strike.html">Beat Strike</a></h3>
+          <p class="role" data-i18n="p.beat-strike.role">Outil de rythme + boucle de gameplay principale</p>
+          <p data-i18n="p.beat-strike.desc">Création de l'outil de composition de patterns rythmiques et de la boucle de gameplay qui orchestre combats, défense et progression.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li><li>Editor tools</li><li>Addressables</li><li>Pooling</li></ul>
+        </div>
+      </article>
+        <article class="card reveal">
+        <div class="card-media"><img src="../assets/projects/heroes-dawn-cover.jpg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.heroes-dawn.type">RPG tour par tour</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
+          <h3><a class="card-link" href="../projects/heroes-dawn.html">Heroes Dawn</a></h3>
+          <p class="role" data-i18n="p.heroes-dawn.role">Conception & développement</p>
+          <p data-i18n="p.heroes-dawn.desc">RPG 3D fantasy mobile : combat au tour par tour avec timeline active, gestion de QG et mécaniques de life sim / MMORPG.</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Mobile</li><li>Game design</li></ul>
+        </div>
+      </article>
+        <article class="card reveal">
+        <div class="card-media"><img src="../assets/projects/delight-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.delight.type">Projet de groupe</span><span class="badge badge--wip" data-i18n="status.wip">En cours</span></div>
+          <h3><a class="card-link" href="../projects/delight.html">Delight</a></h3>
+          <p class="role" data-i18n="p.delight.role">Programmation & migration vers Unity 6</p>
+          <p data-i18n="p.delight.desc">Projet de groupe Rubika en cours de migration vers Unity 6 : mise à niveau du projet, des plugins et du rendu.</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Render pipeline</li><li>Migration</li></ul>
+        </div>
+      </article>
+        <article class="card reveal card--nda">
+        <div class="card-media"><img src="../assets/projects/project-x-cover.svg" alt="" loading="lazy" width="1200" height="750"></div>
+        <div class="card-body">
+          <div class="card-meta"><span data-i18n="p.project-x.type">Confidentiel</span><span class="badge badge--nda" data-i18n="status.nda">NDA</span></div>
+          <h3><a class="card-link" href="../projects/project-x.html">Project X</a></h3>
+          <p class="role" data-i18n="p.project-x.role">Développement Unity</p>
+          <p data-i18n="p.project-x.desc">Un projet en cours de développement, sous accord de confidentialité. Les détails seront publiés après la levée du NDA.</p>
+          <ul class="tags"><li>Unity</li><li>C#</li></ul>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <span>© <span id="year">2026</span> STUDIO N29 — Djason Nathiez</span>
+    <span data-i18n="foot.nda">Project X est soumis à un accord de confidentialité.</span>
+    <div class="foot-links"><a href="mailto:dm.nathiez@gmail.com">dm.nathiez@gmail.com</a></div>
+  </div>
+</footer>
+<script src="../js/i18n.js" defer></script>
+<script src="../js/ui.js" defer></script>
+</body>
+</html>
