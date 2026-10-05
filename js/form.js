@@ -23,7 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
       form.reset();
     } catch (err) {
       console.error("Contact form:", err);
-      status.textContent = t("form.err");
+      status.textContent = t("form.err") + " ";
+      const a = document.createElement("a");
+      a.href = "mailto:dm.nathiez@gmail.com";
+      a.textContent = "dm.nathiez@gmail.com";
+      a.style.textDecoration = "underline";
+      status.appendChild(a);
       status.classList.add("err");
     } finally {
       btn.disabled = false;

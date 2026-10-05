@@ -63,7 +63,7 @@
   "p.delight.tagline": "Une aventure 3D construite autour d'un contrôleur fluide et d'ennemis réactifs.",
   "p.delight.meta.role": "Gameplay programming",
   "p.delight.meta.team": "Projet de groupe (Rubika)",
-  "p.delight.ctx": "Delight est une aventure 3D réalisée en groupe à Rubika. J'y ai architecturé les systèmes de jeu centraux : contrôleur de personnage, IA ennemie et audio. Nous travaillons aujourd'hui à la migration du projet vers Unity 6.",
+  "p.delight.ctx": "Delight est une aventure 3D réalisée en groupe à Rubika, aujourd'hui terminée. J'y ai architecturé les systèmes de jeu centraux : contrôleur de personnage, IA ennemie et audio. Une migration vers Unity 6 est en cours pour que le projet reste ouvrable et exploitable.",
   "p.delight.c1": "<strong>Contrôleur de personnage 3D</strong> sur mesure, fluide et réactif.",
   "p.delight.c2": "<strong>IA ennemie</strong> par machines à états (FSM), réactive au joueur.",
   "p.delight.c3": "<strong>Architecture audio</strong> et intégration des sons dans le gameplay.",
@@ -149,7 +149,7 @@
   "form.send": "Envoyer le message",
   "form.sending": "Envoi…",
   "form.ok": "Message envoyé. Je vous réponds très vite.",
-  "form.err": "Échec de l'envoi. Écrivez-moi directement par e-mail.",
+  "form.err": "Échec de l'envoi. Écrivez-moi directement :",
   "foot.nda": "Project X est soumis à un accord de confidentialité.",
   "p.beat-strike.c5": "<strong>Performance</strong> : pool d'objets pour les interactions, afin d'éviter les allocations en pleine partie.",
   "p.delight.c5": "<strong>Migration vers Unity 6</strong> (en cours) : montée de version, plugins incompatibles et pipeline de rendu.",
@@ -168,5 +168,6 @@
   "lb.close": "Fermer",
   "lb.prev": "Précédent",
   "lb.next": "Suivant",
-  "contact.linkedin": "LinkedIn"
+  "contact.linkedin": "LinkedIn",
+  "projects.featured": "Projet phare"
 }

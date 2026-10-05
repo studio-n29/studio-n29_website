@@ -1,6 +1,6 @@
 # STUDIO N29 — Portfolio
 
-Portfolio de Djason Nathiez (Unity Gameplay Programmer, freelance). Site statique FR/EN publié via GitHub Pages sur `n29-studio.fr`.
+Portfolio de Djason Nathiez (Unity Gameplay Programmer, freelance). Site statique EN (défaut) / FR publié via GitHub Pages sur `n29-studio.fr`.
 
 ## Modifier le contenu
 

@@ -63,7 +63,7 @@
   "p.delight.tagline": "A 3D adventure built around a fluid controller and reactive enemies.",
   "p.delight.meta.role": "Gameplay programming",
   "p.delight.meta.team": "Group project (Rubika)",
-  "p.delight.ctx": "Delight is a 3D adventure made in a group at Rubika. I architected the core game systems: character controller, enemy AI and audio. We are now working on migrating the project to Unity 6.",
+  "p.delight.ctx": "Delight is a 3D adventure made in a group at Rubika, now completed. I architected the core game systems: character controller, enemy AI and audio. A migration to Unity 6 is under way so the project stays openable and usable.",
   "p.delight.c1": "<strong>Custom 3D character controller</strong>, fluid and responsive.",
   "p.delight.c2": "<strong>Enemy AI</strong> driven by finite state machines (FSM), reactive to the player.",
   "p.delight.c3": "<strong>Audio architecture</strong> and integration of sound into gameplay.",
@@ -149,7 +149,7 @@
   "form.send": "Send message",
   "form.sending": "Sending…",
   "form.ok": "Message sent. I'll reply very soon.",
-  "form.err": "Sending failed. Please email me directly.",
+  "form.err": "Sending failed. Please email me directly:",
   "foot.nda": "Project X is under a non-disclosure agreement.",
   "p.beat-strike.c5": "<strong>Performance</strong>: object pooling for interactions to avoid allocations during play.",
   "p.delight.c5": "<strong>Unity 6 migration</strong> (ongoing): version upgrade, incompatible plugins and render pipeline.",
@@ -168,5 +168,6 @@
   "lb.close": "Close",
   "lb.prev": "Previous",
   "lb.next": "Next",
-  "contact.linkedin": "LinkedIn"
+  "contact.linkedin": "LinkedIn",
+  "projects.featured": "Featured project"
 }

@@ -8,7 +8,7 @@
 
   const detect = () => {
     try { const s = localStorage.getItem(KEY); if (s === "fr" || s === "en") return s; } catch (e) { /* storage unavailable */ }
-    return (navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en";
+    return "en"; // default language
   };
 
   const apply = (dict, lang) => {
@@ -52,6 +52,6 @@
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".lang button").forEach((b) => b.addEventListener("click", () => set(b.dataset.lang)));
     const lang = detect();
-    if (lang !== "fr") set(lang, false);
+    if (lang !== "en") set(lang, false);
   });
 })();
