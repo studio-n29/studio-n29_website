@@ -49,6 +49,9 @@ const head = ({ title, desc, prefix, canonical, extra = "", htmlAttrs = "" }) =>
 <meta name="theme-color" content="#07070a">
 <link rel="canonical" href="${canonical}">
 <link rel="icon" href="${prefix}favicon.svg" type="image/svg+xml">
+<link rel="icon" href="${prefix}assets/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="${prefix}favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="${prefix}assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STUDIO N29">
 <meta property="og:title" content="${title}">
