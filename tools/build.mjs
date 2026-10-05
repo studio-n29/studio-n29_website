@@ -11,7 +11,7 @@ const en = JSON.parse(readFileSync(join(ROOT, "i18n/en.json"), "utf8"));
 const base = en; // English is the default language: pre-rendered in the HTML
 const SITE = "https://n29-studio.fr";
 const EMAIL = "dm.nathiez@gmail.com";
-const ACCESS_KEY = "aaf5797a-a98a-408f-8f49-8d14c94f61a2"; // Web3Forms public key (already used by the previous site)
+const ACCESS_KEY = "2061a5e7-2cc7-434f-b98f-9d11cdc1b6da"; // Web3Forms public key (client-side by design)
 
 const t = (k) => {
   if (!(k in base)) throw new Error(`Missing i18n key: ${k}`);
