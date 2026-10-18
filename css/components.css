@@ -202,3 +202,21 @@
   .scroll-cue { display: none; }
   .hero { padding-bottom: 4rem; }
 }
+
+/* Reviews */
+.reviews { display: grid; grid-template-columns: 1.6fr 0.8fr; gap: 1.5rem; margin-top: 3rem; align-items: stretch; }
+.review { margin: 0; background: var(--bg-3); border: 1px solid var(--line); padding: clamp(1.5rem, 4vw, 2.6rem); position: relative; display: flex; flex-direction: column; gap: 1.3rem; clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 0 100%); }
+.review::before { content: "“"; position: absolute; right: 1.5rem; top: -0.5rem; font-size: 9rem; line-height: 1; color: var(--accent); opacity: 0.18; font-family: Georgia, serif; pointer-events: none; }
+.stars { color: var(--accent); letter-spacing: 0.25em; font-size: 1.1rem; }
+.review blockquote { margin: 0; font-size: clamp(1.05rem, 1.8vw, 1.25rem); line-height: 1.65; color: var(--ink); }
+.review figcaption { display: flex; align-items: center; gap: 1rem; margin-top: auto; }
+.review figcaption strong { display: block; font-weight: 600; }
+.review figcaption small { color: var(--muted); font-size: 0.88rem; }
+.avatar { width: 46px; height: 46px; display: grid; place-items: center; background: var(--accent); color: #fff; font-weight: 700; clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%); }
+.review-meta { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.rating { background: var(--bg); border: 1px solid var(--line); padding: 2rem; display: flex; flex-direction: column; justify-content: center; gap: 1rem; align-items: flex-start; }
+.rating b { font-size: clamp(3.5rem, 7vw, 5rem); line-height: 1; letter-spacing: -0.04em; }
+.rating b small { font-size: 1.3rem; color: var(--muted); font-weight: 400; letter-spacing: 0; }
+.rating .mono { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.review-note { font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 960px) { .reviews { grid-template-columns: 1fr; } }

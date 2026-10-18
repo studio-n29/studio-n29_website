@@ -11,6 +11,7 @@ const en = JSON.parse(readFileSync(join(ROOT, "i18n/en.json"), "utf8"));
 const base = en; // English is the default language: pre-rendered in the HTML
 const SITE = "https://n29-studio.fr";
 const EMAIL = "dm.nathiez@gmail.com";
+const MALT = "https://www.malt.fr/profile/djasonnathiez";
 const ACCESS_KEY = "2061a5e7-2cc7-434f-b98f-9d11cdc1b6da"; // Web3Forms public key (client-side by design)
 
 const t = (k) => {
@@ -23,8 +24,8 @@ const tx = (tag, key, cls = "", html = false, extra = "") =>
 
 const m = (slug, list) => list.map(([f, w, h]) => ({ src: `${slug}/${f}`, w, h }));
 const PROJECTS = [
-  { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn-cover.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Mobile", "Game design"], c: 4, status: "wip", featured: true,
-    media: [{ src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-hq.jpg", w: 1000, h: 563 }, { src: "hd-operations.jpg", w: 1000, h: 563 }, { src: "hd-roster.jpg", w: 1000, h: 563 }] },
+  { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn-cover.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Clean architecture", "Editor tools"], c: 6, status: "wip", featured: true,
+    media: [{ src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-board.jpg", w: 1600, h: 720 }, { src: "hd-hq-live.jpg", w: 1600, h: 720 }, { src: "hd-quests.jpg", w: 1600, h: 720 }, { src: "hd-agents.jpg", w: 1600, h: 720 }] },
   { slug: "discosmos", name: "Discosmos", cover: "discosmos/06.webp", coverPos: "50% 14%", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Netcode"], c: 4,
     media: m("discosmos", [["06.webp", 1326, 2048], ["01.webp", 512, 394], ["02.webp", 512, 364], ["03.webp", 512, 353], ["04.webp", 527, 445], ["05.webp", 601, 513]]) },
   { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike/01.webp", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Rhythm engine"], c: 5,
@@ -78,6 +79,7 @@ const header = (prefix, home) => {
       ${link("projects", "nav.projects")}
       ${link("about", "nav.about")}
       ${link("skills", "nav.skills")}
+      ${link("reviews", "nav.reviews")}
       ${link("journey", "nav.journey")}
       ${link("contact", "nav.contact")}
       <a class="btn btn--solid btn--sm" href="${h}#contact"><span data-i18n="nav.cta">${t("nav.cta")}</span></a>
@@ -138,6 +140,7 @@ const person = {
   name: "Djason Nathiez",
   jobTitle: "Unity Gameplay Programmer (freelance)",
   url: SITE + "/",
+  sameAs: ["https://www.linkedin.com/in/djason-nathiez-391b2b365", MALT],
   email: EMAIL,
   alumniOf: { "@type": "CollegeOrUniversity", name: "Rubika — Supinfogame" },
   worksFor: { "@type": "Organization", name: "STUDIO N29", url: SITE + "/" },
@@ -223,7 +226,33 @@ ${header("", true)}
     </div>
   </section>
 
-  <section class="section section--cut" id="journey">
+  <section class="section section--cut" id="reviews">
+    <div class="wrap">
+      <div class="reveal">
+        ${tx("span", "reviews.eyebrow", "eyebrow")}
+        ${tx("h2", "reviews.title", "section-title")}
+      </div>
+      <div class="reviews">
+        <figure class="review reveal">
+          <div class="stars" role="img" aria-label="5 / 5"><span aria-hidden="true">★★★★★</span></div>
+          <blockquote data-i18n="reviews.quote">${t("reviews.quote")}</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">Z</span>
+            <span><strong>Zahid</strong>${tx("small", "reviews.role")}</span>
+          </figcaption>
+          <p class="review-meta mono">${tx("span", "reviews.date")} · Malt</p>
+        </figure>
+        <aside class="rating reveal" style="--d:.1s">
+          <b>${t("reviews.rating")}<small> / 5</small></b>
+          ${tx("span", "reviews.count", "mono")}
+          <a class="btn btn--solid btn--sm" href="${MALT}" target="_blank" rel="noopener"><span data-i18n="reviews.cta">${t("reviews.cta")}</span><span class="arrow" aria-hidden="true">↗</span></a>
+          ${tx("p", "reviews.note", "review-note")}
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="journey">
     <div class="wrap">
       <div class="reveal">
         ${tx("span", "journey.eyebrow", "eyebrow")}
@@ -247,6 +276,7 @@ ${header("", true)}
         <div class="contact-list">
           <a href="mailto:${EMAIL}">${tx("small", "contact.email")}<span>${EMAIL}</span></a>
           <a href="https://www.linkedin.com/in/djason-nathiez-391b2b365" target="_blank" rel="noopener">${tx("small", "contact.linkedin")}<span>linkedin.com/in/djason-nathiez</span></a>
+          <a href="${MALT}" target="_blank" rel="noopener">${tx("small", "contact.malt")}<span>malt.fr/profile/djasonnathiez</span></a>
           <a href="${SITE}/">${tx("small", "contact.web")}<span>n29-studio.fr</span></a>
           <div>${tx("small", "contact.where")}${tx("span", "contact.where.v")}</div>
         </div>

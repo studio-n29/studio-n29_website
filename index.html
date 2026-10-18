@@ -22,7 +22,7 @@
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/animations.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Djason Nathiez","jobTitle":"Unity Gameplay Programmer (freelance)","url":"https://n29-studio.fr/","email":"dm.nathiez@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Rubika — Supinfogame"},"worksFor":{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/"},"knowsAbout":["Unity","C#","Gameplay programming","Multiplayer networking","Photon","Editor tooling","Game development"],"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Djason Nathiez","jobTitle":"Unity Gameplay Programmer (freelance)","url":"https://n29-studio.fr/","sameAs":["https://www.linkedin.com/in/djason-nathiez-391b2b365","https://www.malt.fr/profile/djasonnathiez"],"email":"dm.nathiez@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Rubika — Supinfogame"},"worksFor":{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/"},"knowsAbout":["Unity","C#","Gameplay programming","Multiplayer networking","Photon","Editor tooling","Game development"],"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}}</script>
 </head>
 <body id="top">
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
@@ -35,6 +35,7 @@
       <a href="#projects" data-i18n="nav.projects">Projects</a>
       <a href="#about" data-i18n="nav.about">About</a>
       <a href="#skills" data-i18n="nav.skills">Skills</a>
+      <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
       <a href="#journey" data-i18n="nav.journey">Journey</a>
       <a href="#contact" data-i18n="nav.contact">Contact</a>
       <a class="btn btn--solid btn--sm" href="#contact"><span data-i18n="nav.cta">Get in touch</span></a>
@@ -79,11 +80,11 @@
         <div class="card-media"><img src="assets/projects/heroes-dawn-cover.jpg" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
         <div class="card-body">
           <span class="eyebrow" data-i18n="projects.featured">Featured project</span>
-          <div class="card-meta"><span data-i18n="p.heroes-dawn.type">Turn-based RPG</span><span class="badge badge--wip" data-i18n="status.wip">In progress</span></div>
+          <div class="card-meta"><span data-i18n="p.heroes-dawn.type">Management RPG</span><span class="badge badge--wip" data-i18n="status.wip">In progress</span></div>
           <h3><a class="card-link" href="projects/heroes-dawn.html">Heroes Dawn</a></h3>
           <p class="role" data-i18n="p.heroes-dawn.role">Design & development</p>
-          <p data-i18n="p.heroes-dawn.desc">Mobile 3D fantasy RPG: turn-based combat with an active timeline, HQ management and life-sim / MMORPG mechanics.</p>
-          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Mobile</li><li>Game design</li></ul>
+          <p data-i18n="p.heroes-dawn.desc">Mobile-first management RPG in an alternate New York: board exploration, turn-based combat on an active timeline and HQ management. Playable Brooklyn campaign (v0.9.0).</p>
+          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Clean architecture</li><li>Editor tools</li></ul>
         </div>
       </article>
       <article class="card reveal">
@@ -212,7 +213,33 @@
     </div>
   </section>
 
-  <section class="section section--cut" id="journey">
+  <section class="section section--cut" id="reviews">
+    <div class="wrap">
+      <div class="reveal">
+        <span class="eyebrow" data-i18n="reviews.eyebrow">Reviews</span>
+        <h2 class="section-title" data-i18n="reviews.title">What clients say.</h2>
+      </div>
+      <div class="reviews">
+        <figure class="review reveal">
+          <div class="stars" role="img" aria-label="5 / 5"><span aria-hidden="true">★★★★★</span></div>
+          <blockquote data-i18n="reviews.quote">Strong all-round contribution across. Djason delivered the first draft of the match simulation algorithms, integrated RP Vision from the GDD with solid stabilisation and performance gains, and set up a clean Unity architecture, Git workflow and documentation. Djason was a reliable partner in production meetings, helping scope and split tasks clearly. Highly recommended for Unity game development.</blockquote>
+          <figcaption>
+            <span class="avatar" aria-hidden="true">Z</span>
+            <span><strong>Zahid</strong><small data-i18n="reviews.role">Product Operations Lead, Chukker App LLC</small></span>
+          </figcaption>
+          <p class="review-meta mono"><span data-i18n="reviews.date">Review posted on 16/10/2026</span> · Malt</p>
+        </figure>
+        <aside class="rating reveal" style="--d:.1s">
+          <b>5.0<small> / 5</small></b>
+          <span class="mono" data-i18n="reviews.count">1 review on Malt</span>
+          <a class="btn btn--solid btn--sm" href="https://www.malt.fr/profile/djasonnathiez" target="_blank" rel="noopener"><span data-i18n="reviews.cta">See my Malt profile</span><span class="arrow" aria-hidden="true">↗</span></a>
+          <p class="review-note" data-i18n="reviews.note">Review shown as published on Malt.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="journey">
     <div class="wrap">
       <div class="reveal">
         <span class="eyebrow" data-i18n="journey.eyebrow">Journey</span>
@@ -248,6 +275,7 @@
         <div class="contact-list">
           <a href="mailto:dm.nathiez@gmail.com"><small data-i18n="contact.email">Email</small><span>dm.nathiez@gmail.com</span></a>
           <a href="https://www.linkedin.com/in/djason-nathiez-391b2b365" target="_blank" rel="noopener"><small data-i18n="contact.linkedin">LinkedIn</small><span>linkedin.com/in/djason-nathiez</span></a>
+          <a href="https://www.malt.fr/profile/djasonnathiez" target="_blank" rel="noopener"><small data-i18n="contact.malt">Malt</small><span>malt.fr/profile/djasonnathiez</span></a>
           <a href="https://n29-studio.fr/"><small data-i18n="contact.web">Website</small><span>n29-studio.fr</span></a>
           <div><small data-i18n="contact.where">Location</small><span data-i18n="contact.where.v">Hauts-de-France, France · remote friendly</span></div>
         </div>
