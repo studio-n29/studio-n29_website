@@ -9,14 +9,15 @@
   const NAV = [
     { id: "dash", path: "/", label: "Accueil", icon: "home", tab: true },
     { id: "projects", path: "/projects", label: "Projets", icon: "tasks", tab: true },
+    { id: "time", path: "/time", label: "Temps", icon: "clock", tab: true },
     { id: "docs", path: "/docs", label: "Facturation", icon: "doc", tab: true },
     { id: "clients", path: "/clients", label: "Clients", icon: "users" },
-    { id: "tools", path: "/tools", label: "Outils", icon: "tools", tab: true },
+    { id: "tools", path: "/tools", label: "Outils", icon: "tools" },
     { id: "compliance", path: "/compliance", label: "Conformité", icon: "shield" },
     { id: "settings", path: "/settings", label: "Réglages", icon: "settings" },
   ];
   const ROUTES = [
-    [/^\/$/, "dash", "dash"], [/^\/projects$/, "projects", "projects"],
+    [/^\/$/, "dash", "dash"], [/^\/projects$/, "projects", "projects"], [/^\/time$/, "time", "time"],
     [/^\/docs$/, "docs", "docs"], [/^\/docs\/new\/(quote|invoice|deposit|credit)$/, "docEdit", "docs", ["type"]], [/^\/docs\/([\w-]+)$/, "docEdit", "docs", ["id"]],
     [/^\/clients$/, "clients", "clients"], [/^\/tools$/, "tools", "tools"], [/^\/tools\/apex$/, "apex", "tools"],
     [/^\/compliance$/, "compliance", "compliance"], [/^\/settings$/, "settings", "settings"], [/^\/more$/, "more", "more"],
@@ -65,6 +66,7 @@
     const link = (n, cls) => h("a", { href: "#" + n.path, dataset: { nav: n.id }, class: cls }, icon(n.icon), h("span", n.label));
     const side = h("aside.side", h("div.side-brand", { html: U.LOGO }, h("div", "STUDIO N29", h("small", "HQ · PRIVÉ"))),
       NAV.map((n) => link(n)), h("div.grow"),
+      HQ.isStandalone() ? null : h("button.navb", { type: "button", dataset: { install: "1" }, onclick: HQ.install }, icon("download"), h("span", "Installer l'app")),
       h("button.navb", { type: "button", onclick: () => lockNow() }, icon("lock"), h("span", "Verrouiller")),
       h("div.backup" + (b.warn ? ".warn" : ""), b.text));
     mainEl = h("main.main#view", { tabindex: "-1" });
@@ -114,7 +116,8 @@
       pass, mode === "create" ? pass2 : null,
       mode === "create" ? h("div.notice", "Cette phrase ne peut pas être récupérée. Sans elle (et sans sauvegarde), les données sont perdues. Notez-la dans un gestionnaire de mots de passe.") : null,
       mode === "create" ? h("label.check", ack, "J'ai compris et je note ma phrase secrète.") : null,
-      err, submit, h("div", { style: "display:flex;gap:10px;flex-wrap:wrap" }, restore));
+      mode === "create" && HQ.platform() === "ios" && !HQ.isStandalone() ? h("div.notice", "iPhone : installez d'abord l'application (Partager ▸ Sur l'écran d'accueil), puis créez votre coffre dans l'application installée : elle a son propre stockage, séparé de Safari.") : null,
+      err, submit, h("div", { style: "display:flex;gap:10px;flex-wrap:wrap" }, restore, HQ.installButton({ sm: true })));
     app.replaceChildren(h("div.lock", form));
     setTimeout(() => pass.focus(), 50);
   }
@@ -139,8 +142,29 @@
   ["pointerdown", "keydown", "touchstart", "scroll"].forEach((ev) => window.addEventListener(ev, () => { lastActivity = Date.now(); }, { passive: true, capture: true }));
   document.addEventListener("visibilitychange", () => { if (!document.hidden && store.isUnlocked()) { const min = Number(store.db().settings.security.autoLockMinutes) || 0; if (min > 0 && Date.now() - lastActivity > min * 60000) lockNow(); } });
 
-  // ---------- PWA install ----------
-  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); HQ.installPrompt = e; });
+  // ---------- PWA install ("Installer l'application") ----------
+  const ua = navigator.userAgent;
+  HQ.isStandalone = () => matchMedia("(display-mode: standalone)").matches || matchMedia("(display-mode: minimal-ui)").matches || navigator.standalone === true;
+  HQ.platform = () => (/iphone|ipad|ipod/i.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1) ? "ios" : /android/i.test(ua) ? "android" : "desktop");
+  window.addEventListener("beforeinstallprompt", (e) => { e.preventDefault(); HQ.installPrompt = e; document.dispatchEvent(new Event("hq:installable")); });
+  window.addEventListener("appinstalled", () => { HQ.installPrompt = null; U.toast("Application installée", "ok"); document.querySelectorAll("[data-install]").forEach((el) => el.remove()); });
+  function installHelp() {
+    const p = HQ.platform();
+    const steps = {
+      ios: ["Ouvrez cette page dans Safari.", "Touchez le bouton Partager (le carré avec une flèche vers le haut).", "Choisissez « Sur l'écran d'accueil », puis « Ajouter »."],
+      android: ["Dans Chrome, ouvrez le menu (les trois points en haut à droite).", "Touchez « Installer l'application » (ou « Ajouter à l'écran d'accueil »).", "Si l'option n'apparaît pas, rechargez la page une fois."],
+      desktop: ["Dans Chrome ou Edge, cliquez sur l'icône d'installation à droite de la barre d'adresse (un écran avec une flèche).", "Ou ouvrez le menu du navigateur (trois points), puis « Installer N29 HQ »."],
+    }[p];
+    U.sheet({ title: "Installer l'application", body: h("div.stack", h("ol", { style: "margin:0;padding-left:20px;display:grid;gap:10px;line-height:1.5" }, steps.map((t) => h("li", t))),
+      p === "ios" ? h("div.banner.warn", "Sur iPhone, l'application installée a son propre espace de stockage, séparé de Safari. Installez-la avant de créer votre coffre, ou restaurez une sauvegarde chiffrée dans l'application installée.") : null,
+      p === "desktop" ? h("p.hint", "Firefox et Safari sur ordinateur ne proposent pas l'installation : utilisez Chrome ou Edge.") : null,
+      h("p.hint", "Une fois installée, l'application s'ouvre en plein écran, fonctionne hors ligne et reste verrouillée par votre phrase secrète.")) });
+  }
+  HQ.install = async () => {
+    if (HQ.installPrompt) { const p = HQ.installPrompt; HQ.installPrompt = null; p.prompt(); try { const r = await p.userChoice; if (r.outcome === "accepted") U.toast("Installation en cours…", "ok"); else HQ.installPrompt = p; } catch (e) { /* dismissed */ } return; }
+    installHelp();
+  };
+  HQ.installButton = (o = {}) => (HQ.isStandalone() ? null : h("button.btn.btn--" + (o.kind || "ghost") + (o.sm ? ".btn--sm" : "") + (o.block ? ".btn--block" : ""), { type: "button", dataset: { install: "1" }, onclick: HQ.install }, icon("download"), "Installer l'application"));
 
   // ---------- Boot ----------
   function start() {

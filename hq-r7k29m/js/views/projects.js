@@ -54,7 +54,7 @@
     const f = {
       name: U.input({ value: v.name, maxlength: 80 }), status: U.select(PSTATUS, v.status),
       clientId: U.select([["", "— aucun —"], ...db.clients.map((c) => [c.id, c.name])], v.clientId),
-      deadline: U.input({ type: "date", value: v.deadline }), url: U.input({ type: "url", value: v.url, placeholder: "https://… (dépôt, GDD, Notion)" }),
+      deadline: U.input({ type: "date", value: v.deadline }), rate: U.input({ value: v.rate ? String(v.rate / 100).replace(".", ",") : "", inputmode: "decimal", placeholder: "Taux par défaut" }), url: U.input({ type: "url", value: v.url, placeholder: "https://… (dépôt, GDD, Notion)" }),
       description: U.textarea({ rows: 3, value: v.description }),
     };
     let color = v.color;
@@ -63,13 +63,13 @@
     const s = U.sheet({ title: p ? "Modifier le projet" : "Nouveau projet", body: h("form.form", {
       onsubmit: (e) => {
         e.preventDefault();
-        const o = { name: f.name.value.trim(), status: f.status.value, clientId: f.clientId.value, deadline: f.deadline.value, url: f.url.value.trim(), description: f.description.value.trim(), color };
+        const o = { name: f.name.value.trim(), status: f.status.value, clientId: f.clientId.value, deadline: f.deadline.value, rate: U.parseMoney(f.rate.value), url: f.url.value.trim(), description: f.description.value.trim(), color };
         if (!o.name) { err.textContent = "Donnez un nom au projet."; f.name.focus(); return; }
         let sid = id;
         store.mutate((d) => { if (p) Object.assign(d.projects.find((x) => x.id === id), o); else { sid = U.uid(); d.projects.push(Object.assign({ id: sid, createdAt: Date.now() }, o)); } });
         s.close(true); U.toast(p ? "Projet mis à jour" : "Projet créé", "ok"); HQ.go("/projects?p=" + sid);
       },
-    }, field("Nom", f.name, { req: true }), h("div.r2", field("Statut", f.status), field("Client", f.clientId)), h("div.r2", field("Échéance", f.deadline), field("Lien", f.url)), field("Description", f.description), h("div.field", h("span.lbl", "Couleur"), sw), err,
+    }, field("Nom", f.name, { req: true }), h("div.r2", field("Statut", f.status), field("Client", f.clientId)), h("div.r2", field("Échéance", f.deadline), field("Taux horaire HT (€/h)", f.rate)), field("Lien", f.url), field("Description", f.description), h("div.field", h("span.lbl", "Couleur"), sw), err,
       h("div.form-actions", p ? U.btn("Supprimer", { kind: "danger", icon: "trash", onClick: async () => { const n = db.tasks.filter((t) => t.projectId === id).length; if (await U.confirm({ title: "Supprimer ce projet ?", text: `${v.name}${n ? ` — ses ${n} tâche(s) seront aussi supprimées.` : ""}`, ok: "Supprimer", danger: true })) { store.mutate((d) => { d.projects = d.projects.filter((x) => x.id !== id); d.tasks = d.tasks.filter((t) => t.projectId !== id); }); s.close(true); HQ.go("/projects"); } } }) : null, U.btn("Annuler", { onClick: () => s.close() }), U.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
   }
   HQ.tasks = { openTask, openProject };

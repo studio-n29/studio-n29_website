@@ -36,6 +36,9 @@
       tk(ap, "Mise à jour du style commun des prompts", "doing", "med", "");
       tk(ap, "Facturer le mois en cours", "todo", "urgent", day(-1), "1");
       d.prompts.push({ id: U.uid(), name: "Rayner — héros (démo)", tab: "perso", prompt: "[superhero, man, mid 30s, tanned skin, short neatly styled hair in dark brown, steel blue eyes, strong jawline, athletic build, tattered leather duster over a dark bodysuit, scar across the left cheek, blue energy crackling along the arm]\n\nstylized semi-3D animated cinematic still, low-poly faceted shading, ruined city street at dusk, dramatic rim light, cinematic 16:9 framing", negative: "photorealistic, 3D render, plastic skin, extra fingers, deformed hands, blurry face, text, watermark", raw: {}, projectId: ap.id, favorite: true, createdAt: Date.now() - 2 * 86400000 });
+      const entries = [[-1, "09:00", 150, hd, "Synergie d'équipe — équilibrage", true], [-1, "14:00", 240, dc, "Prototype du système de patterns", true], [-2, "09:30", 420, dc, "Outil d'éditeur — timeline", true], [-3, "10:00", 180, hd, "Build Android et tests appareils", true], [-3, "14:30", 90, ap, "Mise à jour du style des prompts", false], [-4, "09:00", 360, hd, "Écran de suivi des quêtes", true], [-7, "09:00", 420, dc, "Atelier de cadrage et prototypage", true], [-8, "13:00", 300, hd, "Export CSV du contenu", true], [-9, "09:30", 240, ap, "Visuels de créatures", false], [-10, "10:00", 390, dc, "Système de patterns — première itération", true], [-14, "09:00", 420, hd, "Cinématique d'introduction", true], [-15, "09:30", 300, dc, "Documentation technique", true]];
+      entries.forEach(([off, start, minutes, project, description, billable]) => d.timeEntries.push({ id: U.uid(), createdAt: Date.now(), date: day(off), start, minutes, projectId: project.id, taskId: "", description, billable }));
+      d.settings.billing.hourlyRate = 6500;
       store.audit("demo", "Données de démonstration chargées");
     });
 

@@ -1,15 +1,101 @@
 {
+  "id": "./",
   "name": "STUDIO N29 — HQ",
   "short_name": "N29 HQ",
-  "description": "Espace privé : projets, devis, factures et outils de production.",
-  "start_url": "./",
+  "description": "Espace privé : temps, projets, devis, factures et outils de production.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": "./?source=pwa",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "any",
   "background_color": "#07070a",
   "theme_color": "#07070a",
+  "categories": [
+    "business",
+    "productivity",
+    "finance"
+  ],
+  "prefer_related_applications": false,
   "icons": [
-    { "src": "../assets/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" },
-    { "src": "../assets/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nouvelle facture",
+      "short_name": "Facture",
+      "description": "Créer une facture",
+      "url": "./#/docs/new/invoice",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Suivi du temps",
+      "short_name": "Temps",
+      "description": "Chronomètre et calendrier",
+      "url": "./#/time",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Apex Prompt Studio",
+      "short_name": "Apex",
+      "description": "Générateur de prompts",
+      "url": "./#/tools/apex",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "icons/shot-narrow.jpg",
+      "sizes": "540x1169",
+      "type": "image/jpeg",
+      "form_factor": "narrow",
+      "label": "Tableau de bord"
+    },
+    {
+      "src": "icons/shot-wide.jpg",
+      "sizes": "1280x860",
+      "type": "image/jpeg",
+      "form_factor": "wide",
+      "label": "Tableau de bord"
+    }
   ]
 }

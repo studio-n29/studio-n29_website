@@ -111,8 +111,43 @@ const ok = (c, msg) => { console.log(c ? "  ok  " : "  FAIL", msg); if (!c) fail
   ok(!bk.plain, "encrypted backup contains no readable client name");
   ok(bk.type === "encrypted" && bk.docs === 9, "restore from encrypted backup: " + JSON.stringify(bk));
 
+  console.log("time tracking");
+  await go("/time"); await page.waitForSelector(".timer");
+  const before = await page.evaluate(() => HQ.store.db().timeEntries.length);
+  await clickText("button", "Saisir du temps"); await page.waitForSelector(".sheet");
+  const projId = await page.evaluate(() => HQ.store.db().projects[0].id);
+  await page.evaluate((pid) => { const q = (s) => document.querySelector(".sheet " + s); const set = (el, v) => { el.value = v; el.dispatchEvent(new Event("input", { bubbles: true })); el.dispatchEvent(new Event("change", { bubbles: true })); }; set(q("input[placeholder^=Sur]"), "Test calendrier"); set(q("select"), pid); set(q("input[placeholder^=\"1h30\"]"), "1h30"); }, projId);
+  await sleep(200);
+  ok((await page.$eval(".sheet .hint", (e) => e.textContent)).includes("1 h 30"), "duration text is understood live");
+  await clickText(".sheet button", "Enregistrer"); await sleep(400);
+  const mid = await page.evaluate(() => { const d = HQ.store.db(); const e = d.timeEntries[d.timeEntries.length - 1]; return { n: d.timeEntries.length, min: e.minutes, desc: e.description }; });
+  ok(mid.n === before + 1 && mid.min === 90 && mid.desc === "Test calendrier", "entry saved from the sheet " + JSON.stringify(mid));
+  ok((await page.$$eval(".cal .day", (e) => e.length)) >= 28, "month calendar rendered");
+  await clickText(".seg button", "Semaine"); await sleep(300);
+  ok((await page.$$eval(".wday", (e) => e.length)) === 7, "week view shows 7 days");
+  await clickText(".seg button", "Mois");
+  await clickText("button", "Démarrer"); await sleep(1300);
+  ok(await page.evaluate(() => !!HQ.store.db().timer), "timer started");
+  ok(/0:00:0[1-9]/.test(await page.$eval(".timer-clock", (e) => e.textContent)), "timer clock ticks");
+  await clickText("button", "Arrêter"); await sleep(400);
+  const after = await page.evaluate(() => { const d = HQ.store.db(); return { n: d.timeEntries.length, timer: d.timer }; });
+  ok(after.n === before + 2 && after.timer === null, "timer stop creates an entry");
+  await clickText(".tabs-inline button", "Rapport"); await page.waitForSelector(".stat");
+  const rtxt = await page.$eval("main", (m) => m.innerText);
+  ok(/temps total/i.test(rtxt) && /répartition/i.test(rtxt) && !/(^|\s)(null|undefined|NaN)(\s|$)/.test(rtxt), "report renders totals and breakdown");
+  const rep = await page.evaluate(() => { const d = HQ.store.db(); const c = { projects: d.projects, tasks: d.tasks, clients: d.clients, billing: d.settings.billing }; const r = HQ.timeutil.rangeFor("month", HQ.util.today()); const es = HQ.timeutil.filter(d.timeEntries, r, d.documents); return HQ.timeutil.summary(es, c); });
+  ok(rep.minutes >= 90, "report data matches the entries: " + JSON.stringify(rep));
+  await clickText("button", "Facturer"); await page.waitForSelector(".sheet");
+  await page.select(".sheet select", await page.evaluate(() => HQ.store.db().clients[0].id));
+  await clickText(".sheet button", "Créer le brouillon");
+  await page.waitForFunction(() => location.hash.startsWith("#/docs/") && !location.hash.includes("new") && document.querySelector(".line"), { timeout: 8000 });
+  const inv = await page.evaluate(() => { const d = HQ.store.db(); const doc = d.documents.find((x) => x.timeEntryIds); return { lines: doc.lines.length, unit: doc.lines[0].unit, label: doc.lines[0].unitLabel, billed: d.timeEntries.filter((e) => e.docId === doc.id).length, n: doc.timeEntryIds.length }; });
+  ok(inv.lines >= 1 && inv.label === "heure" && inv.billed === inv.n && inv.n > 0, "invoice draft created from hours " + JSON.stringify(inv));
+  const stillTodo = await page.evaluate(() => { const d = HQ.store.db(); const T = HQ.timeutil; return T.filter(d.timeEntries, { billed: "todo" }, d.documents).filter((e) => d.documents.some((x) => x.timeEntryIds && x.timeEntryIds.includes(e.id))).length; });
+  ok(stillTodo === 0, "invoiced hours are no longer offered for billing");
+
   console.log("route sweep");
-  for (const r of ["/settings?tab=billing", "/settings?tab=security", "/settings?tab=data", "/", "/projects", "/docs", "/clients", "/tools", "/tools/apex", "/compliance", "/settings", "/more"]) { await go(r); await sleep(300); const txt = await page.$eval("main", (m) => m.innerText); ok(txt.trim().length > 20 && !/(^|s)(null|undefined|NaN)(s|$)/.test(txt), "route renders without stray null/undefined/NaN: " + r); }
+  for (const r of ["/time", "/settings?tab=billing", "/settings?tab=security", "/settings?tab=data", "/", "/projects", "/docs", "/clients", "/tools", "/tools/apex", "/compliance", "/settings", "/more"]) { await go(r); await sleep(300); const txt = await page.$eval("main", (m) => m.innerText); ok(txt.trim().length > 20 && !/(^|s)(null|undefined|NaN)(s|$)/.test(txt), "route renders without stray null/undefined/NaN: " + r); }
   await go("/tools/apex");
   for (const t of ["Créatures", "Paysage", "Carte", "Style commun", "Bibliothèque", "Personnage"]) await clickText(".tabs-inline button", t);
   await clickText("button", "Au hasard");

@@ -25,6 +25,7 @@
     const alerts = [];
     if (!co.name || !co.address || !co.siret) alerts.push(h("div.banner.warn", "Complétez les informations de votre entreprise (nom, adresse, SIRET) pour pouvoir émettre des factures. ", h("a", { href: "#/settings", style: "text-decoration:underline" }, "Ouvrir les réglages")));
     const lb = db.lastBackupAt; if (!lb || Date.now() - lb > 14 * 86400000) alerts.push(h("div.banner.warn", lb ? "Votre dernière sauvegarde date de plus de 14 jours. " : "Vous n'avez encore fait aucune sauvegarde : vos données ne sont que sur cet appareil. ", h("a", { href: "#/settings", style: "text-decoration:underline" }, "Sauvegarder maintenant")));
+    if (!HQ.isStandalone() && !localStorage.getItem("hq.installDismissed")) alerts.push(h("div.banner", { dataset: { install: "1" }, style: "display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap" }, h("span", "Installez l'application sur votre appareil : icône sur l'écran d'accueil, plein écran et mode hors ligne."), h("span", { style: "display:flex;gap:8px" }, U.btn("Installer", { kind: "accent", sm: true, icon: "download", onClick: () => HQ.install() }), U.btn("Plus tard", { sm: true, onClick: (e) => { try { localStorage.setItem("hq.installDismissed", "1"); } catch (x) { /* ignore */ } e.target.closest("[data-install]").remove(); } }))));
     if (alerts.length) root.appendChild(h("div.stack", { style: "margin-bottom:14px" }, alerts));
 
     // ----- stats -----
@@ -40,6 +41,12 @@
     const meters = [meter("Plafond de chiffre d'affaires (micro)", paidYearHT, bl.threshold, "CA encaissé HT de l'année — vérifiez le plafond de votre activité (modifiable dans Réglages ▸ Facturation).")];
     if (bl.vatRegime === "franchise") meters.push(meter("Seuil de franchise de TVA", paidYearHT, bl.vatThreshold, "Au-delà du seuil, la TVA devient applicable : demandez conseil à votre comptable."));
     root.appendChild(h("div.card", { style: "margin-bottom:14px" }, h("h2", "Seuils de l'année"), h("div.stack", meters)));
+
+    // ----- time -----
+    const TU = HQ.timeutil, wk = TU.rangeFor("week", today), weekMin = db.timeEntries.filter((e) => e.date >= wk.from && e.date <= wk.to).reduce((a, e) => a + e.minutes, 0), todayMin = db.timeEntries.filter((e) => e.date === today).reduce((a, e) => a + e.minutes, 0);
+    root.appendChild(h("div.card", { style: "margin-bottom:14px" }, h("div", { style: "display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap" },
+      h("div", h("div.eyebrow", db.timer ? "Chronomètre en cours" : "Temps travaillé"), h("div", { style: "margin-top:8px;font-size:1.3rem;font-weight:700;letter-spacing:-.02em" }, `${TU.fmtDuration(todayMin)} aujourd'hui · ${TU.fmtDuration(weekMin)} cette semaine`)),
+      h("div", { style: "display:flex;gap:8px;flex-wrap:wrap" }, db.timer ? U.btn("Arrêter le chronomètre", { kind: "accent", icon: "check", onClick: () => { const e = HQ.timer.stop(); U.toast(`${TU.fmtDuration(e.minutes)} enregistrées`, "ok"); ctx.rerender(); } }) : null, U.btn("Ouvrir le suivi du temps", { icon: "clock", onClick: () => HQ.go("/time") })))));
 
     // ----- shortcuts -----
     const sc = (ico, label, fn) => h("button.shortcut", { type: "button", onclick: fn }, icon(ico), label);

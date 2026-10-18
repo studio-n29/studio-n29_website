@@ -172,6 +172,12 @@
     document.body.appendChild(i); i.click();
   });
   U.readFile = (file) => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res(r.result); r.onerror = rej; r.readAsText(file); });
+  U.printHTML = (html) => {
+    let r = document.getElementById("print-root"); if (r) r.remove();
+    r = h("div#print-root", { html }); document.body.appendChild(r);
+    const done = () => { r.remove(); window.removeEventListener("afterprint", done); };
+    window.addEventListener("afterprint", done); setTimeout(() => window.print(), 60);
+  };
   U.copy = async (text, msg = "Copié") => {
     try { await navigator.clipboard.writeText(text); U.toast(msg, "ok"); }
     catch (e) {

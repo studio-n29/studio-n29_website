@@ -36,11 +36,11 @@
           vatRegime: "franchise", defaultVat: 20, paymentDays: 30, quoteValidityDays: 30, operationCategory: "service", vatOnDebits: false,
           prefixInvoice: "FA", prefixQuote: "DE", prefixCredit: "AV",
           paymentMethods: "Virement bancaire", discountMention: "Pas d'escompte pour paiement anticipé.", recoveryFee: 4000,
-          threshold: 7770000, vatThreshold: 3750000, noteInvoice: "", noteQuote: "",
+          hourlyRate: 0, threshold: 7770000, vatThreshold: 3750000, noteInvoice: "", noteQuote: "",
         },
         security: { autoLockMinutes: 5, remember: false },
       },
-      clients: [], projects: [], tasks: [], documents: [], payments: [], prompts: [], links: [],
+      clients: [], projects: [], tasks: [], timeEntries: [], timer: null, documents: [], payments: [], prompts: [], links: [],
       apex: { style: null, state: null }, audit: [], lastBackupAt: null,
     };
   }
