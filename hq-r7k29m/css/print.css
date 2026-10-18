@@ -1,0 +1,11 @@
+/* A4 print of a quote / invoice: only #print-root is shown. */
+@page { size: A4; margin: 10mm; }
+@media screen { #print-root { display: none; } }
+@media print {
+  html, body { background: #fff !important; }
+  body > *:not(#print-root) { display: none !important; }
+  #print-root { display: block !important; }
+  #print-root .paper { width: auto !important; min-height: 272mm; padding: 2mm 5mm 0 5mm !important; box-shadow: none !important; margin: 0 !important; transform: none !important; }
+  #print-root .stamp { color: rgba(138, 92, 255, 0.16); }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
