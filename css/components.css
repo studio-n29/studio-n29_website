@@ -46,6 +46,9 @@
 .card-media { aspect-ratio: 16 / 10; flex: none; overflow: hidden; position: relative; background: var(--bg-2); }
 .card-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.9s var(--ease), filter 0.5s; filter: saturate(0.85) contrast(1.05); }
 .card:hover .card-media img { transform: scale(1.06); filter: saturate(1.1) contrast(1.05); }
+.card-media--contain .card-bg { inset: -30px; width: calc(100% + 60px); height: calc(100% + 60px); object-fit: cover; filter: blur(22px) saturate(1.5) brightness(0.6); }
+.card:hover .card-media--contain .card-bg { transform: none; filter: blur(22px) saturate(1.5) brightness(0.6); }
+.card-media--contain img:not(.card-bg) { object-fit: contain; }
 .card-media::after {
   content: ""; position: absolute; inset: -20%; background: linear-gradient(100deg, transparent 40%, rgba(138, 92, 255, 0.5) 50%, transparent 60%);
   transform: translateX(-120%); transition: transform 0.9s var(--ease); pointer-events: none;
@@ -151,6 +154,7 @@
 .shot { display: block; width: 100%; margin: 0 0 1rem; padding: 0; background: var(--bg-2); border: 1px solid var(--line); cursor: zoom-in; position: relative; break-inside: avoid; overflow: hidden; transition: border-color 0.3s, transform 0.5s var(--ease); }
 .shot img { width: 100%; height: auto; display: block; }
 .shot::after { content: "+"; position: absolute; right: 10px; bottom: 10px; width: 34px; height: 34px; display: grid; place-items: center; background: var(--ink); color: var(--bg); font-family: var(--mono); font-size: 1.2rem; clip-path: polygon(6px 0, 100% 0, calc(100% - 6px) 100%, 0 100%); opacity: 0; transform: translateY(6px); transition: opacity 0.3s, transform 0.3s var(--ease); }
+.shot--anim::before { content: "▶ GAMEPLAY"; position: absolute; left: 10px; top: 10px; z-index: 2; padding: 0.25rem 0.6rem; font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.12em; color: #fff; background: rgba(7, 7, 10, 0.78); border: 1px solid rgba(138, 92, 255, 0.7); backdrop-filter: blur(4px); }
 .shot:hover, .shot:focus-visible { border-color: rgba(138, 92, 255, 0.7); }
 .shot:hover::after, .shot:focus-visible::after { opacity: 1; transform: none; }
 

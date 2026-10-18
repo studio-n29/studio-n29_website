@@ -23,17 +23,21 @@ const tx = (tag, key, cls = "", html = false, extra = "") =>
   `<${tag}${cls ? ` class="${cls}"` : ""}${extra ? " " + extra : ""} ${html ? "data-i18n-html" : "data-i18n"}="${key}">${t(key)}</${tag}>`;
 
 const m = (slug, list) => list.map(([f, w, h]) => ({ src: `${slug}/${f}`, w, h }));
+// Animated WebP clips (get a "gameplay" badge in the galleries)
+const ANIM = new Set(["heroes-dawn/hd-combat.webp", "heroes-dawn/hd-board-run.webp", "heroes-dawn/hd-hub.webp", "beat-strike/08.webp",
+  ...["01", "02", "03", "04", "05"].map((n) => `discosmos/${n}.webp`), ...["01", "02", "03", "04", "05", "06", "07"].map((n) => `delight/${n}.webp`),
+  "sweet-courrier/03.webp", "sweet-courrier/05.webp", "sweet-courrier/06.webp"]);
 const PROJECTS = [
   { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn-cover.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Clean architecture", "Editor tools"], c: 6, status: "wip", featured: true,
-    media: [{ src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-board.jpg", w: 1600, h: 720 }, { src: "hd-hq-live.jpg", w: 1600, h: 720 }, { src: "hd-quests.jpg", w: 1600, h: 720 }, { src: "hd-agents.jpg", w: 1600, h: 720 }] },
-  { slug: "discosmos", name: "Discosmos", cover: "discosmos/06.webp", coverPos: "50% 14%", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Netcode"], c: 4,
+    media: [{ src: "heroes-dawn/hd-combat.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-board-run.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-hub.webp", w: 960, h: 432 }, { src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-board.jpg", w: 1600, h: 720 }, { src: "hd-hq-live.jpg", w: 1600, h: 720 }, { src: "hd-quests.jpg", w: 1600, h: 720 }, { src: "hd-agents.jpg", w: 1600, h: 720 }] },
+  { slug: "discosmos", name: "Discosmos", cover: "discosmos/03.webp", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Netcode"], c: 4,
     media: m("discosmos", [["06.webp", 1326, 2048], ["01.webp", 512, 394], ["02.webp", 512, 364], ["03.webp", 512, 353], ["04.webp", 527, 445], ["05.webp", 601, 513]]) },
-  { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike/01.webp", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Rhythm engine"], c: 5,
+  { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike/07.webp", coverFit: "contain", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Rhythm engine"], c: 5,
     media: m("beat-strike", [["01.webp", 1913, 1011], ["04.webp", 1253, 711], ["02.webp", 279, 635], ["03.webp", 296, 239], ["05.webp", 294, 284], ["06.webp", 512, 503], ["07.webp", 362, 646], ["08.webp", 294, 640]]) },
-  { slug: "delight", name: "Delight", cover: "delight/07.webp", engine: "Unity 6", tech: ["Unity 6", "C#", "FSM AI", "Audio"], c: 5,
+  { slug: "delight", name: "Delight", cover: "delight/03.webp", engine: "Unity 6", tech: ["Unity 6", "C#", "FSM AI", "Audio"], c: 5,
     video: "https://www.youtube.com/watch?v=Ls7xzg5Ivjg",
     media: m("delight", [["07.webp", 1124, 554], ["01.webp", 890, 490], ["02.webp", 512, 408], ["03.webp", 512, 309], ["04.webp", 638, 508], ["05.webp", 512, 224], ["06.webp", 638, 508]]) },
-  { slug: "sweet-courrier", name: "Sweet Courrier", cover: "sweet-courrier/02.webp", engine: "Unity", tech: ["Unity", "C#", "Physics", "Local co-op"], c: 3,
+  { slug: "sweet-courrier", name: "Sweet Courrier", cover: "sweet-courrier/05.webp", engine: "Unity", tech: ["Unity", "C#", "Physics", "Local co-op"], c: 3,
     media: m("sweet-courrier", [["02.webp", 512, 304], ["03.webp", 512, 272], ["04.webp", 667, 211], ["05.webp", 612, 442], ["06.webp", 512, 272]]) },
   { slug: "project-x", name: "Project X", cover: "project-x-cover.svg", engine: "Unity", tech: ["Unity", "C#"], c: 3, status: "nda", nda: true },
 ];
@@ -110,7 +114,7 @@ ${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}${lightbox ?
 const card = (p, prefix = "") => {
   const badge = p.status ? `<span class="badge badge--${p.status}" data-i18n="status.${p.status}">${t("status." + p.status)}</span>` : "";
   return `<article class="card reveal${p.nda ? " card--nda" : ""}${p.featured ? " card--featured" : ""}">
-        <div class="card-media"><img src="${prefix}assets/projects/${p.cover}" alt="" loading="lazy" decoding="async" width="1200" height="750"${p.coverPos ? ` style="object-position:${p.coverPos}"` : ""}></div>
+        <div class="card-media${p.coverFit ? " card-media--contain" : ""}">${p.coverFit ? `<img class="card-bg" src="${prefix}assets/projects/${p.cover}" alt="" aria-hidden="true" loading="lazy" decoding="async">` : ""}<img src="${prefix}assets/projects/${p.cover}" alt="" loading="lazy" decoding="async" width="1200" height="750"${p.coverPos ? ` style="object-position:${p.coverPos}"` : ""}></div>
         <div class="card-body">
           ${p.featured ? `<span class="eyebrow" data-i18n="projects.featured">${t("projects.featured")}</span>` : ""}
           <div class="card-meta">${tx("span", `p.${p.slug}.type`)}${badge}</div>
@@ -326,7 +330,7 @@ ${header("../", false)}
     </div>
   </section>
   ${p.media ? `<section class="shots"><div class="wrap">
-    <div class="gallery" data-gallery>${p.media.map((x, i) => `<button type="button" class="shot reveal" style="--d:${(i % 3) * 0.07}s" aria-label="${t("pg.zoom")}" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/${x.src}" alt="${p.name} — ${i + 1}" width="${x.w}" height="${x.h}" loading="lazy" decoding="async"></button>`).join("")}</div>
+    <div class="gallery" data-gallery>${p.media.map((x, i) => `<button type="button" class="shot reveal${ANIM.has(x.src) ? " shot--anim" : ""}" style="--d:${(i % 3) * 0.07}s" aria-label="${t("pg.zoom")}" data-i18n-attr="aria-label:pg.zoom"><img src="../assets/projects/${x.src}" alt="${p.name} — ${i + 1}" width="${x.w}" height="${x.h}" loading="lazy" decoding="async"></button>`).join("")}</div>
     ${p.video ? `<p style="margin-top:1.5rem"><a class="btn btn--ghost btn--sm" href="${p.video}" target="_blank" rel="noopener"><span aria-hidden="true">▶</span><span data-i18n="pg.watch">${t("pg.watch")}</span></a></p>` : ""}
   </div></section>` : `<div class="p-cover reveal"><img src="../assets/projects/${p.cover}" alt="${p.name}" width="1600" height="900"></div>`}
   <section class="section" style="padding-top:3rem">
