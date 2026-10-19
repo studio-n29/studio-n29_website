@@ -114,4 +114,16 @@ t("issued documents are never duplicated or altered by a plain merge", () => {
   assert.equal(r.merged.documents.length, 1); assert.equal(r.conflicts.length, 0);
 });
 
+t("a document edited on both devices keeps both texts", () => {
+  const note = (o) => Object.assign({ id: "n1", projectId: "", title: "Spec", md: "base", createdAt: 1, updatedAt: 1 }, o);
+  const base = M.cloudView(emptyDb()); base.notes = [note()];
+  const local = clone(base), remote = clone(base);
+  local.notes[0] = note({ md: "texte local", updatedAt: 5 }); remote.notes[0] = note({ md: "texte distant", updatedAt: 6 });
+  const r = M.merge(base, local, remote);
+  assert.equal(r.merged.notes.length, 2); assert.equal(r.merged.notes[0].md, "texte local");
+  assert.ok(r.merged.notes.some((x) => x.md === "texte distant" && /conflit/.test(x.title)));
+  assert.equal(r.conflicts.length, 1);
+  const again = M.merge(r.merged, r.merged, r.merged); assert.equal(again.merged.notes.length, 2);
+});
+
 console.log(`\n${n} test(s) passed`);

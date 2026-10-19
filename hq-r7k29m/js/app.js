@@ -17,7 +17,7 @@
     { id: "settings", path: "/settings", label: "Réglages", icon: "settings" },
   ];
   const ROUTES = [
-    [/^\/$/, "dash", "dash"], [/^\/projects$/, "projects", "projects"], [/^\/time$/, "time", "time"],
+    [/^\/$/, "dash", "dash"], [/^\/projects$/, "projects", "projects"], [/^\/projects\/doc\/([\w-]+)$/, "noteEdit", "projects", ["id"]], [/^\/time$/, "time", "time"],
     [/^\/docs$/, "docs", "docs"], [/^\/docs\/new\/(quote|invoice|deposit|credit)$/, "docEdit", "docs", ["type"]], [/^\/docs\/([\w-]+)$/, "docEdit", "docs", ["id"]],
     [/^\/clients$/, "clients", "clients"], [/^\/tools$/, "tools", "tools"], [/^\/tools\/apex$/, "apex", "tools"],
     [/^\/compliance$/, "compliance", "compliance"], [/^\/settings$/, "settings", "settings"], [/^\/more$/, "more", "more"],

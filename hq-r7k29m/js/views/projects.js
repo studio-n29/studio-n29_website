@@ -70,7 +70,7 @@
         s.close(true); U.toast(p ? "Projet mis à jour" : "Projet créé", "ok"); HQ.go("/projects?p=" + sid);
       },
     }, field("Nom", f.name, { req: true }), h("div.r2", field("Statut", f.status), field("Client", f.clientId)), h("div.r2", field("Échéance", f.deadline), field("Taux horaire HT (€/h)", f.rate)), field("Lien", f.url), field("Description", f.description), h("div.field", h("span.lbl", "Couleur"), sw), err,
-      h("div.form-actions", p ? U.btn("Supprimer", { kind: "danger", icon: "trash", onClick: async () => { const n = db.tasks.filter((t) => t.projectId === id).length; if (await U.confirm({ title: "Supprimer ce projet ?", text: `${v.name}${n ? ` — ses ${n} tâche(s) seront aussi supprimées.` : ""}`, ok: "Supprimer", danger: true })) { store.mutate((d) => { d.projects = d.projects.filter((x) => x.id !== id); d.tasks = d.tasks.filter((t) => t.projectId !== id); }); s.close(true); HQ.go("/projects"); } } }) : null, U.btn("Annuler", { onClick: () => s.close() }), U.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
+      h("div.form-actions", p ? U.btn("Supprimer", { kind: "danger", icon: "trash", onClick: async () => { const n = db.tasks.filter((t) => t.projectId === id).length, nd = db.notes.filter((t) => t.projectId === id).length; if (await U.confirm({ title: "Supprimer ce projet ?", text: `${v.name}${n || nd ? ` — ses ${n} tâche(s) et ${nd} document(s) seront aussi supprimés.` : ""}`, ok: "Supprimer", danger: true })) { store.mutate((d) => { d.projects = d.projects.filter((x) => x.id !== id); d.tasks = d.tasks.filter((t) => t.projectId !== id); d.notes = d.notes.filter((t) => t.projectId !== id); }); s.close(true); HQ.go("/projects"); } } }) : null, U.btn("Annuler", { onClick: () => s.close() }), U.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
   }
   HQ.tasks = { openTask, openProject };
 
@@ -80,16 +80,18 @@
     const db = store.db();
     let pf = ctx.query.p || sessionStorage.getItem("n29hq.pf") || "all";
     if (pf !== "all" && pf !== "none" && !db.projects.some((p) => p.id === pf)) pf = "all";
-    let q = "";
+    let q = "", tab = ctx.query.tab === "docs" ? "docs" : "tasks";
     const setPf = (v) => { pf = v; try { sessionStorage.setItem("n29hq.pf", v); } catch (e) { /* ignore */ } draw(); };
 
-    root.appendChild(h("div.page-head", h("div", h("div.eyebrow", "Production"), h("h1", "Projets & tâches")), h("div.head-actions", U.btn("Projet", { icon: "folder", onClick: () => openProject(null) }), U.btn("Tâche", { kind: "accent", icon: "plus", onClick: () => openTask(null, { projectId: pf !== "all" && pf !== "none" ? pf : "" }) }))));
+    root.appendChild(h("div.page-head", h("div", h("div.eyebrow", "Production"), h("h1", "Projets & tâches")), h("div.head-actions", U.btn("Projet", { icon: "folder", onClick: () => openProject(null) }), U.btn("Document", { icon: "doc", onClick: () => HQ.notes.createSheet(pf !== "all" && pf !== "none" ? pf : "") }), U.btn("Tâche", { kind: "accent", icon: "plus", onClick: () => openTask(null, { projectId: pf !== "all" && pf !== "none" ? pf : "" }) }))));
     const chips = h("div.seg", { style: "margin-bottom:14px" });
     const overview = h("div");
     const quickIn = U.input({ placeholder: "Ajouter une tâche rapidement… (Entrée)", "aria-label": "Ajouter une tâche rapidement", enterkeyhint: "done" });
     const search = U.input({ type: "search", placeholder: "Rechercher…" });
     const board = h("div.kanban");
-    root.append(chips, overview, h("div.toolbar", h("div.search", icon("search"), search), h("div", { style: "flex:2 1 280px" }, quickIn)), board);
+    const tabs = h("div.seg", { style: "margin-bottom:14px;max-width:360px" });
+    const tasksPane = h("div", h("div.toolbar", h("div.search", icon("search"), search), h("div", { style: "flex:2 1 280px" }, quickIn)), board), docsPane = h("div");
+    root.append(chips, overview, tabs, tasksPane, docsPane);
 
     quickIn.addEventListener("keydown", (e) => {
       if (e.key !== "Enter" || !quickIn.value.trim()) return;
@@ -146,7 +148,14 @@
         board.appendChild(col);
       });
     }
-    function draw() { drawChips(); drawOverview(); drawBoard(); }
+    function drawTabs() {
+      const inScope = (id) => pf === "all" || (pf === "none" ? !id : id === pf);
+      const nt = db.tasks.filter((t) => inScope(t.projectId)).length, nd = db.notes.filter((n) => inScope(n.projectId)).length;
+      tabs.replaceChildren(...[["tasks", "Tâches", nt], ["docs", "Documents", nd]].map(([id, label, n]) => h("button", { type: "button", "aria-pressed": String(tab === id), onclick: () => { tab = id; draw(); } }, `${label} · ${n}`)));
+      tasksPane.hidden = tab !== "tasks"; docsPane.hidden = tab !== "docs";
+      if (tab === "docs") docsPane.replaceChildren(HQ.notes.panel(pf));
+    }
+    function draw() { drawChips(); drawOverview(); drawTabs(); if (tab === "tasks") drawBoard(); }
     draw();
   };
 })();

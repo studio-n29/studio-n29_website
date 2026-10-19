@@ -40,7 +40,7 @@
         },
         security: { autoLockMinutes: 5, remember: false },
       },
-      clients: [], projects: [], tasks: [], timeEntries: [], timer: null, documents: [], payments: [], prompts: [], links: [],
+      clients: [], projects: [], tasks: [], timeEntries: [], timer: null, documents: [], payments: [], prompts: [], links: [], notes: [],
       apex: { style: null, state: null }, audit: [], lastBackupAt: null,
     };
   }

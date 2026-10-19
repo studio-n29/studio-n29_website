@@ -7,7 +7,7 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
   const M = {};
-  const LISTS = ["clients", "projects", "tasks", "timeEntries", "documents", "payments", "prompts", "links"];
+  const LISTS = ["clients", "projects", "tasks", "timeEntries", "documents", "payments", "prompts", "links", "notes"];
   const canon = (v) => (v === null || typeof v !== "object" ? JSON.stringify(v === undefined ? null : v) : Array.isArray(v) ? "[" + v.map(canon).join(",") + "]" : "{" + Object.keys(v).sort().map((k) => JSON.stringify(k) + ":" + canon(v[k])).join(",") + "}");
   const eq = (a, b) => canon(a) === canon(b);
   M.canon = canon; M.eq = eq;
@@ -49,7 +49,10 @@
         if (eq(l, r)) out.push(l);
         else if (b && eq(l, b)) { out.push(r); stats.pulled++; }
         else if (b && eq(r, b)) { out.push(l); stats.pushed++; }
-        else { out.push(l); conflicts.push(`${path}/${id}`); }
+        else {
+          out.push(l); conflicts.push(`${path}/${id}`);
+          if (path === "notes") out.push(Object.assign({}, r, { id: id + "-c" + (r.updatedAt || 0).toString(36), title: (r.title || "Sans titre") + " (conflit)" })); // never lose written text
+        }
       } else if (l) {
         if (!b) { out.push(l); stats.pushed++; }                       // created here
         else if (eq(l, b)) stats.pulled++;                              // deleted on the other device, untouched here
