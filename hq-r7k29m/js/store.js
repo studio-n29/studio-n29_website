@@ -4,7 +4,7 @@
 (function () {
   "use strict";
   const HQ = (window.HQ = window.HQ || {});
-  const KEY_META = "n29hq.meta.v1", KEY_DATA = "n29hq.data.v1", KEY_PREV = "n29hq.data.prev.v1";
+  const KEY_META = "n29hq.meta.v1", KEY_DATA = "n29hq.data.v1", KEY_PREV = "n29hq.data.prev.v1", KEY_LOCAL = "n29hq.local.v1";
   const ITER = 310000;
   const enc = new TextEncoder(), dec = new TextDecoder();
 
@@ -60,7 +60,7 @@
   };
 
   // ---------- Store ----------
-  let key = null, meta = null, db = null, dirty = false, timer = null;
+  let key = null, meta = null, db = null, dirty = false, timer = null, localData = {}, localTimer = null;
   const listeners = new Set();
   const S = (HQ.store = {});
 
@@ -79,6 +79,17 @@
     localStorage.setItem(KEY_DATA, JSON.stringify(blob));
     dirty = false;
   }
+  async function persistLocal() {
+    if (!key) return;
+    localStorage.setItem(KEY_LOCAL, JSON.stringify(await encryptJSON(key, localData)));
+  }
+  async function loadLocal() {
+    localData = {};
+    try { const blob = JSON.parse(localStorage.getItem(KEY_LOCAL) || "null"); if (blob) localData = await decryptJSON(key, blob); } catch (e) { localData = {}; }
+  }
+  S.local = () => localData;
+  S.saveLocal = () => { clearTimeout(localTimer); localTimer = setTimeout(() => persistLocal().catch(console.error), 200); };
+  S.saveLocalNow = async () => { clearTimeout(localTimer); await persistLocal(); };
   S.saveNow = async () => { clearTimeout(timer); await persist(); };
   S.mutate = (fn) => {
     const r = fn(S.db());
@@ -102,6 +113,7 @@
     db = defaultDb();
     localStorage.setItem(KEY_META, JSON.stringify(meta));
     S.audit("init", "Coffre créé");
+    localData = {};
     await persist();
     emit();
   };
@@ -119,7 +131,7 @@
     meta = JSON.parse(localStorage.getItem(KEY_META));
     const k = await deriveKey(pass, b64.from(meta.salt), meta.iter);
     const data = await openWith(k);
-    key = k; db = migrate(data);
+    key = k; db = migrate(data); await loadLocal();
     if (db.settings.security.remember) idb.set(key);
     emit();
   };
@@ -127,14 +139,15 @@
     if (!S.exists()) return false;
     const k = await idb.get();
     if (!k) return false;
-    try { const data = await openWith(k); key = k; db = migrate(data); meta = JSON.parse(localStorage.getItem(KEY_META)); emit(); return true; }
+    try { const data = await openWith(k); key = k; db = migrate(data); meta = JSON.parse(localStorage.getItem(KEY_META)); await loadLocal(); emit(); return true; }
     catch (e) { await idb.del(); return false; }
   };
   S.setRemember = async (on) => { S.mutate((d) => { d.settings.security.remember = !!on; }); if (on) await idb.set(key); else await idb.del(); };
   S.lock = async (forget = true) => {
     if (dirty) await persist().catch(() => {});
+    await persistLocal().catch(() => {});
     if (forget) await idb.del();
-    key = null; db = null; emit();
+    key = null; db = null; localData = {}; emit();
   };
   S.changePassphrase = async (oldPass, newPass) => {
     const k = await deriveKey(oldPass, b64.from(meta.salt), meta.iter);
@@ -146,9 +159,10 @@
     localStorage.removeItem(KEY_PREV);
     S.audit("passphrase", "Phrase secrète modifiée");
     await persist();
+    await persistLocal();
     if (db.settings.security.remember) await idb.set(key); else await idb.del();
   };
-  S.wipe = async () => { [KEY_META, KEY_DATA, KEY_PREV].forEach((k) => localStorage.removeItem(k)); await idb.del(); key = null; db = null; meta = null; emit(); };
+  S.wipe = async () => { [KEY_META, KEY_DATA, KEY_PREV, KEY_LOCAL].forEach((k) => localStorage.removeItem(k)); await idb.del(); key = null; db = null; meta = null; localData = {}; emit(); };
 
   // ---------- Backups ----------
   S.exportEncrypted = async () => {
@@ -174,8 +188,9 @@
       if (!pass) throw new Error("need-pass");
       const k = await deriveKey(pass, b64.from(o.meta.salt), o.meta.iter);
       const data = await decryptJSON(k, o.data); // throws if wrong passphrase
-      meta = o.meta; key = k; db = migrate(data);
+      meta = o.meta; key = k; db = migrate(data); localData = {};
       localStorage.setItem(KEY_META, JSON.stringify(meta));
+      localStorage.removeItem(KEY_LOCAL);
       S.audit("import", "Import d'une sauvegarde chiffrée");
       await persist();
       if (db.settings.security.remember) await idb.set(key);
@@ -183,6 +198,42 @@
       return "encrypted";
     }
     throw new Error("Fichier de sauvegarde non reconnu");
+  };
+  // ---------- Cloud sync helpers (the server only ever sees ciphertext) ----------
+  S.meta = () => (meta ? Object.assign({}, meta) : null);
+  S.encryptView = (view) => encryptJSON(key, view);
+  const sameKey = (m) => meta && m && m.salt === meta.salt && m.iter === meta.iter;
+  S.needsPassphrase = (remoteMeta) => !sameKey(remoteMeta);
+  S.decryptView = async (blob, remoteMeta, pass) => {
+    let k = key;
+    if (!sameKey(remoteMeta)) { if (!pass) throw new Error("need-pass"); k = await deriveKey(pass, b64.from(remoteMeta.salt), remoteMeta.iter); }
+    return decryptJSON(k, blob);
+  };
+  // The passphrase was changed on another device: adopt the new key parameters here (after checking the passphrase decrypts the cloud copy).
+  S.adoptMeta = async (remoteMeta, pass) => {
+    const k = await deriveKey(pass, b64.from(remoteMeta.salt), remoteMeta.iter);
+    meta = remoteMeta; key = k;
+    localStorage.setItem(KEY_META, JSON.stringify(meta));
+    await persist(); await persistLocal();
+    if (db.settings.security.remember) await idb.set(key);
+  };
+  // New device: build the local vault from the cloud copy and the passphrase.
+  S.createFromCloud = async (remoteMeta, blob, pass) => {
+    const k = await deriveKey(pass, b64.from(remoteMeta.salt), remoteMeta.iter);
+    const view = await decryptJSON(k, blob); // throws when the passphrase is wrong
+    meta = remoteMeta; key = k; localData = {};
+    db = migrate(HQ.merge.compose({ lastBackupAt: null, settings: { security: defaultDb().settings.security } }, view));
+    localStorage.setItem(KEY_META, JSON.stringify(meta));
+    localStorage.removeItem(KEY_LOCAL);
+    S.audit("cloud", "Coffre restauré depuis le cloud");
+    await persist();
+    emit();
+    return view;
+  };
+  // Replace the shared part of the local database (merged / restored view). Per-device data is kept.
+  S.applyView = (view) => {
+    const next = migrate(HQ.merge.compose(S.db(), view));
+    S.mutate((d) => { Object.keys(d).forEach((k) => delete d[k]); Object.assign(d, next); });
   };
   S.peekBackupType = (text) => { try { return JSON.parse(text).type; } catch (e) { return null; } };
   S._defaultDb = defaultDb;

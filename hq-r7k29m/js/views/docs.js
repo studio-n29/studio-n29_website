@@ -300,14 +300,19 @@
       save();
       const probe = liveFull(), res = L.validate(probe, db.settings, db.documents, { today: U.today() });
       if (res.errors.length) { U.toast("Corrigez les points signalés avant d'émettre.", "bad"); issuesBox.scrollIntoView({ behavior: "smooth", block: "center" }); return; }
+      const gate = await HQ.sync.beforeIssue();
+      if (!gate.ok) { U.toast(gate.message, "bad"); return; }
       const next = L.nextNumber(db.documents, doc, bl, doc.issueDate);
       const ok = await U.confirm({ title: `Émettre ${L.TYPE_LABEL[doc.type].toLowerCase()} ${next} ?`, text: `Client : ${probe.client.name} · Total : ${U.eur(probe.totals.ttc)} TTC. Une fois émise, la pièce reçoit son numéro définitif, elle est verrouillée (aucune modification possible : seule une facture d'avoir peut corriger) et conservée dans la chaîne d'intégrité.`, ok: "Émettre définitivement" });
       if (!ok) return;
       const r = await issueDoc(doc);
       if (!r.ok) { U.toast(r.errors[0], "bad"); return; }
+      HQ.sync.afterIssue();
       U.toast(`${r.doc.number} émise`, "ok"); HQ.go("/docs/" + doc.id);
     }
     drawLines(); refresh();
+    HQ.holdRefresh = true;
+    return () => { HQ.holdRefresh = false; };
   }
 
   // ----- Viewer (issued document) -----

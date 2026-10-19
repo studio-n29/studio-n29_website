@@ -31,6 +31,7 @@
     const [path, qs] = raw.split("?");
     return { path: path || "/", query: Object.fromEntries(new URLSearchParams(qs || "")) };
   }
+  HQ.refresh = () => route();
   HQ.go = (path) => { if (location.hash === "#" + path) route(); else location.hash = path; };
   function route() {
     if (!store.isUnlocked() || !mainEl) return;
@@ -68,6 +69,7 @@
       NAV.map((n) => link(n)), h("div.grow"),
       HQ.isStandalone() ? null : h("button.navb", { type: "button", dataset: { install: "1" }, onclick: HQ.install }, icon("download"), h("span", "Installer l'app")),
       h("button.navb", { type: "button", onclick: () => lockNow() }, icon("lock"), h("span", "Verrouiller")),
+      HQ.sync ? h("div.backup", HQ.sync.chip()) : null,
       h("div.backup" + (b.warn ? ".warn" : ""), b.text));
     mainEl = h("main.main#view", { tabindex: "-1" });
     const tabs = h("nav.tabbar", { "aria-label": "Navigation" }, NAV.filter((n) => n.tab).map((n) => h("a.tab", { href: "#" + n.path, dataset: { nav: n.id } }, icon(n.icon), n.label)), h("a.tab", { href: "#/more", dataset: { nav: "more" } }, icon("more"), "Plus"));
@@ -117,12 +119,13 @@
       mode === "create" ? h("div.notice", "Cette phrase ne peut pas être récupérée. Sans elle (et sans sauvegarde), les données sont perdues. Notez-la dans un gestionnaire de mots de passe.") : null,
       mode === "create" ? h("label.check", ack, "J'ai compris et je note ma phrase secrète.") : null,
       mode === "create" && HQ.platform() === "ios" && !HQ.isStandalone() ? h("div.notice", "iPhone : installez d'abord l'application (Partager ▸ Sur l'écran d'accueil), puis créez votre coffre dans l'application installée : elle a son propre stockage, séparé de Safari.") : null,
-      err, submit, h("div", { style: "display:flex;gap:10px;flex-wrap:wrap" }, restore, HQ.installButton({ sm: true })));
+      err, submit, h("div", { style: "display:flex;gap:10px;flex-wrap:wrap" }, restore, mode === "create" && HQ.sync && HQ.sync.configured() ? h("button.btn.btn--ghost.btn--sm", { type: "button", onclick: () => HQ.sync.restoreSheet(start) }, icon("refresh"), "Restaurer depuis le cloud") : null, HQ.installButton({ sm: true })));
     app.replaceChildren(h("div.lock", form));
     setTimeout(() => pass.focus(), 50);
   }
 
   async function lockNow() {
+    try { if (HQ.sync) await Promise.race([HQ.sync.flush(), new Promise((r) => setTimeout(r, 4000))]); } catch (e) { /* offline: the local copy is safe */ }
     await store.lock(true);
     clearInterval(idleTimer); mainEl = null;
     lockScreen("unlock");
@@ -170,6 +173,7 @@
   function start() {
     renderShell();
     armIdle();
+    if (HQ.sync) HQ.sync.init();
     if (!location.hash) location.hash = "/";
     route();
   }

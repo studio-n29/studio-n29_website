@@ -81,13 +81,14 @@
     let tab = ctx.query.tab || "company";
     root.appendChild(h("div.page-head", h("div", h("div.eyebrow", "Configuration"), h("h1", "Réglages"))));
     const tabs = h("div.tabs-inline", { role: "tablist" }), body = h("div.fade-in");
-    const T = [["company", "Entreprise"], ["billing", "Facturation"], ["security", "Sécurité"], ["data", "Données"]];
+    const T = [["company", "Entreprise"], ["billing", "Facturation"], ["cloud", "Synchronisation"], ["security", "Sécurité"], ["data", "Données"]];
     root.append(tabs, body);
     const show = (t) => { tab = t; tabs.replaceChildren(...T.map(([id, l]) => h("button", { role: "tab", "aria-selected": String(id === tab), onclick: () => show(id) }, l))); body.replaceChildren(PANES[t]()); };
     const PANES = {
       company: () => h("div.card", h("p.muted", { style: "font-size:.88rem;margin-bottom:16px" }, "Ces informations figurent sur chaque devis et facture (mentions légales). Elles sont figées sur une pièce au moment de son émission."),
         formFrom(COMPANY, db.settings.company, (o) => { if (o.siret && !L.validSiret(o.siret)) return "SIRET invalide (14 chiffres, clé de contrôle incorrecte)."; o.siret = L.cleanId(o.siret); store.mutate((d) => { Object.assign(d.settings.company, o); store.audit("settings.company", o.name); }); })),
       billing: () => h("div.card", formFrom(BILLING, db.settings.billing, (o) => { store.mutate((d) => { Object.assign(d.settings.billing, o); store.audit("settings.billing", ""); }); }, h("div.banner", { style: "margin-bottom:6px" }, "Changer un préfixe ouvre une nouvelle série qui repart de 0001. Les pièces déjà émises ne sont pas modifiées."))),
+      cloud: () => HQ.sync.panel(ctx.rerender),
       security: () => {
         const sec = db.settings.security;
         const lock = U.select([[0, "Jamais"], [1, "1 minute"], [2, "2 minutes"], [5, "5 minutes"], [10, "10 minutes"], [15, "15 minutes"], [30, "30 minutes"]], String(sec.autoLockMinutes));
@@ -125,7 +126,7 @@
     const item = (ico, label, sub, href, fn) => h(href ? "a.row" : "button.row", Object.assign(href ? { href } : { type: "button", onclick: fn }, { style: "text-align:left;background:none;border:0;border-bottom:1px solid var(--line);width:100%;color:inherit;padding-left:0;padding-right:0" }), h("div", { style: "display:flex;gap:14px;align-items:center" }, h("span", { style: "color:var(--accent-2)" }, icon(ico)), h("div", h("div.row-t", label), h("div.row-s", sub))), icon("chevR"));
     root.appendChild(h("div.page-head", h("div", h("div.eyebrow", "Menu"), h("h1", "Plus"))));
     root.appendChild(h("div.card", h("div.list",
-      item("tools", "Outils", "Apex Prompt Studio, raccourcis", "#/tools"), item("users", "Clients", `${db.clients.length} client(s)`, "#/clients"), item("shield", "Conformité", "Mentions, intégrité, livre des recettes", "#/compliance"), item("settings", "Réglages", "Entreprise, facturation, sécurité, données", "#/settings"),
+      item("refresh", "Synchronisation", HQ.sync ? HQ.sync.statusText() : "", "#/settings?tab=cloud"), item("tools", "Outils", "Apex Prompt Studio, raccourcis", "#/tools"), item("users", "Clients", `${db.clients.length} client(s)`, "#/clients"), item("shield", "Conformité", "Mentions, intégrité, livre des recettes", "#/compliance"), item("settings", "Réglages", "Entreprise, facturation, sécurité, données", "#/settings"),
       item("download", "Sauvegarder", lb ? "Dernière : " + U.fmtDateTime(lb) : "Aucune sauvegarde", null, exportEncrypted), HQ.isStandalone() ? null : item("download", "Installer l'application", "Icône sur l'écran d'accueil, plein écran, hors ligne", null, () => HQ.install()), item("lock", "Verrouiller", "Fermer l'espace privé", null, () => HQ.lockNow()))));
   };
 })();
