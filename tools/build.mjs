@@ -39,6 +39,8 @@ const PROJECTS = [
     media: m("delight", [["07.webp", 1124, 554], ["01.webp", 890, 490], ["02.webp", 512, 408], ["03.webp", 512, 309], ["04.webp", 638, 508], ["05.webp", 512, 224], ["06.webp", 638, 508]]) },
   { slug: "sweet-courrier", name: "Sweet Courrier", cover: "sweet-courrier/05.webp", engine: "Unity", tech: ["Unity", "C#", "Physics", "Local co-op"], c: 3,
     media: m("sweet-courrier", [["02.webp", 512, 304], ["03.webp", 512, 272], ["04.webp", 667, 211], ["05.webp", 612, 442], ["06.webp", 512, 272]]) },
+  { slug: "n29-hq", name: "N29 HQ", cover: "n29-hq/01.webp", engine: "Web app (PWA)", tech: ["JavaScript", "WebCrypto", "Supabase", "PWA"], c: 5,
+    media: m("n29-hq", [["01.webp", 1280, 860], ["02.webp", 1280, 860], ["03.webp", 1280, 860], ["04.webp", 1280, 860], ["05.webp", 1280, 860], ["06.webp", 1280, 860], ["07.webp", 390, 844], ["08.webp", 390, 844]]) },
   { slug: "project-x", name: "Project X", cover: "project-x-cover.svg", engine: "Unity", tech: ["Unity", "C#"], c: 3, status: "nda", nda: true },
 ];
 

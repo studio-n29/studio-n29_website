@@ -182,5 +182,17 @@
   "reviews.role": "Product Operations Lead, Chukker App LLC",
   "reviews.quote": "Strong all-round contribution across. Djason delivered the first draft of the match simulation algorithms, integrated RP Vision from the GDD with solid stabilisation and performance gains, and set up a clean Unity architecture, Git workflow and documentation. Djason was a reliable partner in production meetings, helping scope and split tasks clearly. Highly recommended for Unity game development.",
   "reviews.note": "Review shown as published on Malt.",
-  "contact.malt": "Malt"
+  "contact.malt": "Malt",
+  "p.n29-hq.type": "Internal tool",
+  "p.n29-hq.role": "Designer & Developer",
+  "p.n29-hq.desc": "The private tool I run my freelance business with: projects, time tracking, quotes and invoices, encrypted sync.",
+  "p.n29-hq.tagline": "The private cockpit of my freelance business: projects, documents, time tracking and invoicing in one installable app.",
+  "p.n29-hq.meta.role": "Design & development",
+  "p.n29-hq.meta.team": "Solo, in-house tool",
+  "p.n29-hq.ctx": "N29 HQ is the internal app I built to run STUDIO N29 day to day. It is a local-first, installable web app (PWA) that works offline and on my phone, with the same look as this site. Screenshots use fictional demo data.",
+  "p.n29-hq.c1": "<strong>Projects and tasks</strong>: several projects, each with its own kanban board and Markdown documents edited visually (fonts, sizes, styles, tables).",
+  "p.n29-hq.c2": "<strong>Time tracking</strong>: timer and calendar entries with date-range reports, in the spirit of Toggl.",
+  "p.n29-hq.c3": "<strong>Quotes and invoices</strong> following French legal requirements: continuous numbering, hash-chained issued documents, credit notes, deposits.",
+  "p.n29-hq.c4": "<strong>End-to-end encrypted sync</strong>: AES-GCM with a passphrase, stored on Supabase with row-level security, 3-way merge across devices.",
+  "p.n29-hq.c5": "<strong>Production tools</strong>: an improved Apex prompt generator for illustration work."
 }

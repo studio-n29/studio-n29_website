@@ -182,5 +182,17 @@
   "reviews.role": "Product Operations Lead, Chukker App LLC",
   "reviews.quote": "Strong all-round contribution across. Djason delivered the first draft of the match simulation algorithms, integrated RP Vision from the GDD with solid stabilisation and performance gains, and set up a clean Unity architecture, Git workflow and documentation. Djason was a reliable partner in production meetings, helping scope and split tasks clearly. Highly recommended for Unity game development.",
   "reviews.note": "Avis tel que publié sur Malt (en anglais).",
-  "contact.malt": "Malt"
+  "contact.malt": "Malt",
+  "p.n29-hq.type": "Outil interne",
+  "p.n29-hq.role": "Conception & développement",
+  "p.n29-hq.desc": "L'outil privé avec lequel je gère mon activité freelance : projets, suivi du temps, devis et factures, synchronisation chiffrée.",
+  "p.n29-hq.tagline": "Le cockpit privé de mon activité freelance : projets, documents, suivi du temps et facturation dans une seule application installable.",
+  "p.n29-hq.meta.role": "Conception et développement",
+  "p.n29-hq.meta.team": "Solo, outil interne",
+  "p.n29-hq.ctx": "N29 HQ est l'application interne que j'ai conçue pour gérer STUDIO N29 au quotidien. C'est une application web installable (PWA), prioritairement locale, qui fonctionne hors ligne et sur mon téléphone, avec le même style que ce site. Les captures utilisent des données de démonstration fictives.",
+  "p.n29-hq.c1": "<strong>Projets et tâches</strong> : plusieurs projets, chacun avec son tableau kanban et ses documents Markdown mis en page visuellement (polices, tailles, styles, tableaux).",
+  "p.n29-hq.c2": "<strong>Suivi du temps</strong> : chronomètre et saisie au calendrier avec rapports sur une plage de dates, dans l'esprit de Toggl.",
+  "p.n29-hq.c3": "<strong>Devis et factures</strong> conformes aux obligations françaises : numérotation continue, documents émis chaînés par empreinte, avoirs, acomptes.",
+  "p.n29-hq.c4": "<strong>Synchronisation chiffrée de bout en bout</strong> : AES-GCM avec phrase secrète, stockée sur Supabase avec sécurité par ligne, fusion à trois voies entre appareils.",
+  "p.n29-hq.c5": "<strong>Outils de production</strong> : un générateur de prompts Apex amélioré pour l'illustration."
 }
