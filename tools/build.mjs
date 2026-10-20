@@ -28,8 +28,8 @@ const ANIM = new Set(["heroes-dawn/hd-combat.webp", "heroes-dawn/hd-board-run.we
   ...["01", "02", "03", "04", "05"].map((n) => `discosmos/${n}.webp`), ...["01", "02", "03", "04", "05", "06", "07"].map((n) => `delight/${n}.webp`),
   "sweet-courrier/03.webp", "sweet-courrier/05.webp", "sweet-courrier/06.webp"]);
 const PROJECTS = [
-  { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn-cover.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Clean architecture", "Editor tools"], c: 6, status: "wip", featured: true,
-    media: [{ src: "heroes-dawn/hd-combat.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-board-run.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-hub.webp", w: 960, h: 432 }, { src: "heroes-dawn-cover.jpg", w: 1600, h: 900 }, { src: "hd-board.jpg", w: 1600, h: 720 }, { src: "hd-hq-live.jpg", w: 1600, h: 720 }, { src: "hd-quests.jpg", w: 1600, h: 720 }, { src: "hd-agents.jpg", w: 1600, h: 720 }] },
+  { slug: "heroes-dawn", name: "Heroes Dawn", cover: "heroes-dawn/poster.jpg", engine: "Unity 6", tech: ["Unity 6", "C#", "Clean architecture", "Editor tools"], c: 6, status: "wip", featured: true,
+    media: [{ src: "heroes-dawn/poster.jpg", w: 1600, h: 900 }, { src: "heroes-dawn/hd-combat.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-board-run.webp", w: 960, h: 432 }, { src: "heroes-dawn/hd-hub.webp", w: 960, h: 432 }, { src: "hd-board.jpg", w: 1600, h: 720 }, { src: "hd-hq-live.jpg", w: 1600, h: 720 }, { src: "hd-quests.jpg", w: 1600, h: 720 }, { src: "hd-agents.jpg", w: 1600, h: 720 }] },
   { slug: "discosmos", name: "Discosmos", cover: "discosmos/03.webp", engine: "Unity (URP)", tech: ["Unity", "C#", "Photon", "Netcode"], c: 4,
     media: m("discosmos", [["06.webp", 1326, 2048], ["01.webp", 512, 394], ["02.webp", 512, 364], ["03.webp", 512, 353], ["04.webp", 527, 445], ["05.webp", 601, 513]]) },
   { slug: "beat-strike", name: "Beat Strike", cover: "beat-strike/07.webp", coverFit: "contain", engine: "Unity 2021 LTS", tech: ["Unity", "C#", "Editor tools", "Rhythm engine"], c: 5,
