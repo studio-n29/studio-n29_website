@@ -53,7 +53,7 @@
       { g: "Ambiance", f: [palette, atmo] },
     ],
   };
-  const TABS = [["perso", "Personnage"], ["creat", "Créatures"], ["paysage", "Paysage"], ["carte", "Carte"], ["style", "Style commun"], ["lib", "Bibliothèque"]];
+  const TABS = [["perso", "Personnage"], ["creat", "Créatures"], ["paysage", "Paysage"], ["carte", "Carte"], ["style", "Style commun"], ["img", "Images"], ["lib", "Bibliothèque"]];
   const TITLE = { perso: "Personnage", creat: "Créature", paysage: "Paysage", carte: "Carte" };
 
   // ---------- Prompt builders (unchanged logic) ----------
@@ -133,6 +133,7 @@ negative prompt : ${o.neg.textContent}`, "Prompt et négatif copiés"); } }, ico
       Object.entries(panes).forEach(([k, el]) => { el.hidden = k !== id; });
       fab.hidden = !SCHEMAS[id];
       if (id === "lib") renderLibrary();
+      if (id === "img") renderGallery();
       if (SCHEMAS[id]) refresh(id, false);
       headRow.querySelector(".head-actions").replaceChildren(...(SCHEMAS[id] ? [btn("Au hasard", { icon: "dice", kind: "accent", onClick: () => randomize(id) }), btn("Effacer", { icon: "trash", onClick: () => clearTab(id) })] : []));
     }
@@ -293,11 +294,89 @@ negative prompt : ${o.neg.textContent}`, "Prompt et négatif copiés"); } }, ico
           btn("Copier le prompt", { kind: "accent", icon: "copy", onClick: () => copy(`${o.out.textContent}\n\nnegative prompt : ${o.neg.textContent}`, "Prompt et négatif copiés") }),
           btn("Négatif", { icon: "copy", onClick: () => copy(o.neg.textContent, "Négatif copié") }),
           btn("Sauvegarder", { icon: "star", onClick: () => savePromptSheet(tab, o) })),
-        h("div.lbl", { style: "margin:16px 0 8px" }, "Prompt négatif"), o.neg);
+        h("div.lbl", { style: "margin:16px 0 8px" }, "Prompt négatif"), o.neg, genBlock(tab, o));
       p._out = o;
       p.append(form, outCard);
       p.addEventListener("input", () => refresh(tab)); p.addEventListener("change", () => refresh(tab));
       return p;
+    }
+
+    // ----- image generation -----
+    const IG = HQ.imagegen, urls = [];
+    const thumb = (blob) => { const u = URL.createObjectURL(blob); urls.push(u); return u; };
+    function apiSheet(done) {
+      const cfg = IG.cfg(), f = {};
+      const prov = (id) => {
+        const P = IG.PROVIDERS[id];
+        f[id] = { key: HQ.util.input({ type: "password", value: cfg.keys[id] || "", placeholder: id === "custom" ? "Clé (optionnelle)" : "Collez votre clé API", autocomplete: "off", "aria-label": "Clé API " + P.label }), model: HQ.util.input({ value: cfg.models[id] || "", placeholder: P.models[0] || "nom du modèle", list: "ig-models-" + id }) };
+        if (id === "custom") f[id].base = HQ.util.input({ type: "url", value: cfg.customBase || "", placeholder: "https://exemple.com/v1" });
+        return h("div.card", { style: "padding:14px" }, h("h3", { style: "margin-bottom:6px" }, P.label), h("p.hint", { style: "margin-bottom:10px" }, P.keyHelp),
+          h("div.form", id === "custom" ? field("Adresse de l'API", f[id].base) : null, field("Clé API", f[id].key), field("Modèle", f[id].model), h("datalist", { id: "ig-models-" + id }, P.models.map((m) => h("option", { value: m })))));
+      };
+      const s = HQ.util.sheet({ title: "Génération d'images — réglages API", wide: true, body: h("form.form", { onsubmit: (e) => {
+        e.preventDefault();
+        Object.keys(IG.PROVIDERS).forEach((id) => { cfg.keys[id] = f[id].key.value.trim(); if (!cfg.keys[id]) delete cfg.keys[id]; cfg.models[id] = f[id].model.value.trim(); if (!cfg.models[id]) delete cfg.models[id]; });
+        cfg.customBase = f.custom.base.value.trim().replace(/\/+$/, "");
+        if (cfg.customBase && !/^https:\/\//i.test(cfg.customBase) && !/^http:\/\/(localhost|127\.0\.0\.1)/i.test(cfg.customBase)) { toast("L'adresse doit commencer par https://", "bad"); return; }
+        IG.save(); s.close(true); toast("Réglages enregistrés", "ok"); done && done();
+      } },
+        h("div.notice", "Vos clés restent sur cet appareil : chiffrées avec votre phrase secrète, jamais envoyées à Supabase ni synchronisées. Elles ne partent que vers le fournisseur choisi, à chaque génération. Sur un autre appareil, il faudra les saisir à nouveau."),
+        ...Object.keys(IG.PROVIDERS).map(prov),
+        h("p.hint", "Chaque image est facturée par le fournisseur selon son tarif. Utilisez de préférence une clé avec une limite de dépense."),
+        h("div.form-actions", HQ.util.btn("Annuler", { onClick: () => s.close() }), HQ.util.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
+    }
+    function viewImage(rec, after) {
+      const url = thumb(rec.blob), ext = (rec.blob.type.split("/")[1] || "png").replace("jpeg", "jpg");
+      const s = HQ.util.sheet({ title: "Image générée", wide: true, body: h("div.stack",
+        h("img", { src: url, alt: rec.prompt.slice(0, 120), style: "width:100%;max-height:70vh;object-fit:contain;background:var(--bg)" }),
+        h("p.row-s", `${(IG.PROVIDERS[rec.provider] || {}).label || rec.provider} · ${rec.model} · ${HQ.util.fmtDate(HQ.util.isoDate(new Date(rec.createdAt)))}`),
+        h("div.out", { style: "max-height:140px;overflow:auto;font-size:.82rem;min-height:0" }, rec.prompt),
+        h("div.form-actions", { style: "justify-content:flex-start" },
+          btn("Télécharger", { icon: "download", kind: "accent", onClick: () => { const a = h("a", { href: url, download: `apex-${rec.id}.${ext}` }); document.body.appendChild(a); a.click(); a.remove(); } }),
+          btn("Copier le prompt", { icon: "copy", onClick: () => copy(rec.prompt, "Prompt copié") }),
+          btn("Supprimer", { icon: "trash", kind: "danger", onClick: async () => { if (await HQ.util.confirm({ title: "Supprimer cette image ?", text: "Elle sera effacée de cet appareil.", ok: "Supprimer", danger: true })) { await IG.remove(rec.id); s.close(true); after && after(); } } }))) });
+    }
+    function genBlock(tab, o) {
+      const cfg = IG.cfg(), box = h("div", { style: "margin-top:20px;padding-top:16px;border-top:1px solid var(--line)" });
+      if (!IG.available()) { box.appendChild(h("p.hint", "La génération d'images nécessite un navigateur avec IndexedDB.")); return box; }
+      const provSel = HQ.util.select(Object.entries(IG.PROVIDERS).map(([k, v]) => [k, v.label + (IG.hasKey(k) ? "" : " — non configuré")]), cfg.provider && IG.PROVIDERS[cfg.provider] ? cfg.provider : "openai");
+      const model = HQ.util.input({ placeholder: "modèle", list: "ig-m-" + tab, "aria-label": "Modèle" }), dl = h("datalist", { id: "ig-m-" + tab });
+      const fmt = HQ.util.select(IG.FORMATS, cfg.format || "landscape"), qual = HQ.util.select(IG.QUALITIES, cfg.quality || "auto"), count = HQ.util.select([["1", "1 image"], ["2", "2 images"], ["4", "4 images"]], String(cfg.count || 1));
+      const status = h("p.hint", { role: "status", "aria-live": "polite", style: "min-height:1.4em;margin-top:10px" }), results = h("div", { style: "display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-top:10px" });
+      const syncModel = () => { const P = IG.PROVIDERS[provSel.value]; model.value = IG.model(provSel.value); dl.replaceChildren(...P.models.map((m) => h("option", { value: m }))); };
+      syncModel();
+      const goBtn = btn("Générer l'image", { kind: "accent", icon: "spark", onClick: run });
+      let ctl = null;
+      provSel.addEventListener("change", () => { syncModel(); cfg.provider = provSel.value; IG.save(); });
+      [fmt, qual, count].forEach((el) => el.addEventListener("change", () => { cfg.format = fmt.value; cfg.quality = qual.value; cfg.count = Number(count.value); IG.save(); }));
+      async function run() {
+        const prov = provSel.value;
+        if (!IG.hasKey(prov)) { apiSheet(() => { [...provSel.options].forEach((op) => { op.textContent = IG.PROVIDERS[op.value].label + (IG.hasKey(op.value) ? "" : " — non configuré"); }); }); return; }
+        if (ctl) { ctl.abort(); return; }
+        const m = model.value.trim(); if (m !== IG.model(prov)) { cfg.models[prov] = m; IG.save(); }
+        ctl = new AbortController(); goBtn.lastChild.textContent = "Annuler"; goBtn.classList.add("busy");
+        status.textContent = "Génération en cours… (cela peut prendre une minute)";
+        try {
+          const blobs = await IG.generate({ provider: prov, model: m, prompt: o.out.textContent, negative: o.neg.textContent, format: fmt.value, quality: qual.value, n: Number(count.value), signal: ctl.signal });
+          const recs = [];
+          for (const b of blobs) { const rec = { id: HQ.util.uid(), provider: prov, model: m, tab, prompt: o.out.textContent, negative: o.neg.textContent, format: fmt.value, blob: b, createdAt: Date.now() }; await IG.add(rec); recs.push(rec); }
+          recs.forEach((rec) => results.prepend(h("button", { type: "button", "aria-label": "Ouvrir l'image", style: "padding:0;border:1px solid var(--line);background:var(--bg);cursor:pointer;aspect-ratio:1;overflow:hidden", onclick: () => viewImage(rec, () => { results.replaceChildren(); }) }, h("img", { src: thumb(rec.blob), alt: "", style: "width:100%;height:100%;object-fit:cover" }))));
+          status.textContent = `${recs.length} image(s) enregistrée(s) dans l'onglet Images (sur cet appareil).`;
+        } catch (e) { status.textContent = e.name === "AbortError" ? "Génération annulée." : "Échec : " + e.message; }
+        finally { ctl = null; goBtn.lastChild.textContent = "Générer l'image"; goBtn.classList.remove("busy"); }
+      }
+      box.append(h("div", { style: "display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px" }, h("h2", { style: "margin:0;font-size:1.05rem" }, "Générer l'image"), HQ.util.iconBtn("settings", "Réglages API", () => apiSheet(() => { /* keys saved */ }))),
+        h("div.form.r2", { style: "display:grid;gap:10px" }, field("Fournisseur", provSel), field("Modèle", model), field("Format", fmt), field("Qualité", qual)),
+        h("div", { style: "display:flex;gap:10px;align-items:end;flex-wrap:wrap;margin-top:12px" }, h("div", { style: "min-width:120px" }, count), goBtn), dl, status, results);
+      return box;
+    }
+    async function renderGallery() {
+      const pane = panes.img; pane.replaceChildren(h("div.hint", "Chargement…"));
+      let list = []; try { list = await IG.list(); } catch (e) { pane.replaceChildren(h("div.empty", "Galerie indisponible : " + e.message)); return; }
+      const grid = h("div", { style: "display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px" });
+      list.forEach((rec) => grid.appendChild(h("button", { type: "button", "aria-label": "Ouvrir l'image", style: "padding:0;border:1px solid var(--line);background:var(--bg);cursor:pointer;text-align:left;display:grid", onclick: () => viewImage(rec, renderGallery) },
+        h("img", { src: thumb(rec.blob), alt: "", loading: "lazy", style: "width:100%;aspect-ratio:1;object-fit:cover" }), h("span.row-s", { style: "padding:6px 8px" }, `${TITLE[rec.tab] || "Image"} · ${HQ.util.fmtDate(HQ.util.isoDate(new Date(rec.createdAt)))}`))));
+      pane.replaceChildren(h("div.toolbar", h("span.hint", `${list.length} image(s) sur cet appareil. Elles ne sont ni synchronisées ni incluses dans les sauvegardes : téléchargez celles que vous gardez.`), btn("Réglages API", { icon: "settings", sm: true, onClick: () => apiSheet() })), list.length ? grid : h("div.empty", "Aucune image. Générez-en depuis l'onglet Personnage, Créatures, Paysage ou Carte."));
     }
 
     // ----- library -----
@@ -341,11 +420,12 @@ negative prompt : ${o.neg.textContent}`, "Prompt et négatif copiés"); } }, ico
     // ----- build & init -----
     Object.keys(SCHEMAS).forEach((t) => { panes[t] = buildGenPane(t); body.appendChild(panes[t]); });
     panes.style = buildStylePane(); body.appendChild(panes.style);
+    panes.img = h("div"); body.appendChild(panes.img);
     panes.lib = h("div"); body.appendChild(panes.lib);
     applyStyle(loadStyle());
     const saved = store.db().apex.state;
     if (saved) Object.keys(SCHEMAS).forEach((t) => { if (saved[t]) writeRaw(t, saved[t]); });
     show(state.tab);
-    return () => clearTimeout(saveTimer);
+    return () => { clearTimeout(saveTimer); urls.forEach((u) => URL.revokeObjectURL(u)); };
   };
 })();
