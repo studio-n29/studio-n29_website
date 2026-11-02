@@ -41,7 +41,7 @@ const ok = (c, msg, extra) => { console.log(c ? "  ok  " : "  FAIL", msg, c ? ""
   ok(await page.evaluate(() => /Tâche A/.test(document.body.innerText) && !/Tâche B/.test(document.body.innerText)), "each project shows only its own tasks");
   await clickText(".seg button", "Documents");
   ok(await page.evaluate(() => /Aucun document/.test(document.body.innerText)), "Documents tab starts empty");
-  await clickText(".btn", "Nouveau document");
+  await clickText(".toolbar .btn", "Document");
   await page.waitForSelector(".sheet form");
   await page.type(".sheet input[type=text]", "Spec de combat");
   await clickText(".sheet button", "Créer");

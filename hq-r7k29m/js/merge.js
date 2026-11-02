@@ -7,7 +7,7 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
   const M = {};
-  const LISTS = ["clients", "projects", "tasks", "timeEntries", "documents", "payments", "prompts", "links", "notes"];
+  const LISTS = ["clients", "projects", "tasks", "timeEntries", "documents", "payments", "prompts", "links", "notes", "folders"];
   const canon = (v) => (v === null || typeof v !== "object" ? JSON.stringify(v === undefined ? null : v) : Array.isArray(v) ? "[" + v.map(canon).join(",") + "]" : "{" + Object.keys(v).sort().map((k) => JSON.stringify(k) + ":" + canon(v[k])).join(",") + "}");
   const eq = (a, b) => canon(a) === canon(b);
   M.canon = canon; M.eq = eq;
