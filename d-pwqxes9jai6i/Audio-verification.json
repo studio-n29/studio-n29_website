@@ -1,0 +1,41 @@
+{
+  "initial": {
+    "paused": true,
+    "autoplay": false,
+    "hasSource": false,
+    "volume": 0.25,
+    "count": 5
+  },
+  "decoded": [
+    {
+      "index": 0,
+      "duration": 29.607,
+      "playing": true
+    },
+    {
+      "index": 1,
+      "duration": 30.007,
+      "playing": true
+    },
+    {
+      "index": 2,
+      "duration": 29.887,
+      "playing": true
+    },
+    {
+      "index": 3,
+      "duration": 29.807,
+      "playing": true
+    },
+    {
+      "index": 4,
+      "duration": 30.007,
+      "playing": true
+    }
+  ],
+  "automaticNext": true,
+  "wrapToFirst": true,
+  "pausedAfterNavigation": true,
+  "volume": 0.1,
+  "externalFilesNeeded": false
+}

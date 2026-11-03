@@ -1,0 +1,13 @@
+{
+  "desktop": {
+    "overflow": false,
+    "audioVisible": true,
+    "logoLoaded": true,
+    "navScrollable": true
+  },
+  "mobile": {
+    "overflow": false,
+    "audioControlsPresent": true,
+    "navItems": 8
+  }
+}
