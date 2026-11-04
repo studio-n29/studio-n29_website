@@ -1,11 +1,12 @@
 {
-  "documents": 69,
-  "images": 57,
+  "documents": 76,
+  "images": 60,
   "storyboardPlans": 36,
   "storyboardSeconds": 320,
-  "bytes": 1521431,
+  "bytes": 1624605,
   "engineRenders": true,
-  "builtAt": "2026-11-04T10:01:17.800Z",
+  "levelDesign": true,
+  "builtAt": "2026-11-04T11:28:30.928Z",
   "sources": [
     "01_Concept/Ame-damnee-premiere-rencontre.md",
     "01_Concept/Artisane-de-la-cite.md",
@@ -63,6 +64,8 @@
     "01_Concept/Varkhos-le-Collecteur.md",
     "02_Suivi/Decisions.md",
     "02_Suivi/Journal.md",
+    "03_Consolidation/Architecture-Unity-6.6-v0.1.md",
+    "03_Consolidation/Decisions-techniques-Unity-v0.1.md",
     "03_Consolidation/Hell-Rising-Concept-consolide-v0.1.md",
     "03_Consolidation/Hell-Rising-Dossier-general-Unity-6.6-v0.1.md",
     "03_Consolidation/Questions-ouvertes-v0.1.md",
@@ -75,9 +78,13 @@
     "04_Direction_artistique/02_Collection_v01/Prompts.md",
     "06_Prototype_URP/README.md",
     "04_Direction_artistique/03_Storyboard_finale_v01/Decoupage-complet.md",
+    "Code/README.md",
+    "Code/Validation-fondation.md",
+    "Code/Plan-prochain-lot.md",
+    "Code/Combat-v0.2.md",
+    "Code/Validation-combat-v0.2.md",
     "07_Level_Design/Les-Cendres-du-Seuil-Ouverture-v0.1.md"
   ],
   "format": "HTML + assets",
-  "destination": "C:/Users/dnath/Documents/Git/studio-n29_website/d-pwqxes9jai6i",
-  "levelDesign": true
+  "destination": "C:/Users/dnath/Documents/Git/studio-n29_website/d-pwqxes9jai6i"
 }

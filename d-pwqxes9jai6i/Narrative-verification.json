@@ -1,0 +1,18 @@
+{
+  "narrativeTab": true,
+  "narrativeVisible": true,
+  "cues": 12,
+  "markers": 7,
+  "gated": true,
+  "oneVoice": true,
+  "second": true,
+  "noRepeat": true,
+  "budget": true,
+  "toggle": true,
+  "first": "SISYPHE — Tu peux ralentir. Le sanctuaire ne va pas s’enfuir.",
+  "musicPaused": true,
+  "storyboardPlans": 36,
+  "video": true,
+  "overflow": false,
+  "mobileOverflow": false
+}

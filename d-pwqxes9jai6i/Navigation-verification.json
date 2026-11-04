@@ -1,0 +1,17 @@
+{
+  "sections": 10,
+  "subtabs": 51,
+  "documents": 74,
+  "search": true,
+  "deepLinks": true,
+  "history": true,
+  "keyboard": true,
+  "storyboard": true,
+  "dictionary": 814,
+  "audioPaused": true,
+  "overflow": false,
+  "mobile": {
+    "menu": true,
+    "overflow": false
+  }
+}

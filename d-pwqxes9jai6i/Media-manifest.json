@@ -12,6 +12,26 @@
       "bytes": 8782811
     },
     {
+      "file": "ld-01-retombee.png",
+      "sha256": "8a72abc5ce9b408c00df6cd70d9e9ed66caf1bcf0a76230b4f49e23202beabdc",
+      "bytes": 2736852
+    },
+    {
+      "file": "ld-02-parvis.png",
+      "sha256": "15720266ac204a26e2e73b9a72828561a82ae34445169ac4af1e5c50a118bfbc",
+      "bytes": 2799025
+    },
+    {
+      "file": "ld-03-sisyphe.png",
+      "sha256": "7f21a319a856f0dfedd5f7a4c5c3facdb2fc9708a321d23c0aa133069a6095ef",
+      "bytes": 2604271
+    },
+    {
+      "file": "ld-04-sanctuaire.png",
+      "sha256": "699e4474f97fb10a98746b6ab7e5f1e3ee5208582486bf08d2a1cc7af8f56933",
+      "bytes": 2749822
+    },
+    {
       "file": "6ba3b5869471.png",
       "sha256": "d4adb922f1b239457c84d5259ce6a42e7e39d1f61d5993b830331328ceb0b952",
       "bytes": 2813725
@@ -282,6 +302,21 @@
       "bytes": 2274226
     },
     {
+      "file": "efd65f696444.png",
+      "sha256": "efd65f6964449ac4a18ca126838d3368c583d2135920ad9d57ec3ba1ea0796bd",
+      "bytes": 522600
+    },
+    {
+      "file": "554acb55b94d.png",
+      "sha256": "554acb55b94db37544b5f68cadfd648c8a36d4ab1f5f45fe6334d7ab433ddb64",
+      "bytes": 528425
+    },
+    {
+      "file": "2e6254f9a17d.png",
+      "sha256": "2e6254f9a17d8570caa788d11adbaea085852ac418da2aa47e64d4dd87317e05",
+      "bytes": 1007351
+    },
+    {
       "file": "e691b5ab5556.png",
       "sha256": "000b5b0aa479472e6d1556aa96f852563ac2022592e4ee605fb1db39cb73f453",
       "bytes": 9739895
@@ -320,39 +355,12 @@
       "file": "3546d9746045.wav",
       "sha256": "a752245d0036ba8cd2ac07102554cd4254ba673285cdf05cdbb7f0677bea97c7",
       "bytes": 5761388
-    },
-    {
-      "file": "ld-01-retombee.png",
-      "bytes": 2736852,
-      "sha256": "8a72abc5ce9b408c00df6cd70d9e9ed66caf1bcf0a76230b4f49e23202beabdc"
-    },
-    {
-      "file": "ld-02-parvis.png",
-      "bytes": 2799025,
-      "sha256": "15720266ac204a26e2e73b9a72828561a82ae34445169ac4af1e5c50a118bfbc"
-    },
-    {
-      "file": "ld-03-sisyphe.png",
-      "bytes": 2604271,
-      "sha256": "7f21a319a856f0dfedd5f7a4c5c3facdb2fc9708a321d23c0aa133069a6095ef"
-    },
-    {
-      "file": "ld-04-sanctuaire.png",
-      "bytes": 2749822,
-      "sha256": "699e4474f97fb10a98746b6ab7e5f1e3ee5208582486bf08d2a1cc7af8f56933"
     }
   ],
-  "mediaCount": 68,
+  "mediaCount": 71,
   "brokenReferences": 0,
   "vaelith": true,
   "music": true,
   "video": true,
-  "bytes": 1521431,
-  "reusedOriginalAssets": 64,
-  "levelDesign": {
-    "zones": 8,
-    "images": 4,
-    "blueprint": "inline SVG",
-    "date": "2026-11-04"
-  }
+  "bytes": 1624605
 }
