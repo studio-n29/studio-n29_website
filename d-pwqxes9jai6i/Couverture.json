@@ -1,11 +1,11 @@
 {
-  "documents": 67,
+  "documents": 69,
   "images": 57,
   "storyboardPlans": 36,
   "storyboardSeconds": 320,
-  "bytes": 256023692,
+  "bytes": 1521431,
   "engineRenders": true,
-  "builtAt": "2026-11-03T19:52:58.085Z",
+  "builtAt": "2026-11-04T10:01:17.800Z",
   "sources": [
     "01_Concept/Ame-damnee-premiere-rencontre.md",
     "01_Concept/Artisane-de-la-cite.md",
@@ -43,6 +43,7 @@
     "01_Concept/Enfers-et-exploration.md",
     "01_Concept/Finale-et-pactes.md",
     "01_Concept/Interface.md",
+    "01_Concept/Langue-des-Enfers.md",
     "01_Concept/Lucifer.md",
     "01_Concept/Mephisto-duel-et-signal.md",
     "01_Concept/Ouverture-et-prologue.md",
@@ -73,6 +74,10 @@
     "04_Direction_artistique/02_Collection_v01/Inventaire-et-couverture.md",
     "04_Direction_artistique/02_Collection_v01/Prompts.md",
     "06_Prototype_URP/README.md",
-    "04_Direction_artistique/03_Storyboard_finale_v01/Decoupage-complet.md"
-  ]
+    "04_Direction_artistique/03_Storyboard_finale_v01/Decoupage-complet.md",
+    "07_Level_Design/Les-Cendres-du-Seuil-Ouverture-v0.1.md"
+  ],
+  "format": "HTML + assets",
+  "destination": "C:/Users/dnath/Documents/Git/studio-n29_website/d-pwqxes9jai6i",
+  "levelDesign": true
 }

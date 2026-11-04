@@ -1,0 +1,17 @@
+{
+  "active": true,
+  "zones": 8,
+  "images": 4,
+  "loaded": true,
+  "toggle": true,
+  "zoom": true,
+  "reset": true,
+  "musicPaused": true,
+  "videoPreserved": true,
+  "storyboardPlans": 36,
+  "overflow": false,
+  "mobile": {
+    "overflow": false,
+    "mapScroll": true
+  }
+}
