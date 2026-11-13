@@ -85,6 +85,40 @@
     return [...seen.values()].sort((a, b) => a.ts - b.ts).slice(-3000);
   }
 
+  // Attachment manifest (filesync.js): per docId, the entry with the newest updatedAt wins; deletions are { deleted: true } tombstones.
+  // On a tie the live entry beats the tombstone, then a canonical comparison keeps both devices converging on the same entry.
+  const isObj = (v) => !!v && typeof v === "object" && !Array.isArray(v);
+  function mergeManifest(local, remote) {
+    const L = isObj(local) ? local : {}, R = isObj(remote) ? remote : {}, out = {};
+    for (const k of new Set([...Object.keys(L), ...Object.keys(R)])) {
+      const l = isObj(L[k]) ? L[k] : null, r = isObj(R[k]) ? R[k] : null;
+      if (!l || !r) { if (l || r) out[k] = clone(l || r); continue; }
+      const lt = +l.updatedAt || 0, rt = +r.updatedAt || 0;
+      let win;
+      if (lt !== rt) win = lt > rt ? l : r;
+      else if (!!l.deleted !== !!r.deleted) win = l.deleted ? r : l;
+      else win = canon(l) >= canon(r) ? l : r;
+      out[k] = clone(win);
+    }
+    return out;
+  }
+  M.mergeManifest = mergeManifest;
+  // Per-version file keys (filestore.js): kid -> { docId, key, at }. Records are immutable and never removed, so the merge
+  // is a union: a device can never lose the key of a version it still holds (e.g. a local copy kept after a conflict).
+  // Should two records ever differ for one kid (random 128-bit ids: they will not), last writer wins, like the manifest.
+  function mergeFileKeys(local, remote) {
+    const L = isObj(local) ? local : {}, R = isObj(remote) ? remote : {}, out = {};
+    for (const k of new Set([...Object.keys(L), ...Object.keys(R)])) {
+      const l = isObj(L[k]) ? L[k] : null, r = isObj(R[k]) ? R[k] : null;
+      if (!l && !r) continue;
+      if (!l || !r) { out[k] = clone(l || r); continue; }
+      const lt = +l.at || 0, rt = +r.at || 0;
+      out[k] = clone(lt !== rt ? (lt > rt ? l : r) : canon(l) >= canon(r) ? l : r);
+    }
+    return out;
+  }
+  M.mergeFileKeys = mergeFileKeys;
+
   M.merge = (base, local, remote) => {
     const conflicts = [], stats = { pulled: 0, pushed: 0 };
     const out = {};
@@ -93,6 +127,8 @@
       if (LISTS.includes(k)) out[k] = mergeList(B[k], local[k], remote[k], k, conflicts, stats);
       else if (k === "audit") out[k] = mergeAudit(local[k], remote[k]);
       else if (k === "settings") out[k] = mergeSettings(B[k], local[k], remote[k], conflicts);
+      else if (k === "fileManifest") out[k] = mergeManifest(local[k], remote[k]);
+      else if (k === "fileKeys") out[k] = mergeFileKeys(local[k], remote[k]);
       else if (k === "apex") out[k] = mergeObject(B[k], local[k], remote[k], "apex", conflicts);
       else out[k] = pick(B[k], local[k], remote[k], k, conflicts);
     }

@@ -175,11 +175,16 @@
     S.mutate((d) => { d.lastBackupAt = Date.now(); S.audit("export", "Export lisible (JSON)"); });
     return JSON.stringify({ type: "n29hq-backup-plain", v: 1, exportedAt: new Date().toISOString(), db: S.db() }, null, 1);
   };
+  // Attachment keys (db.fileKeys) are written by the N29 HQ app (desktop / Android) and synced through this vault. This
+  // PWA never uses them, but it must never drop them: whatever replaces the database (an imported backup, a restored
+  // cloud version, a merged view) keeps the keys already held, as the app's store.js does. A vault that never saw
+  // attachments is left untouched.
+  const keepFileKeys = (next, cur) => { if ((cur && cur.fileKeys) || next.fileKeys) next.fileKeys = Object.assign({}, cur && cur.fileKeys, next.fileKeys); return next; };
   S.importBackup = async (text, pass) => {
     const o = JSON.parse(text);
     if (o.type === "n29hq-backup-plain") {
       if (!o.db || typeof o.db !== "object") throw new Error("Fichier invalide");
-      const next = migrate(o.db);
+      const next = keepFileKeys(migrate(o.db), S.db());
       S.mutate((d) => { Object.keys(d).forEach((k) => delete d[k]); Object.assign(d, next); S.audit("import", "Import d'une sauvegarde lisible"); });
       await persist();
       return "plain";
@@ -188,7 +193,7 @@
       if (!pass) throw new Error("need-pass");
       const k = await deriveKey(pass, b64.from(o.meta.salt), o.meta.iter);
       const data = await decryptJSON(k, o.data); // throws if wrong passphrase
-      meta = o.meta; key = k; db = migrate(data); localData = {};
+      meta = o.meta; key = k; db = keepFileKeys(migrate(data), db); localData = {};
       localStorage.setItem(KEY_META, JSON.stringify(meta));
       localStorage.removeItem(KEY_LOCAL);
       S.audit("import", "Import d'une sauvegarde chiffrée");
@@ -232,7 +237,7 @@
   };
   // Replace the shared part of the local database (merged / restored view). Per-device data is kept.
   S.applyView = (view) => {
-    const next = migrate(HQ.merge.compose(S.db(), view));
+    const next = keepFileKeys(migrate(HQ.merge.compose(S.db(), view)), S.db());
     S.mutate((d) => { Object.keys(d).forEach((k) => delete d[k]); Object.assign(d, next); });
   };
   S.peekBackupType = (text) => { try { return JSON.parse(text).type; } catch (e) { return null; } };
