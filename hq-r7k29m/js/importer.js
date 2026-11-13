@@ -86,8 +86,9 @@
     const todo = entries.filter((e) => !ignored(e.path));
     rep.skippedHidden = entries.length - todo.length;
     if (todo.length > LIMITS.files) { rep.failed.push(`Trop de fichiers (${todo.length}) : ${LIMITS.files} au maximum par import.`); return rep; }
-    const newFolders = [], newNotes = [], folderKey = new Map();
-    const exists = (pid, parent, name) => db.folders.find((f) => (f.projectId || "") === pid && (f.parentId || "") === parent && fold(f.name) === fold(name)) || newFolders.find((f) => f.projectId === pid && f.parentId === parent && fold(f.name) === fold(name));
+    const newFolders = [], newNotes = [], folderKey = new Map(), trashed = HQ.exm.trashedSet(db);
+    // a same-named folder in the trash is not reused: what is imported must be visible
+    const exists = (pid, parent, name) => db.folders.find((f) => (f.projectId || "") === pid && (f.parentId || "") === parent && fold(f.name) === fold(name) && !trashed.has(f.id)) || newFolders.find((f) => f.projectId === pid && f.parentId === parent && fold(f.name) === fold(name));
     const ensure = (segments) => {
       let parent = folderId;
       segments.forEach((name) => {

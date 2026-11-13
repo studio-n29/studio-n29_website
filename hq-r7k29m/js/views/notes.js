@@ -23,15 +23,15 @@
   // ---------- Folders ----------
   const folderById = (id) => store.db().folders.find((f) => f.id === id);
   const folderPath = (id) => { const out = []; let f = folderById(id), n = 0; while (f && n++ < 30) { out.unshift(f.name); f = folderById(f.parentId); } return out.join(" / "); };
-  const descendants = (id) => { const all = store.db().folders, out = []; const walk = (p) => all.filter((f) => f.parentId === p).forEach((f) => { out.push(f.id); walk(f.id); }); walk(id); return out; };
   // [value, label] pairs of the folders of a project, indented by depth
   function folderOptions(projectId, exclude, keepId) { // trashed folders are no destination; keepId: the current folder of an editor stays selectable
-    const all = store.db().folders.filter((f) => (f.projectId || "") === (projectId || "") && !(exclude || []).includes(f.id) && (f.id === keepId || !HQ.exm.isTrashed(store.db(), f.id))), out = [["", "— racine —"]];
+    const db = store.db(), trashed = HQ.exm.trashedSet(db);
+    const all = db.folders.filter((f) => (f.projectId || "") === (projectId || "") && !(exclude || []).includes(f.id) && (f.id === keepId || !trashed.has(f.id))), out = [["", "— racine —"]];
     const walk = (parent, depth) => all.filter((f) => (f.parentId || "") === parent).sort((a, b) => a.name.localeCompare(b.name, "fr")).forEach((f) => { out.push([f.id, "  ".repeat(depth) + (depth ? "↳ " : "") + f.name]); walk(f.id, depth + 1); });
     walk("", 0);
     return out;
   }
-  const countIn = (id) => { const d = store.db(); return d.notes.filter((n) => n.folderId === id && !HQ.exm.isTrashed(d, n.id)).length + d.folders.filter((f) => f.parentId === id && !HQ.exm.isTrashed(d, f.id)).length; };
+  const countIn = (id) => { const r = HQ.exm.listFolder(store.db(), { folderId: id }); return r.notes.length + r.folders.length; };
 
   function folderSheet(existing, projectId, parentId, done) {
     const name = U.input({ value: existing ? existing.name : "", maxlength: 80, placeholder: "Nom du dossier" }), err = h("p.ferr", { role: "alert" });
@@ -39,7 +39,8 @@
       e.preventDefault(); const v = name.value.trim().replace(/[\/\\]/g, "-");
       if (!v) { err.textContent = "Donnez un nom au dossier."; return; }
       const pid = existing ? existing.projectId || "" : projectId, par = existing ? existing.parentId || "" : parentId;
-      if (store.db().folders.some((f) => f.id !== (existing && existing.id) && (f.projectId || "") === pid && (f.parentId || "") === par && f.name.toLowerCase() === v.toLowerCase())) { err.textContent = "Un dossier porte déjà ce nom ici."; return; }
+      const db = store.db(), trashed = HQ.exm.trashedSet(db); // trashed siblings do not count (same rule as HQ.exm.canMove)
+      if (db.folders.some((f) => f.id !== (existing && existing.id) && (f.projectId || "") === pid && (f.parentId || "") === par && f.name.toLowerCase() === v.toLowerCase() && !trashed.has(f.id))) { err.textContent = "Un dossier porte déjà ce nom ici."; return; }
       let id = existing && existing.id;
       store.mutate((d) => { if (existing) d.folders.find((f) => f.id === id).name = v; else { id = U.uid(); d.folders.push({ id, name: v, projectId: pid, parentId: par, createdAt: Date.now() }); } });
       s.close(true); done && done(id);
@@ -57,12 +58,13 @@
   // ---------- Trash (minimal: restore, delete for good, empty) ----------
   function trashSheet(changed) { // changed(): called after each change, so the list behind the sheet and the tab counter follow
     const body = h("div.stack");
-    const sh = U.sheet({ title: "Corbeille", body });
-    const off = store.onChange(() => { if (!store.isUnlocked()) { off(); sh.close(true); const sc = sh.el.closest(".scrim"); if (sc) sc.remove(); } }); // nothing readable over the lock screen
-    const safe = (fn) => { try { return fn(); } catch (e) { U.toast("Action impossible (coffre verrouillé ?)", "err"); return false; } };
+    let off = () => {};
+    const sh = U.sheet({ title: "Corbeille", body, onClose: () => off() }); // the listener goes on every close, not only on lock
+    off = store.onChange(() => { if (!store.isUnlocked()) { off(); sh.close(true); const sc = sh.el.closest(".scrim"); if (sc) sc.remove(); } }); // nothing readable over the lock screen
+    const safe = (fn) => { try { return fn(); } catch (e) { U.toast("Action impossible (coffre verrouillé ?)", "bad"); return false; } };
     const purgeNow = (ids) => { // ONE mutation; files are removed only once it has succeeded
       let res = null;
-      try { store.mutate((d) => { res = ids ? HQ.exm.purge(d, ids) : HQ.exm.emptyTrash(d); HQ.exm.prune(d); }); } catch (e) { U.toast("Suppression impossible", "err"); return false; }
+      try { store.mutate((d) => { res = ids ? HQ.exm.purge(d, ids) : HQ.exm.emptyTrash(d); HQ.exm.prune(d); }); } catch (e) { U.toast("Suppression impossible", "bad"); return false; }
       HQ.notes.purgeFiles(res.noteIds);
       return true;
     };
@@ -142,7 +144,7 @@
       const db = store.db();
       const inScope = (pid) => pf === "all" || (pf === "none" ? !pid : pid === pf);
       const projId = pf !== "all" && pf !== "none" ? pf : "";
-      let q = "", cur = "";
+      let q = "", cur = "", counts = null;
       try { cur = sessionStorage.getItem("n29hq.folder") || ""; } catch (e) { /* ignore */ }
       { const f = folderById(cur); if (!f || !inScope(f.projectId || "")) cur = ""; }
       const setCur = (id) => { cur = id; try { sessionStorage.setItem("n29hq.folder", id); } catch (e) { /* ignore */ } draw(); };
@@ -161,7 +163,7 @@
       const folderRow = (f) => {
         const p = db.projects.find((x) => x.id === f.projectId);
         const row = h("div.row.row--folder", { dataset: { folder: f.id } },
-          h("button.row-main", { type: "button", onclick: () => setCur(f.id) }, h("span.kind.kind--folder", icon("folder")), h("div", h("div.row-t", f.name), h("div.row-s", `${countIn(f.id)} élément(s)${p && pf === "all" ? " · " + p.name : ""}`))),
+          h("button.row-main", { type: "button", onclick: () => setCur(f.id) }, h("span.kind.kind--folder", icon("folder")), h("div", h("div.row-t", f.name), h("div.row-s", `${counts ? counts.get(f.id) || 0 : countIn(f.id)} élément(s)${p && pf === "all" ? " · " + p.name : ""}`))),
           h("div.row-r", { style: "grid-auto-flow:column;gap:6px" }, U.iconBtn("edit", "Renommer", () => folderSheet(f, "", "", draw)), U.iconBtn("trash", "Supprimer le dossier", () => deleteFolder(f, refresh), "danger")));
         dropTarget(row, f.id);
         return row;
@@ -188,20 +190,25 @@
       }
       const refresh = () => { if (redraw) redraw(); else draw(); }; // redraw: the Projects page, whose Documents counter changes too
       function draw() {
-        const nq = U.norm(q); list.replaceChildren();
+        const nq = U.norm(q), ts = HQ.exm.trashedSet(db); list.replaceChildren();
+        counts = new Map(); const add = (k) => counts.set(k, (counts.get(k) || 0) + 1); // live children per folder, one pass
+        db.notes.forEach((n) => { if (n.folderId && !ts.has(n.id)) add(n.folderId); }); db.folders.forEach((f) => { if (f.parentId && !ts.has(f.id)) add(f.parentId); });
         const noteHit = (n) => U.norm(n.title + " " + MD.plain(n.md) + " " + (n.text || "")).includes(nq);
         if (nq) {
           crumbs.hidden = true;
-          const fs = db.folders.filter((f) => inScope(f.projectId || "") && !HQ.exm.isTrashed(db, f.id) && U.norm(f.name).includes(nq)), ns = db.notes.filter((n) => inScope(n.projectId) && !HQ.exm.isTrashed(db, n.id) && noteHit(n)).sort((a, b) => b.updatedAt - a.updatedAt);
+          const fs = db.folders.filter((f) => inScope(f.projectId || "") && !ts.has(f.id) && U.norm(f.name).includes(nq)), ns = db.notes.filter((n) => inScope(n.projectId) && !ts.has(n.id) && noteHit(n)).sort((a, b) => b.updatedAt - a.updatedAt);
           fs.forEach((f) => list.appendChild(folderRow(f))); ns.forEach((n) => list.appendChild(noteRow(n, true)));
           if (!fs.length && !ns.length) list.appendChild(h("div.empty", "Aucun résultat."));
           return;
         }
         drawCrumbs();
-        const folders = db.folders.filter((f) => (f.parentId || "") === cur && (cur ? true : inScope(f.projectId || "")) && !HQ.exm.isTrashed(db, f.id)).sort((a, b) => a.name.localeCompare(b.name, "fr"));
-        const notes = db.notes.filter((n) => (n.folderId || "") === cur && (cur ? true : inScope(n.projectId)) && !HQ.exm.isTrashed(db, n.id)).sort((a, b) => b.updatedAt - a.updatedAt);
+        // a folder lists its children; a root lists, for every project in scope, what HQ.exm.listFolder puts at that root
+        const pids = cur ? [null] : [...new Set([...db.folders.map((f) => f.projectId || ""), ...db.notes.map((n) => n.projectId || "")])].filter(inScope);
+        const parts = pids.map((pid) => HQ.exm.listFolder(db, cur ? { folderId: cur } : { projectId: pid, folderId: "" }));
+        const folders = parts.flatMap((r) => r.folders).sort((a, b) => a.name.localeCompare(b.name, "fr"));
+        const notes = parts.flatMap((r) => r.notes).sort((a, b) => b.updatedAt - a.updatedAt);
         folders.forEach((f) => list.appendChild(folderRow(f))); notes.forEach((n) => list.appendChild(noteRow(n, false)));
-        if (!folders.length && !notes.length) list.appendChild(h("div.empty", cur ? "Dossier vide. Créez un document, importez des fichiers ou glissez-y des documents." : db.notes.some((n) => inScope(n.projectId) && !HQ.exm.isTrashed(db, n.id)) || db.folders.some((f) => inScope(f.projectId || "") && !HQ.exm.isTrashed(db, f.id)) ? "Rien ici." : "Aucun document. Créez un compte rendu, une spécification, importez un dossier, des PDF ou des tableurs Excel."));
+        if (!folders.length && !notes.length) list.appendChild(h("div.empty", cur ? "Dossier vide. Créez un document, importez des fichiers ou glissez-y des documents." : db.notes.some((n) => inScope(n.projectId) && !ts.has(n.id)) || db.folders.some((f) => inScope(f.projectId || "") && !ts.has(f.id)) ? "Rien ici." : "Aucun document. Créez un compte rendu, une spécification, importez un dossier, des PDF ou des tableurs Excel."));
       }
       search.addEventListener("input", () => { q = search.value; draw(); });
       draw();
@@ -212,6 +219,11 @@
     },
   };
 
+  // the editors' « Supprimer »: the vault can lock while the confirm is open; false (and a failure toast) when it did
+  function trashNote(id) {
+    try { store.mutate((d) => HQ.exm.trashItems(d, [id], Date.now())); return true; }
+    catch (e) { U.toast("Suppression impossible (coffre verrouillé ?)", "bad"); return false; }
+  }
   function downloadBlob(blob, name) { const u = URL.createObjectURL(blob), a = h("a", { href: u, download: name }); document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000); }
 
   // ---------- PDF viewer ----------
@@ -231,7 +243,7 @@
     const actions = h("div.head-actions.page-actions-scroll", { style: "gap:8px" }, U.btn("−", { sm: true, onClick: () => setZoom(zoom - 0.25), title: "Réduire" }), zoomLbl, U.btn("+", { sm: true, onClick: () => setZoom(zoom + 0.25), title: "Agrandir" }),
       U.btn("Télécharger", { icon: "download", sm: true, kind: "accent", onClick: () => blob ? downloadBlob(blob, note.file ? note.file.name : note.title + ".pdf") : U.toast("Fichier indisponible sur cet appareil.", "bad") }),
       U.btn("Remplacer le PDF", { icon: "upload", sm: true, onClick: attach }),
-      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { store.mutate((d) => HQ.exm.trashItems(d, [note.id], Date.now())); U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
+      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { if (!trashNote(note.id)) return; U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
     root.append(h("div.page-head", { style: "margin-bottom:14px" }, h("div", { style: "flex:1;min-width:0" }, h("button.back", { type: "button", onclick: back }, icon("chevL"), "Documents"), h("div", { style: "margin-top:10px" }, titleIn))),
       h("div.toolbar", { style: "margin-bottom:12px" }, h("div", { style: "min-width:180px;flex:1" }, projSel), h("div", { style: "min-width:180px;flex:1" }, folderSel), info), actions, h("div.pdf-wrap", { style: "margin-top:14px" }, pages));
 
@@ -444,7 +456,7 @@
     const origBtn = note.file ? U.btn("Original (" + (note.file.name.split(".").pop() || "fichier").toLowerCase() + ")", { icon: "download", sm: true, onClick: async () => { const b = await HQ.files.get(note.id); if (!b) { U.toast("L'original n'est pas disponible sur cet appareil (les fichiers ne sont pas synchronisés).", "bad"); return; } downloadBlob(b, note.file.name); } }) : null;
     const actions = h("div.head-actions.page-actions-scroll", { style: "gap:8px" }, srcBtn, origBtn, U.btn("Exporter .md", { icon: "download", sm: true, onClick: exportMd }), U.btn("Copier le Markdown", { icon: "copy", sm: true, onClick: () => { persist(); U.copy(db.notes.find((x) => x.id === note.id).md, "Markdown copié"); } }), U.btn("PDF", { icon: "print", sm: true, onClick: printDoc }),
       U.btn("Dupliquer", { sm: true, onClick: () => { persist(); const n = db.notes.find((x) => x.id === note.id); const id = createNote({ title: n.title + " (copie)", projectId: n.projectId, folderId: n.folderId, md: n.md }); HQ.go("/projects/doc/" + id); } }),
-      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { dirty = false; clearTimeout(timer); store.mutate((d) => HQ.exm.trashItems(d, [note.id], Date.now())); U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
+      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { if (!trashNote(note.id)) return; dirty = false; clearTimeout(timer); U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
 
     root.append(h("div.page-head", { style: "margin-bottom:14px" }, h("div", { style: "flex:1;min-width:0" }, h("button.back", { type: "button", onclick: () => { persist(); back(); } }, icon("chevL"), "Documents"), h("div", { style: "margin-top:10px" }, titleIn))),
       h("div.toolbar", { style: "margin-bottom:12px" }, h("div", { style: "min-width:180px;flex:1" }, projSel), h("div", { style: "min-width:180px;flex:1" }, folderSel), status, words), actions,

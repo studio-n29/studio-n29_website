@@ -70,7 +70,7 @@
         s.close(true); U.toast(p ? "Projet mis à jour" : "Projet créé", "ok"); HQ.go("/projects?p=" + sid);
       },
     }, field("Nom", f.name, { req: true }), h("div.r2", field("Statut", f.status), field("Client", f.clientId)), h("div.r2", field("Échéance", f.deadline), field("Taux horaire HT (€/h)", f.rate)), field("Lien", f.url), field("Description", f.description), h("div.field", h("span.lbl", "Couleur"), sw), err,
-      h("div.form-actions", p ? U.btn("Supprimer", { kind: "danger", icon: "trash", onClick: async () => { const n = db.tasks.filter((t) => t.projectId === id).length, nd = db.notes.filter((t) => t.projectId === id && !HQ.exm.isTrashed(db, t.id)).length; if (await U.confirm({ title: "Supprimer ce projet ?", text: `${v.name}${n || nd ? ` — ses ${n} tâche(s) et ${nd} document(s) seront aussi supprimés.` : ""}`, ok: "Supprimer", danger: true })) { let gone = []; store.mutate((d) => { d.projects = d.projects.filter((x) => x.id !== id); d.tasks = d.tasks.filter((t) => t.projectId !== id); gone = d.notes.filter((t) => t.projectId === id).map((t) => t.id); d.notes = d.notes.filter((t) => t.projectId !== id); d.folders = d.folders.filter((t) => t.projectId !== id); HQ.exm.prune(d); }); gone.forEach((nid) => HQ.files && HQ.files.remove(nid)); s.close(true); HQ.go("/projects"); } } }) : null, U.btn("Annuler", { onClick: () => s.close() }), U.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
+      h("div.form-actions", p ? U.btn("Supprimer", { kind: "danger", icon: "trash", onClick: async () => { const n = db.tasks.filter((t) => t.projectId === id).length, ts = HQ.exm.trashedSet(db), docs = db.notes.filter((t) => t.projectId === id), nd = docs.length, nt = docs.filter((t) => ts.has(t.id)).length; if (await U.confirm({ title: "Supprimer ce projet ?", text: `${v.name}${n || nd ? ` — ses ${n} tâche(s) et ${nd} document(s)${nt ? ` (dont ${nt} dans la corbeille)` : ""} seront aussi supprimés.` : ""}`, ok: "Supprimer", danger: true })) { let gone = []; store.mutate((d) => { d.projects = d.projects.filter((x) => x.id !== id); d.tasks = d.tasks.filter((t) => t.projectId !== id); gone = d.notes.filter((t) => t.projectId === id).map((t) => t.id); d.notes = d.notes.filter((t) => t.projectId !== id); d.folders = d.folders.filter((t) => t.projectId !== id); HQ.exm.prune(d); }); gone.forEach((nid) => HQ.files && HQ.files.remove(nid)); s.close(true); HQ.go("/projects"); } } }) : null, U.btn("Annuler", { onClick: () => s.close() }), U.btn("Enregistrer", { kind: "accent", type: "submit" }))) });
   }
   HQ.tasks = { openTask, openProject };
 
@@ -150,7 +150,7 @@
     }
     function drawTabs() {
       const inScope = (id) => pf === "all" || (pf === "none" ? !id : id === pf);
-      const nt = db.tasks.filter((t) => inScope(t.projectId)).length, nd = db.notes.filter((n) => inScope(n.projectId) && !HQ.exm.isTrashed(db, n.id)).length;
+      const nt = db.tasks.filter((t) => inScope(t.projectId)).length, ts = HQ.exm.trashedSet(db), nd = db.notes.filter((n) => inScope(n.projectId) && !ts.has(n.id)).length;
       tabs.replaceChildren(...[["tasks", "Tâches", nt], ["docs", "Documents", nd]].map(([id, label, n]) => h("button", { type: "button", "aria-pressed": String(tab === id), onclick: () => { tab = id; draw(); } }, `${label} · ${n}`)));
       tasksPane.hidden = tab !== "tasks"; docsPane.hidden = tab !== "docs";
       if (tab === "docs") docsPane.replaceChildren(HQ.notes.panel(pf, draw));

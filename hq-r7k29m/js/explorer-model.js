@@ -5,52 +5,113 @@
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
 
-  /* ---- Tree queries ---- */
-  const MAX_DEPTH = 50;
+  /* ---- Tree queries ----
+     Concurrent edits on two devices can leave shapes no single device writes; the read paths tolerate them without
+     rewriting the data: a folder / note whose parent folder is missing sits at the root of its project, a parent chain
+     that loops is cut at the folder with the smallest id (shown at the root), and the children of a folder are listed
+     under it whatever their own projectId (the folder is authoritative). Every query below follows these effective
+     parents, so what is listed is exactly what moves, trashes, restores and purges act on. */
   function folderMap(db) { return new Map((db.folders || []).map((f) => [f.id, f])); }
 
-  function ancestors(db, folderId) {
-    const map = folderMap(db), out = [], seen = new Set();
-    let id = folderId;
-    while (id && map.has(id) && !seen.has(id) && out.length < MAX_DEPTH) {
-      seen.add(id); const f = map.get(id); out.unshift(f); id = f.parentId;
+  // { map: id -> folder, par: id -> effective parent id ("" = project root) }, O(F), cycle-safe.
+  function structure(db) {
+    const map = folderMap(db), par = new Map(), state = new Map(); // state: 1 = on the current path, 2 = done
+    for (const start of map.keys()) {
+      if (state.has(start)) continue;
+      const path = []; let cur = start;
+      while (cur && map.has(cur) && !state.has(cur)) { state.set(cur, 1); path.push(cur); cur = map.get(cur).parentId || ""; }
+      if (cur && state.get(cur) === 1) { // a loop: path[from..] is the cycle, cut at its smallest id
+        let low = cur;
+        for (let i = path.indexOf(cur); i < path.length; i++) if (path[i] < low) low = path[i];
+        par.set(low, "");
+      }
+      for (const x of path) {
+        state.set(x, 2);
+        if (!par.has(x)) { const p = map.get(x).parentId || ""; par.set(x, map.has(p) ? p : ""); }
+      }
     }
+    return { map, par };
+  }
+  const noteParent = (st, n) => (n.folderId && st.map.has(n.folderId) ? n.folderId : "");
+  const effParent = (st, it) => (it.type === "folder" ? st.par.get(it.rec.id) || "" : noteParent(st, it.rec));
+  // the effective chain above folderId, root first, folderId included (acyclic by construction; seen is a safety net)
+  function chain(st, folderId) {
+    const out = [], seen = new Set();
+    let id = folderId;
+    while (id && st.map.has(id) && !seen.has(id)) { seen.add(id); out.unshift(st.map.get(id)); id = st.par.get(id); }
     return out;
   }
+
+  function ancestors(db, folderId) { return chain(structure(db), folderId); }
+
+  // Every effectively trashed id (in the trash, or under a trashed folder), in one O(N + F) pass.
+  function trashedOf(db, st) {
+    const trash = new Set((db.trash || []).map((t) => t.id)), out = new Set(trash);
+    if (!trash.size) return out;
+    const memo = new Map();
+    const folderTrashed = (id) => {
+      const path = []; let cur = id, r = false;
+      while (cur) {
+        if (memo.has(cur)) { r = memo.get(cur); break; }
+        path.push(cur);
+        if (trash.has(cur)) { r = true; break; }
+        cur = st.par.get(cur) || "";
+      }
+      for (const x of path) memo.set(x, r);
+      return r;
+    };
+    for (const id of st.map.keys()) if (folderTrashed(id)) out.add(id);
+    for (const n of db.notes || []) { const p = noteParent(st, n); if (p && folderTrashed(p)) out.add(n.id); }
+    return out;
+  }
+  function trashedSet(db) { return trashedOf(db, structure(db)); }
 
   function isTrashed(db, id) {
     const trash = new Set((db.trash || []).map((t) => t.id));
     if (!trash.size) return false;
     if (trash.has(id)) return true;
-    const note = (db.notes || []).find((n) => n.id === id);
-    const start = note ? note.folderId : id;
-    return ancestors(db, start).some((f) => trash.has(f.id));
+    const map = folderMap(db);
+    const note = map.has(id) ? null : (db.notes || []).find((n) => n.id === id);
+    const start = note ? note.folderId || "" : id;
+    // the raw parent chain is the effective one unless it loops: only then build the cycle-cut structure
+    const seen = new Set();
+    for (let cur = start; cur && map.has(cur); cur = map.get(cur).parentId || "") {
+      if (seen.has(cur)) return chain(structure(db), start).some((f) => trash.has(f.id));
+      seen.add(cur);
+    }
+    for (const x of seen) if (trash.has(x)) return true;
+    return false;
   }
 
   function listFolder(db, target) {
-    const fid = target.folderId || "";
-    const own = fid ? (db.folders || []).find((f) => f.id === fid) : null;
-    const pid = own ? own.projectId || "" : target.projectId || "";
-    const trash = new Set((db.trash || []).map((t) => t.id));
-    const memo = new Map();
-    const folderTrashed = (id) => {
-      if (memo.has(id)) return memo.get(id);
-      let r = false;
-      for (const f of ancestors(db, id)) if (trash.has(f.id)) { r = true; break; }
-      memo.set(id, r); return r;
+    const fid = target.folderId || "", st = structure(db), ts = trashedOf(db, st);
+    if (fid) {
+      if (!st.map.has(fid) || ts.has(fid)) return { folders: [], notes: [] };
+      return {
+        folders: (db.folders || []).filter((f) => st.par.get(f.id) === fid && !ts.has(f.id)),
+        notes: (db.notes || []).filter((n) => n.folderId === fid && !ts.has(n.id)),
+      };
+    }
+    const pid = target.projectId || "";
+    return {
+      folders: (db.folders || []).filter((f) => (f.projectId || "") === pid && st.par.get(f.id) === "" && !ts.has(f.id)),
+      notes: (db.notes || []).filter((n) => (n.projectId || "") === pid && !noteParent(st, n) && !ts.has(n.id)),
     };
-    const folders = (db.folders || []).filter((f) => (f.projectId || "") === pid && (f.parentId || "") === fid && !trash.has(f.id) && !folderTrashed(f.id));
-    const notes = (db.notes || []).filter((n) => (n.projectId || "") === pid && (n.folderId || "") === fid && !trash.has(n.id) && !(fid && folderTrashed(fid)));
-    return { folders, notes };
   }
 
   function descendantIds(db, folderId) {
+    const st = structure(db), kids = new Map();
+    for (const f of db.folders || []) {
+      const p = st.par.get(f.id);
+      if (!p) continue;
+      if (!kids.has(p)) kids.set(p, []);
+      kids.get(p).push(f.id);
+    }
     const folders = [], seen = new Set([folderId]), queue = [folderId];
     while (queue.length) {
-      const cur = queue.shift();
-      for (const f of db.folders || []) if (f.parentId === cur && !seen.has(f.id)) { seen.add(f.id); folders.push(f.id); queue.push(f.id); }
+      for (const id of kids.get(queue.shift()) || []) if (!seen.has(id)) { seen.add(id); folders.push(id); queue.push(id); }
     }
-    const inTree = new Set([folderId, ...folders]);
+    const inTree = new Set(st.map.has(folderId) ? [folderId, ...folders] : []);
     const notes = (db.notes || []).filter((n) => inTree.has(n.folderId)).map((n) => n.id);
     return { folders, notes };
   }
@@ -130,7 +191,17 @@
     const n = findNote(db, id); return n ? { type: "note", rec: n } : null;
   };
   const parentOf = (it) => (it.type === "folder" ? it.rec.parentId : it.rec.folderId) || "";
-  const liveItem = (db, id) => { const it = itemById(db, id); return it && !isTrashed(db, id) ? it : null; };
+  // the items of ids that exist and are not trashed, in the order of ids (one trashed pass, map lookups)
+  function liveItems(db, ids) {
+    const ts = trashedSet(db), fm = folderMap(db), nm = new Map((db.notes || []).map((n) => [n.id, n]));
+    const out = [];
+    for (const id of ids) {
+      if (ts.has(id)) continue;
+      if (fm.has(id)) out.push({ type: "folder", rec: fm.get(id) });
+      else if (nm.has(id)) out.push({ type: "note", rec: nm.get(id) });
+    }
+    return out;
+  }
 
   function isFavorite(db, id) { return (db.favorites || []).some((f) => f.id === id); }
   function toggleFavorite(db, id) {
@@ -139,8 +210,8 @@
     if (isFavorite(db, id)) { db.favorites = db.favorites.filter((f) => f.id !== id); return false; }
     db.favorites.push({ id }); return true;
   }
-  function favoritesView(db) { return (db.favorites || []).map((f) => liveItem(db, f.id)).filter(Boolean); }
-  function recentsView(db, ids) { return (ids || []).map((id) => liveItem(db, id)).filter(Boolean); }
+  function favoritesView(db) { return liveItems(db, (db.favorites || []).map((f) => f.id)); }
+  function recentsView(db, ids) { return liveItems(db, ids || []); }
 
   function trashItems(db, ids, now) {
     db.trash = db.trash || [];
@@ -151,35 +222,37 @@
     }
     return n;
   }
+  // a restored item goes back to its parent folder, or to its project root when that folder is gone or still trashed
+  const backToRoot = (db, it) => { const pid = parentOf(it); return !!pid && (!findFolder(db, pid) || isTrashed(db, pid)); };
   function restoreItems(db, ids) {
     let n = 0;
     for (const id of ids || []) {
       if (!(db.trash || []).some((t) => t.id === id)) continue;
       db.trash = db.trash.filter((t) => t.id !== id); n++;
-      const it = itemById(db, id), pid = it && parentOf(it);
-      if (it && pid && isTrashed(db, pid)) { if (it.type === "folder") it.rec.parentId = ""; else it.rec.folderId = ""; }
+      const it = itemById(db, id);
+      if (it && backToRoot(db, it)) { if (it.type === "folder") it.rec.parentId = ""; else it.rec.folderId = ""; }
     }
     return n;
   }
   // What restoreItems(db, ids) would do, without changing db: count = ids it restores (same value it returns),
-  // toRoot = those that land at their project root because their parent folder is still effectively in the trash.
+  // toRoot = those that land at their project root because their parent folder is gone or still effectively in the trash.
   function restoreInfo(db, ids) {
     const sim = Object.assign({}, db, { trash: (db.trash || []).slice() });
     let count = 0; const toRoot = [];
     for (const id of ids || []) {
       if (!sim.trash.some((t) => t.id === id)) continue;
       sim.trash = sim.trash.filter((t) => t.id !== id); count++;
-      const it = itemById(db, id), pid = it && parentOf(it);
-      if (it && pid && isTrashed(sim, pid)) toRoot.push(id);
+      const it = itemById(db, id);
+      if (it && backToRoot(sim, it)) toRoot.push(id);
     }
     return { count, toRoot };
   }
   function trashView(db) {
-    const direct = new Set((db.trash || []).map((t) => t.id));
+    const direct = new Set((db.trash || []).map((t) => t.id)), st = structure(db);
     const out = [];
     for (const t of db.trash || []) {
       const it = itemById(db, t.id); if (!it) continue;
-      if (ancestors(db, parentOf(it)).some((f) => direct.has(f.id))) continue;
+      if (chain(st, effParent(st, it)).some((f) => direct.has(f.id))) continue; // shown through its trashed ancestor
       out.push({ ...it, at: t.at });
     }
     return out.sort((a, b) => (b.at || 0) - (a.at || 0));
@@ -206,12 +279,12 @@
   }
 
   function topLevelIds(db, ids) {
-    const set = new Set(ids || []), out = [], seen = new Set();
+    const set = new Set(ids || []), out = [], seen = new Set(), st = structure(db);
     for (const id of ids || []) {
       if (seen.has(id)) continue;
       seen.add(id);
       const it = itemById(db, id); if (!it) continue;
-      if (ancestors(db, parentOf(it)).some((f) => set.has(f.id))) continue;
+      if (chain(st, effParent(st, it)).some((f) => f.id !== id && set.has(f.id))) continue;
       out.push(id);
     }
     return out;
@@ -273,7 +346,7 @@
       inFolders = new Set(d.folders); inNotes = new Set(d.notes);
     }
     const okProject = (rec) => type !== "project" || (rec.projectId || "") === scope.projectId;
-    const live = (id) => !isTrashed(db, id);
+    const ts = trashedSet(db), live = (id) => !ts.has(id);
     const folders = (db.folders || []).filter((f) => okProject(f) && (!inFolders || inFolders.has(f.id)) && live(f.id) && o.norm(f.name || "").includes(needle));
     const notes = (db.notes || []).filter((n) => okProject(n) && (!inNotes || inNotes.has(n.id)) && live(n.id) &&
       (o.norm(n.title || "").includes(needle) || o.norm(o.plain(n.md || "") + " " + (n.text || "")).includes(needle)));
@@ -322,10 +395,12 @@
   function treeRows(db, expanded, o) {
     const filter = (o && o.projectFilter) || "all", counts = !!(o && o.counts);
     const exp = expanded || new Set();
-    const live = (db.folders || []).filter((f) => !isTrashed(db, f.id));
+    const st = structure(db), ts = trashedOf(db, st);
+    // children keyed by effective parent: "#<folderId>" under a folder, "@<projectId>" at a project root
     const kids = new Map();
-    for (const f of live) {
-      const key = (f.projectId || "") + "|" + (f.parentId || "");
+    for (const f of db.folders || []) {
+      if (ts.has(f.id)) continue;
+      const p = st.par.get(f.id), key = p ? "#" + p : "@" + (f.projectId || "");
       if (!kids.has(key)) kids.set(key, []);
       kids.get(key).push(f);
     }
@@ -341,20 +416,20 @@
       special("@recent", "Récents", recents ? recentsView(db, recents).length : null),
       special("@trash", "Corbeille", trashView(db).length),
     ];
-    const addFolders = (pid, parentId, parentRowId, depth) => {
-      for (const f of kids.get(pid + "|" + parentId) || []) {
-        const sub = kids.get(pid + "|" + f.id) || [];
+    const addFolders = (pid, key, parentRowId, depth) => {
+      for (const f of kids.get(key) || []) {
+        const sub = kids.get("#" + f.id) || [];
         const isOpen = exp.has(f.id);
         rows.push({ id: f.id, kind: "folder", label: f.name, depth, hasChildren: sub.length > 0, expanded: isOpen, parentId: parentRowId, projectId: pid, folderId: f.id });
-        if (isOpen) addFolders(pid, f.id, f.id, depth + 1);
+        if (isOpen) addFolders(pid, "#" + f.id, f.id, depth + 1);
       }
     };
     const addProject = (pid, label, color) => {
       const id = "p:" + pid, isOpen = exp.has(id);
-      const row = { id, kind: "project", label, depth: 0, hasChildren: (kids.get(pid + "|") || []).length > 0, expanded: isOpen, parentId: "", projectId: pid, folderId: "" };
+      const row = { id, kind: "project", label, depth: 0, hasChildren: (kids.get("@" + pid) || []).length > 0, expanded: isOpen, parentId: "", projectId: pid, folderId: "" };
       if (color) row.color = color;
       rows.push(row);
-      if (isOpen) addFolders(pid, "", id, 1);
+      if (isOpen) addFolders(pid, "@" + pid, id, 1);
     };
     for (const p of db.projects || []) {
       if (filter === "all" || filter === p.id) addProject(p.id, p.name, p.color);
@@ -389,7 +464,7 @@
 
   return {
     EMPTY_SELECTION, selectStep, treeRows, treeKey,
-    folderMap, ancestors, isTrashed, listFolder, descendantIds, toItems,
+    folderMap, ancestors, isTrashed, trashedSet, listFolder, descendantIds, toItems,
     SORT_KEYS, sortItems, DEFAULT_PREFS, prefsKey, readPrefs, writePrefs,
     pushRecent, readRecents, writeRecents,
     isFavorite, toggleFavorite, favoritesView, recentsView, trashItems, restoreItems, restoreInfo, trashView,
