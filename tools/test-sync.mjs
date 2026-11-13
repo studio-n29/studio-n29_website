@@ -274,4 +274,84 @@ await ta("store: importing an encrypted backup over an unlocked vault keeps its 
   assert.deepEqual(clone(S.db().fileKeys), { k1: rec("d1", 1) });
 });
 
+const db2 = () => Object.assign(emptyDb(), { v: 2, notes: [], folders: [], favorites: [], trash: [] });
+const note = (id, text) => ({ id, title: "N" + id, text });
+
+t("v2: favorite added on A and note text edited on B merge without conflict", () => {
+  const base = M.cloudView(db2()); base.notes.push(note("n1", "old"));
+  const local = clone(base), remote = clone(base);
+  local.favorites.push({ id: "n1" }); remote.notes[0].text = "new";
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.conflicts, []);
+  assert.equal(r.merged.notes[0].text, "new");
+  assert.deepEqual(r.merged.favorites, [{ id: "n1" }]);
+});
+
+t("v2: note trashed on A and edited on B keeps B's text and stays in trash", () => {
+  const base = M.cloudView(db2()); base.notes.push(note("n1", "old"));
+  const local = clone(base), remote = clone(base);
+  local.trash.push({ id: "n1", at: 1 }); remote.notes[0].text = "B";
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.conflicts, []);
+  assert.equal(r.merged.notes[0].text, "B");
+  assert.deepEqual(r.merged.trash, [{ id: "n1", at: 1 }]);
+});
+
+t("v2: same id favorited on both sides yields one record, no conflict", () => {
+  const base = M.cloudView(db2()), local = clone(base), remote = clone(base);
+  local.favorites.push({ id: "n1" }); remote.favorites.push({ id: "n1" });
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.merged.favorites, [{ id: "n1" }]); assert.deepEqual(r.conflicts, []);
+});
+
+t("v2: same id trashed on both sides with different at yields one record, local wins", () => {
+  const base = M.cloudView(db2()), local = clone(base), remote = clone(base);
+  local.trash.push({ id: "n1", at: 1 }); remote.trash.push({ id: "n1", at: 2 });
+  const r = M.merge(base, local, remote);
+  assert.equal(r.merged.trash.length, 1);
+  assert.deepEqual(r.merged.trash[0], { id: "n1", at: 1 });
+});
+
+t("v2: trash emptied on A while B restores: no throw, note stays deleted if B did not edit it", () => {
+  const base = M.cloudView(db2()); base.notes.push(note("n1", "x")); base.trash.push({ id: "n1", at: 1 });
+  const local = clone(base), remote = clone(base);
+  local.notes = []; local.trash = []; remote.trash = [];
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.merged.notes, []); assert.deepEqual(r.merged.trash, []);
+});
+
+t("v2: different favorites added on both sides both survive, no conflict", () => {
+  const base = M.cloudView(db2()), local = clone(base), remote = clone(base);
+  local.favorites.push({ id: "n1" }); remote.favorites.push({ id: "n2" });
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.merged.favorites.map((f) => f.id).sort(), ["n1", "n2"]); assert.deepEqual(r.conflicts, []);
+});
+
+t("v2: different items trashed on both sides both survive in the trash, no conflict", () => {
+  const base = M.cloudView(db2()), local = clone(base), remote = clone(base);
+  local.trash.push({ id: "n1", at: 1 }); remote.trash.push({ id: "n2", at: 2 });
+  const r = M.merge(base, local, remote);
+  assert.deepEqual(r.merged.trash.map((f) => f.id).sort(), ["n1", "n2"]); assert.deepEqual(r.conflicts, []);
+});
+
+console.log("store.js (schema v2)");
+await ta("schema: defaultDb is v2 with empty favorites and trash", () => {
+  const d = loadPwaStore()._defaultDb();
+  assert.equal(d.v, 2); assert.deepEqual(clone(d.favorites), []); assert.deepEqual(clone(d.trash), []);
+});
+await ta("schema: a v1 vault migrates to v2 and keeps notes/folders/projects untouched", () => {
+  const S = loadPwaStore(), v1 = S._defaultDb();
+  v1.v = 1; delete v1.favorites; delete v1.trash;
+  v1.notes = [{ id: "n1", title: "a" }]; v1.folders = [{ id: "f1", name: "F" }]; v1.projects = [{ id: "p1", name: "P" }];
+  const before = clone({ notes: v1.notes, folders: v1.folders, projects: v1.projects });
+  const out = S._migrate(v1);
+  assert.equal(out.v, 2); assert.deepEqual(clone(out.favorites), []); assert.deepEqual(clone(out.trash), []);
+  assert.deepEqual(clone({ notes: out.notes, folders: out.folders, projects: out.projects }), before);
+});
+await ta("schema: a vault without v is treated as v1; a v3 vault is never lowered (the PWA has no schema guard)", () => {
+  const S = loadPwaStore(), d = S._defaultDb();
+  delete d.v; assert.equal(S._migrate(d).v, 2);
+  assert.equal(S._migrate(Object.assign(S._defaultDb(), { v: 3 })).v, 3);
+});
+
 console.log(`\n${n} test(s) passed`);

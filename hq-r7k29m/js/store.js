@@ -6,6 +6,7 @@
   const HQ = (window.HQ = window.HQ || {});
   const KEY_META = "n29hq.meta.v1", KEY_DATA = "n29hq.data.v1", KEY_PREV = "n29hq.data.prev.v1", KEY_LOCAL = "n29hq.local.v1";
   const ITER = 310000;
+  const SCHEMA = 2;
   const enc = new TextEncoder(), dec = new TextDecoder();
 
   const b64 = {
@@ -29,7 +30,7 @@
   // ---------- Default data ----------
   function defaultDb() {
     return {
-      v: 1, createdAt: Date.now(),
+      v: SCHEMA, createdAt: Date.now(),
       settings: {
         company: { name: "", legalForm: "EI", tradeName: "STUDIO N29", address: "", zip: "", city: "", country: "France", siret: "", ape: "", vatNumber: "", registration: "Dispensé d'immatriculation au RCS et au RM", capital: "", email: "", phone: "", website: "n29-studio.fr", iban: "", bic: "", insurance: "", mediator: "" },
         billing: {
@@ -40,12 +41,13 @@
         },
         security: { autoLockMinutes: 5, remember: false },
       },
-      clients: [], projects: [], tasks: [], timeEntries: [], timer: null, documents: [], payments: [], prompts: [], links: [], notes: [], folders: [],
+      clients: [], projects: [], tasks: [], timeEntries: [], timer: null, documents: [], payments: [], prompts: [], links: [], notes: [], folders: [], favorites: [], trash: [],
       apex: { style: null, state: null }, audit: [], lastBackupAt: null,
     };
   }
   function migrate(db) {
     const d = defaultDb();
+    db.v = Math.max(typeof db.v === "number" ? db.v : 1, SCHEMA); // v1 vaults become v2 once migrated; never lowered
     for (const k of Object.keys(d)) if (db[k] === undefined) db[k] = d[k];
     for (const k of ["company", "billing", "security"]) db.settings[k] = Object.assign({}, d.settings[k], db.settings[k] || {});
     return db;
@@ -242,4 +244,5 @@
   };
   S.peekBackupType = (text) => { try { return JSON.parse(text).type; } catch (e) { return null; } };
   S._defaultDb = defaultDb;
+  S._migrate = migrate;
 })();

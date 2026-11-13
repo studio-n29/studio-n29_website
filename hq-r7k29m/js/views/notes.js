@@ -31,7 +31,7 @@
     walk("", 0);
     return out;
   }
-  const countIn = (id) => { const d = store.db(); return d.notes.filter((n) => n.folderId === id).length + d.folders.filter((f) => f.parentId === id).length; };
+  const countIn = (id) => { const d = store.db(); return d.notes.filter((n) => n.folderId === id && !HQ.exm.isTrashed(d, n.id)).length + d.folders.filter((f) => f.parentId === id && !HQ.exm.isTrashed(d, f.id)).length; };
 
   function folderSheet(existing, projectId, parentId, done) {
     const name = U.input({ value: existing ? existing.name : "", maxlength: 80, placeholder: "Nom du dossier" }), err = h("p.ferr", { role: "alert" });
@@ -48,9 +48,35 @@
   }
   async function deleteFolder(f, done) {
     const n = countIn(f.id);
-    if (!(await U.confirm({ title: "Supprimer ce dossier ?", text: `${f.name}${n ? ` — ses ${n} élément(s) remontent d'un niveau, rien n'est supprimé.` : ""}`, ok: "Supprimer le dossier", danger: true }))) return;
-    store.mutate((d) => { d.notes.forEach((x) => { if (x.folderId === f.id) x.folderId = f.parentId || ""; }); d.folders.forEach((x) => { if (x.parentId === f.id) x.parentId = f.parentId || ""; }); d.folders = d.folders.filter((x) => x.id !== f.id); });
+    if (!(await U.confirm({ title: "Mettre ce dossier à la corbeille ?", text: `${f.name}${n ? ` — ses ${n} élément(s) vont avec lui. Vous pourrez le restaurer depuis la corbeille.` : ""}`, ok: "Mettre à la corbeille", danger: true }))) return;
+    store.mutate((d) => HQ.exm.trashItems(d, [f.id], Date.now()));
+    U.toast("Dossier déplacé dans la corbeille", "ok");
     done && done();
+  }
+
+  // ---------- Trash (minimal: restore, delete for good, empty) ----------
+  function trashSheet(changed) { // changed(): called after each change, so the list behind the sheet and the tab counter follow
+    const body = h("div.stack");
+    U.sheet({ title: "Corbeille", body });
+    const purgeNow = (ids) => { // ONE mutation; files are removed only once it has succeeded
+      let res = null;
+      try { store.mutate((d) => { res = ids ? HQ.exm.purge(d, ids) : HQ.exm.emptyTrash(d); HQ.exm.prune(d); }); } catch (e) { U.toast("Suppression impossible", "err"); return false; }
+      HQ.notes.purgeFiles(res.noteIds);
+      return true;
+    };
+    function render() {
+      const items = HQ.exm.trashView(store.db());
+      body.replaceChildren(
+        items.length ? h("div.list", ...items.map((it) => {
+          const id = it.rec.id, isF = it.type === "folder", name = (isF ? it.rec.name : it.rec.title) || "Sans titre";
+          return h("div.row", h("div.row-main", h("span.kind", { class: "kind kind--" + (isF ? "folder" : it.rec.kind || "md") }, icon(isF ? "folder" : it.rec.kind === "pdf" ? "doc" : it.rec.kind === "sheet" ? "table" : "edit"), isF ? "Dossier" : KIND[it.rec.kind || "md"]), h("div", h("div.row-t", name), h("div.row-s", "Supprimé le " + U.fmtDate(U.isoDate(new Date(it.at || Date.now())))))),
+            h("div.row-r", { style: "grid-auto-flow:column;gap:6px" },
+              U.btn("Restaurer", { sm: true, onClick: () => { store.mutate((d) => HQ.exm.restoreItems(d, [id])); U.toast("Restauré", "ok"); changed && changed(); render(); } }),
+              U.btn("Supprimer définitivement", { sm: true, kind: "danger", onClick: async () => { if (await U.confirm({ title: "Supprimer définitivement ?", text: name + (isF ? " et son contenu seront supprimés." : " sera supprimé."), ok: "Supprimer définitivement", danger: true })) { if (purgeNow([id])) U.toast("Supprimé définitivement", "ok"); changed && changed(); render(); } } })));
+        })) : h("div.empty", "La corbeille est vide."),
+        items.length ? h("div.form-actions", U.btn("Vider la corbeille", { kind: "danger", onClick: async () => { if (await U.confirm({ title: "Vider la corbeille ?", text: `${items.length} élément(s) seront supprimés définitivement.`, ok: "Vider la corbeille", danger: true })) { if (purgeNow(null)) U.toast("Corbeille vidée", "ok"); changed && changed(); render(); } } })) : null);
+    }
+    render();
   }
   function moveNotes(ids, folderId) {
     const target = folderById(folderId);
@@ -134,7 +160,7 @@
         const p = db.projects.find((x) => x.id === f.projectId);
         const row = h("div.row.row--folder", { dataset: { folder: f.id } },
           h("button.row-main", { type: "button", onclick: () => setCur(f.id) }, h("span.kind.kind--folder", icon("folder")), h("div", h("div.row-t", f.name), h("div.row-s", `${countIn(f.id)} élément(s)${p && pf === "all" ? " · " + p.name : ""}`))),
-          h("div.row-r", { style: "grid-auto-flow:column;gap:6px" }, U.iconBtn("edit", "Renommer", () => folderSheet(f, "", "", draw)), U.iconBtn("trash", "Supprimer le dossier", () => deleteFolder(f, draw), "danger")));
+          h("div.row-r", { style: "grid-auto-flow:column;gap:6px" }, U.iconBtn("edit", "Renommer", () => folderSheet(f, "", "", draw)), U.iconBtn("trash", "Supprimer le dossier", () => deleteFolder(f, refresh), "danger")));
         dropTarget(row, f.id);
         return row;
       };
@@ -158,25 +184,26 @@
         crumbs.append(h("button", { type: "button", onclick: () => setCur("") }, icon("home"), "Racine"), ...chain.flatMap((x, i) => [h("span", { "aria-hidden": "true" }, "›"), i === chain.length - 1 ? h("b", x.name) : h("button", { type: "button", onclick: () => setCur(x.id) }, x.name)]));
         crumbs.hidden = !cur;
       }
+      const refresh = () => { if (redraw) redraw(); else draw(); }; // redraw: the Projects page, whose Documents counter changes too
       function draw() {
         const nq = U.norm(q); list.replaceChildren();
         const noteHit = (n) => U.norm(n.title + " " + MD.plain(n.md) + " " + (n.text || "")).includes(nq);
         if (nq) {
           crumbs.hidden = true;
-          const fs = db.folders.filter((f) => inScope(f.projectId || "") && U.norm(f.name).includes(nq)), ns = db.notes.filter((n) => inScope(n.projectId) && noteHit(n)).sort((a, b) => b.updatedAt - a.updatedAt);
+          const fs = db.folders.filter((f) => inScope(f.projectId || "") && !HQ.exm.isTrashed(db, f.id) && U.norm(f.name).includes(nq)), ns = db.notes.filter((n) => inScope(n.projectId) && !HQ.exm.isTrashed(db, n.id) && noteHit(n)).sort((a, b) => b.updatedAt - a.updatedAt);
           fs.forEach((f) => list.appendChild(folderRow(f))); ns.forEach((n) => list.appendChild(noteRow(n, true)));
           if (!fs.length && !ns.length) list.appendChild(h("div.empty", "Aucun résultat."));
           return;
         }
         drawCrumbs();
-        const folders = db.folders.filter((f) => (f.parentId || "") === cur && (cur ? true : inScope(f.projectId || ""))).sort((a, b) => a.name.localeCompare(b.name, "fr"));
-        const notes = db.notes.filter((n) => (n.folderId || "") === cur && (cur ? true : inScope(n.projectId))).sort((a, b) => b.updatedAt - a.updatedAt);
+        const folders = db.folders.filter((f) => (f.parentId || "") === cur && (cur ? true : inScope(f.projectId || "")) && !HQ.exm.isTrashed(db, f.id)).sort((a, b) => a.name.localeCompare(b.name, "fr"));
+        const notes = db.notes.filter((n) => (n.folderId || "") === cur && (cur ? true : inScope(n.projectId)) && !HQ.exm.isTrashed(db, n.id)).sort((a, b) => b.updatedAt - a.updatedAt);
         folders.forEach((f) => list.appendChild(folderRow(f))); notes.forEach((n) => list.appendChild(noteRow(n, false)));
-        if (!folders.length && !notes.length) list.appendChild(h("div.empty", cur ? "Dossier vide. Créez un document, importez des fichiers ou glissez-y des documents." : db.notes.some((n) => inScope(n.projectId)) || db.folders.some((f) => inScope(f.projectId || "")) ? "Rien ici." : "Aucun document. Créez un compte rendu, une spécification, importez un dossier, des PDF ou des tableurs Excel."));
+        if (!folders.length && !notes.length) list.appendChild(h("div.empty", cur ? "Dossier vide. Créez un document, importez des fichiers ou glissez-y des documents." : db.notes.some((n) => inScope(n.projectId) && !HQ.exm.isTrashed(db, n.id)) || db.folders.some((f) => inScope(f.projectId || "") && !HQ.exm.isTrashed(db, f.id)) ? "Rien ici." : "Aucun document. Créez un compte rendu, une spécification, importez un dossier, des PDF ou des tableurs Excel."));
       }
       search.addEventListener("input", () => { q = search.value; draw(); });
       draw();
-      const wrap = h("div", h("div.toolbar", h("div.search", icon("search"), search), U.btn("Document", { kind: "accent", icon: "plus", onClick: () => createSheet(curProject(), cur) }), U.btn("Dossier", { icon: "folder", onClick: () => folderSheet(null, curProject(), cur, (id) => { setCur(id); }) }), U.btn("Importer", { icon: "upload", onClick: () => importSheet(curProject(), cur, draw) })), crumbs, h("div.card.dropzone", list, h("p.hint", { style: "margin-top:10px" }, "Glissez des fichiers ou des dossiers ici (ordinateur) pour les importer.")));
+      const wrap = h("div", h("div.toolbar", h("div.search", icon("search"), search), U.btn("Document", { kind: "accent", icon: "plus", onClick: () => createSheet(curProject(), cur) }), U.btn("Dossier", { icon: "folder", onClick: () => folderSheet(null, curProject(), cur, (id) => { setCur(id); }) }), U.btn("Importer", { icon: "upload", onClick: () => importSheet(curProject(), cur, draw) }), U.btn("Corbeille", { icon: "trash", onClick: () => trashSheet(() => { if (cur && (!folderById(cur) || HQ.exm.isTrashed(store.db(), cur))) { try { sessionStorage.setItem("n29hq.folder", ""); } catch (e) { /* ignore */ } cur = ""; } refresh(); }) })), crumbs, h("div.card.dropzone", list, h("p.hint", { style: "margin-top:10px" }, "Glissez des fichiers ou des dossiers ici (ordinateur) pour les importer.")));
       dropTarget(wrap.querySelector(".dropzone"), () => cur);
       wrap.querySelector(".dropzone").addEventListener("dragover", (e) => { if ([...(e.dataTransfer.types || [])].includes("Files")) e.preventDefault(); });
       return wrap;
@@ -202,7 +229,7 @@
     const actions = h("div.head-actions.page-actions-scroll", { style: "gap:8px" }, U.btn("−", { sm: true, onClick: () => setZoom(zoom - 0.25), title: "Réduire" }), zoomLbl, U.btn("+", { sm: true, onClick: () => setZoom(zoom + 0.25), title: "Agrandir" }),
       U.btn("Télécharger", { icon: "download", sm: true, kind: "accent", onClick: () => blob ? downloadBlob(blob, note.file ? note.file.name : note.title + ".pdf") : U.toast("Fichier indisponible sur cet appareil.", "bad") }),
       U.btn("Remplacer le PDF", { icon: "upload", sm: true, onClick: attach }),
-      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Supprimer ce PDF ?", text: note.title, ok: "Supprimer", danger: true })) { HQ.files.remove(note.id); store.mutate((d) => { d.notes = d.notes.filter((x) => x.id !== note.id); }); back(); } } }));
+      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { store.mutate((d) => HQ.exm.trashItems(d, [note.id], Date.now())); U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
     root.append(h("div.page-head", { style: "margin-bottom:14px" }, h("div", { style: "flex:1;min-width:0" }, h("button.back", { type: "button", onclick: back }, icon("chevL"), "Documents"), h("div", { style: "margin-top:10px" }, titleIn))),
       h("div.toolbar", { style: "margin-bottom:12px" }, h("div", { style: "min-width:180px;flex:1" }, projSel), h("div", { style: "min-width:180px;flex:1" }, folderSel), info), actions, h("div.pdf-wrap", { style: "margin-top:14px" }, pages));
 
@@ -415,7 +442,7 @@
     const origBtn = note.file ? U.btn("Original (" + (note.file.name.split(".").pop() || "fichier").toLowerCase() + ")", { icon: "download", sm: true, onClick: async () => { const b = await HQ.files.get(note.id); if (!b) { U.toast("L'original n'est pas disponible sur cet appareil (les fichiers ne sont pas synchronisés).", "bad"); return; } downloadBlob(b, note.file.name); } }) : null;
     const actions = h("div.head-actions.page-actions-scroll", { style: "gap:8px" }, srcBtn, origBtn, U.btn("Exporter .md", { icon: "download", sm: true, onClick: exportMd }), U.btn("Copier le Markdown", { icon: "copy", sm: true, onClick: () => { persist(); U.copy(db.notes.find((x) => x.id === note.id).md, "Markdown copié"); } }), U.btn("PDF", { icon: "print", sm: true, onClick: printDoc }),
       U.btn("Dupliquer", { sm: true, onClick: () => { persist(); const n = db.notes.find((x) => x.id === note.id); const id = createNote({ title: n.title + " (copie)", projectId: n.projectId, folderId: n.folderId, md: n.md }); HQ.go("/projects/doc/" + id); } }),
-      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Supprimer ce document ?", text: note.title, ok: "Supprimer", danger: true })) { dirty = false; clearTimeout(timer); HQ.files.remove(note.id); store.mutate((d) => { d.notes = d.notes.filter((x) => x.id !== note.id); }); back(); } } }));
+      U.btn("Supprimer", { kind: "danger", sm: true, icon: "trash", onClick: async () => { if (await U.confirm({ title: "Mettre ce document à la corbeille ?", text: note.title, ok: "Mettre à la corbeille", danger: true })) { dirty = false; clearTimeout(timer); store.mutate((d) => HQ.exm.trashItems(d, [note.id], Date.now())); U.toast("Document déplacé dans la corbeille", "ok"); back(); } } }));
 
     root.append(h("div.page-head", { style: "margin-bottom:14px" }, h("div", { style: "flex:1;min-width:0" }, h("button.back", { type: "button", onclick: () => { persist(); back(); } }, icon("chevL"), "Documents"), h("div", { style: "margin-top:10px" }, titleIn))),
       h("div.toolbar", { style: "margin-bottom:12px" }, h("div", { style: "min-width:180px;flex:1" }, projSel), h("div", { style: "min-width:180px;flex:1" }, folderSel), status, words), actions,
