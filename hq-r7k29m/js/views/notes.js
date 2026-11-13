@@ -25,8 +25,8 @@
   const folderPath = (id) => { const out = []; let f = folderById(id), n = 0; while (f && n++ < 30) { out.unshift(f.name); f = folderById(f.parentId); } return out.join(" / "); };
   const descendants = (id) => { const all = store.db().folders, out = []; const walk = (p) => all.filter((f) => f.parentId === p).forEach((f) => { out.push(f.id); walk(f.id); }); walk(id); return out; };
   // [value, label] pairs of the folders of a project, indented by depth
-  function folderOptions(projectId, exclude) {
-    const all = store.db().folders.filter((f) => (f.projectId || "") === (projectId || "") && !(exclude || []).includes(f.id)), out = [["", "— racine —"]];
+  function folderOptions(projectId, exclude, keepId) { // trashed folders are no destination; keepId: the current folder of an editor stays selectable
+    const all = store.db().folders.filter((f) => (f.projectId || "") === (projectId || "") && !(exclude || []).includes(f.id) && (f.id === keepId || !HQ.exm.isTrashed(store.db(), f.id))), out = [["", "— racine —"]];
     const walk = (parent, depth) => all.filter((f) => (f.parentId || "") === parent).sort((a, b) => a.name.localeCompare(b.name, "fr")).forEach((f) => { out.push([f.id, "  ".repeat(depth) + (depth ? "↳ " : "") + f.name]); walk(f.id, depth + 1); });
     walk("", 0);
     return out;
@@ -57,7 +57,9 @@
   // ---------- Trash (minimal: restore, delete for good, empty) ----------
   function trashSheet(changed) { // changed(): called after each change, so the list behind the sheet and the tab counter follow
     const body = h("div.stack");
-    U.sheet({ title: "Corbeille", body });
+    const sh = U.sheet({ title: "Corbeille", body });
+    const off = store.onChange(() => { if (!store.isUnlocked()) { off(); sh.close(true); const sc = sh.el.closest(".scrim"); if (sc) sc.remove(); } }); // nothing readable over the lock screen
+    const safe = (fn) => { try { return fn(); } catch (e) { U.toast("Action impossible (coffre verrouillé ?)", "err"); return false; } };
     const purgeNow = (ids) => { // ONE mutation; files are removed only once it has succeeded
       let res = null;
       try { store.mutate((d) => { res = ids ? HQ.exm.purge(d, ids) : HQ.exm.emptyTrash(d); HQ.exm.prune(d); }); } catch (e) { U.toast("Suppression impossible", "err"); return false; }
@@ -65,13 +67,13 @@
       return true;
     };
     function render() {
-      const items = HQ.exm.trashView(store.db());
+      const items = safe(() => HQ.exm.trashView(store.db())) || [];
       body.replaceChildren(
         items.length ? h("div.list", ...items.map((it) => {
           const id = it.rec.id, isF = it.type === "folder", name = (isF ? it.rec.name : it.rec.title) || "Sans titre";
           return h("div.row", h("div.row-main", h("span.kind", { class: "kind kind--" + (isF ? "folder" : it.rec.kind || "md") }, icon(isF ? "folder" : it.rec.kind === "pdf" ? "doc" : it.rec.kind === "sheet" ? "table" : "edit"), isF ? "Dossier" : KIND[it.rec.kind || "md"]), h("div", h("div.row-t", name), h("div.row-s", "Supprimé le " + U.fmtDate(U.isoDate(new Date(it.at || Date.now())))))),
             h("div.row-r", { style: "grid-auto-flow:column;gap:6px" },
-              U.btn("Restaurer", { sm: true, onClick: () => { store.mutate((d) => HQ.exm.restoreItems(d, [id])); U.toast("Restauré", "ok"); changed && changed(); render(); } }),
+              U.btn("Restaurer", { sm: true, onClick: () => { if (!safe(() => { store.mutate((d) => HQ.exm.restoreItems(d, [id])); return true; })) return; U.toast("Restauré", "ok"); changed && changed(); render(); } }),
               U.btn("Supprimer définitivement", { sm: true, kind: "danger", onClick: async () => { if (await U.confirm({ title: "Supprimer définitivement ?", text: name + (isF ? " et son contenu seront supprimés." : " sera supprimé."), ok: "Supprimer définitivement", danger: true })) { if (purgeNow([id])) U.toast("Supprimé définitivement", "ok"); changed && changed(); render(); } } })));
         })) : h("div.empty", "La corbeille est vide."),
         items.length ? h("div.form-actions", U.btn("Vider la corbeille", { kind: "danger", onClick: async () => { if (await U.confirm({ title: "Vider la corbeille ?", text: `${items.length} élément(s) seront supprimés définitivement.`, ok: "Vider la corbeille", danger: true })) { if (purgeNow(null)) U.toast("Corbeille vidée", "ok"); changed && changed(); render(); } } })) : null);
@@ -218,7 +220,7 @@
     let zoom = 1, doc = null, observer = null, token = 0;
     const back = () => { try { sessionStorage.setItem("n29hq.folder", note.folderId || ""); } catch (e) { /* ignore */ } HQ.go("/projects?tab=docs" + (note.projectId ? "&p=" + note.projectId : "")); };
     const titleIn = U.input({ value: note.title, maxlength: 120, "aria-label": "Titre du document", style: "font-size:1.35rem;font-weight:700;letter-spacing:-.02em;border:0;border-bottom:1px solid var(--line);background:transparent;padding-left:0" });
-    const projSel = U.select([["", "— sans projet —"], ...db.projects.map((p) => [p.id, p.name])], note.projectId), folderSel = U.select(folderOptions(note.projectId), note.folderId || "");
+    const projSel = U.select([["", "— sans projet —"], ...db.projects.map((p) => [p.id, p.name])], note.projectId), folderSel = U.select(folderOptions(note.projectId, [], note.folderId), note.folderId || "");
     const save = () => store.mutate((d) => { const n = d.notes.find((x) => x.id === note.id); if (n) { n.title = titleIn.value.trim() || "Sans titre"; n.projectId = projSel.value; n.folderId = folderSel.value || ""; n.updatedAt = Date.now(); } });
     titleIn.addEventListener("change", save); folderSel.addEventListener("change", () => { note.folderId = folderSel.value; save(); });
     projSel.addEventListener("change", () => { note.projectId = projSel.value; folderSel.replaceChildren(...folderOptions(projSel.value).map(([v, l]) => h("option", { value: v }, l))); folderSel.value = ""; save(); });
@@ -285,7 +287,7 @@
     const back = () => { try { sessionStorage.setItem("n29hq.folder", folderSel.value || ""); } catch (e) { /* ignore */ } HQ.go("/projects?tab=docs" + (note.projectId ? "&p=" + note.projectId : "")); };
     const titleIn = U.input({ value: note.title, maxlength: 120, "aria-label": "Titre du document", style: "font-size:1.35rem;font-weight:700;letter-spacing:-.02em;border:0;border-bottom:1px solid var(--line);background:transparent;padding-left:0" });
     const projSel = U.select([["", "— sans projet —"], ...db.projects.map((p) => [p.id, p.name])], note.projectId);
-    const folderSel = U.select(folderOptions(note.projectId), note.folderId || "");
+    const folderSel = U.select(folderOptions(note.projectId, [], note.folderId), note.folderId || "");
     const status = h("span.hint", "Enregistré");
     const words = h("span.hint");
     const ed = h("div.rte.notepaper", { contenteditable: "true", spellcheck: "true", role: "textbox", "aria-multiline": "true", "aria-label": "Contenu du document" });
