@@ -27,10 +27,11 @@
       });
     });
     const name = root.dataset.project;
-    const title = name ? (dict["meta.title.project"] || "").replace("{name}", root.dataset.projectName) : dict["meta.title"];
+    const page = root.dataset.page;
+    const title = name ? (dict["meta.title.project"] || "").replace("{name}", root.dataset.projectName) : dict["page." + page + ".title"];
     if (title) document.title = title;
     const desc = document.querySelector('meta[name="description"]');
-    const descKey = name ? "p." + name + ".tagline" : "meta.description";
+    const descKey = name ? "p." + name + ".tagline" : "page." + page + ".desc";
     if (desc && dict[descKey]) desc.content = dict[descKey];
     root.lang = lang;
     document.querySelectorAll(".lang button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lang === lang)));

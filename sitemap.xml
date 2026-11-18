@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://n29-studio.fr/</loc></url>
-  <url><loc>https://n29-studio.fr/projects/heroes-dawn.html</loc></url>
+  <url><loc>https://n29-studio.fr/heroes-dawn.html</loc></url>
+  <url><loc>https://n29-studio.fr/portfolio.html</loc></url>
+  <url><loc>https://n29-studio.fr/studio.html</loc></url>
+  <url><loc>https://n29-studio.fr/hell-rising.html</loc></url>
+  <url><loc>https://n29-studio.fr/contact.html</loc></url>
   <url><loc>https://n29-studio.fr/projects/discosmos.html</loc></url>
   <url><loc>https://n29-studio.fr/projects/beat-strike.html</loc></url>
   <url><loc>https://n29-studio.fr/projects/delight.html</loc></url>

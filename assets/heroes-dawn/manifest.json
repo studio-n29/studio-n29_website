@@ -1,0 +1,228 @@
+{
+  "shots": [
+    {
+      "name": "combat",
+      "w": 1600,
+      "h": 900,
+      "cap": "combat"
+    },
+    {
+      "name": "combat-sort",
+      "w": 1600,
+      "h": 900,
+      "cap": "combat2"
+    },
+    {
+      "name": "plateau",
+      "w": 1600,
+      "h": 900,
+      "cap": "board"
+    },
+    {
+      "name": "plateau-brouillard",
+      "w": 1600,
+      "h": 900,
+      "cap": "fog"
+    },
+    {
+      "name": "qg",
+      "w": 1600,
+      "h": 900,
+      "cap": "hq"
+    },
+    {
+      "name": "missions",
+      "w": 1600,
+      "h": 900,
+      "cap": "missions"
+    },
+    {
+      "name": "equipe",
+      "w": 1600,
+      "h": 900,
+      "cap": "team"
+    },
+    {
+      "name": "fiche",
+      "w": 1600,
+      "h": 900,
+      "cap": "sheet"
+    },
+    {
+      "name": "grimoire",
+      "w": 1600,
+      "h": 900,
+      "cap": "grimoire"
+    },
+    {
+      "name": "recrutement",
+      "w": 1600,
+      "h": 900,
+      "cap": "recruit"
+    },
+    {
+      "name": "atelier",
+      "w": 1600,
+      "h": 900,
+      "cap": "craft"
+    },
+    {
+      "name": "expeditions",
+      "w": 1600,
+      "h": 900,
+      "cap": "expeditions"
+    },
+    {
+      "name": "minijeu",
+      "w": 1600,
+      "h": 900,
+      "cap": "minigame"
+    },
+    {
+      "name": "minijeu-infiltration",
+      "w": 1600,
+      "h": 900,
+      "cap": "stealth"
+    },
+    {
+      "name": "pass",
+      "w": 1600,
+      "h": 900,
+      "cap": "pass"
+    },
+    {
+      "name": "boutique",
+      "w": 1600,
+      "h": 900,
+      "cap": "shop"
+    }
+  ],
+  "arts": [
+    {
+      "slug": "giulia-rossi",
+      "label": "Giulia Rossi",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "ilona-varga",
+      "label": "Ilona Varga",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "lucas-mendes",
+      "label": "Lucas Mendes",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "mei-lin-chen",
+      "label": "Mei-Lin Chen",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "kwame-abara",
+      "label": "Kwame Abara",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "freya-lindqvist",
+      "label": "Freya Lindqvist",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "yelena-ivanova",
+      "label": "Yelena Ivanova",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "sam-okafor",
+      "label": "Sam Okafor",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "rin-takeda",
+      "label": "Rin Takeda",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "odile-ferrand",
+      "label": "Odile Ferrand",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "ada-okonkwo",
+      "label": "Ada Okonkwo",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "haruto-nakamura",
+      "label": "Haruto Nakamura",
+      "kind": "agent",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "kraken",
+      "label": "Kraken",
+      "kind": "cryptid",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "phalene",
+      "label": "Phalène",
+      "kind": "cryptid",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "famine",
+      "label": "Famine",
+      "kind": "cryptid",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "lupin",
+      "label": "Lupin",
+      "kind": "cryptid",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "porte-des-enfers",
+      "label": "Paris",
+      "kind": "place",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "place-rouge",
+      "label": "Moscou",
+      "kind": "place",
+      "w": 1600,
+      "h": 900
+    }
+  ]
+}

@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en" data-root="">
+<html lang="en" data-root="" data-page="home">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Djason Nathiez — Freelance Unity Gameplay Developer | STUDIO N29</title>
-<meta name="description" content="Portfolio of Djason Nathiez, freelance Unity developer specialised in gameplay programming, systems and multiplayer networking. Projects: Discosmos, Beat Strike, Heroes Dawn, Delight.">
-<meta name="theme-color" content="#07070a">
+<title>STUDIO N29 — Independent game studio | Heroes Dawn</title>
+<meta name="description" content="STUDIO N29 is an independent game studio. Heroes Dawn, our tactical management RPG, is out on January 15, 2027 on Android, iOS and Steam.">
+<meta name="theme-color" content="#06080d">
 <link rel="canonical" href="https://n29-studio.fr/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
@@ -13,315 +13,265 @@
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="STUDIO N29">
-<meta property="og:title" content="Djason Nathiez — Freelance Unity Gameplay Developer | STUDIO N29">
-<meta property="og:description" content="Portfolio of Djason Nathiez, freelance Unity developer specialised in gameplay programming, systems and multiplayer networking. Projects: Discosmos, Beat Strike, Heroes Dawn, Delight.">
+<meta property="og:title" content="STUDIO N29 — Independent game studio | Heroes Dawn">
+<meta property="og:description" content="STUDIO N29 is an independent game studio. Heroes Dawn, our tactical management RPG, is out on January 15, 2027 on Android, iOS and Steam.">
 <meta property="og:url" content="https://n29-studio.fr/">
 <meta property="og:image" content="https://n29-studio.fr/assets/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="assets/fonts/space-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/studio.css">
 <link rel="stylesheet" href="css/animations.css">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Djason Nathiez","jobTitle":"Unity Gameplay Programmer (freelance)","url":"https://n29-studio.fr/","sameAs":["https://www.linkedin.com/in/djason-nathiez-391b2b365","https://www.malt.fr/profile/djasonnathiez"],"email":"dm.nathiez@gmail.com","alumniOf":{"@type":"CollegeOrUniversity","name":"Rubika — Supinfogame"},"worksFor":{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/"},"knowsAbout":["Unity","C#","Gameplay programming","Multiplayer networking","Photon","Editor tooling","Game development"],"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/","logo":"https://n29-studio.fr/assets/apple-touch-icon.png","founder":{"@type":"Person","name":"Djason Nathiez"},"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}},{"@type":"VideoGame","name":"Heroes Dawn","url":"https://n29-studio.fr/heroes-dawn.html","image":"https://n29-studio.fr/assets/projects/heroes-dawn/poster.jpg","genre":"Tactical management RPG","gamePlatform":["Android","iOS","PC (Steam)"],"datePublished":"2027-01-15","author":{"@type":"Organization","name":"STUDIO N29"}}]}</script>
 </head>
 <body id="top">
 <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
-<div class="page-slash" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"></div>
 <header class="site-header">
   <div class="wrap">
-    <a class="brand" href="#top" aria-label="STUDIO N29"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg><span>STUDIO N29</span></a>
+    <a class="brand" href="index.html" aria-label="STUDIO N29"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg><span>STUDIO N29</span></a>
     <nav class="nav" id="nav" aria-label="Navigation">
-      <a href="#projects" data-i18n="nav.projects">Projects</a>
-      <a href="#about" data-i18n="nav.about">About</a>
-      <a href="#skills" data-i18n="nav.skills">Skills</a>
-      <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
-      <a href="#journey" data-i18n="nav.journey">Journey</a>
-      <a href="#contact" data-i18n="nav.contact">Contact</a>
-      <a class="btn btn--solid btn--sm" href="#contact"><span data-i18n="nav.cta">Get in touch</span></a>
+      <a href="heroes-dawn.html" data-i18n="nav.heroes">Heroes Dawn</a>
+      <a href="studio.html" data-i18n="nav.studio">Studio</a>
+      <a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a>
+      <a href="contact.html" data-i18n="nav.contact">Contact</a>
+      <span class="btn btn--soon btn--sm nav-cta" role="note"><i aria-hidden="true"></i><span data-i18n="wish.soon">Out January 15, 2027</span></span>
     </nav>
     <div class="header-tools">
+      <span class="btn btn--soon btn--sm header-cta" role="note"><i aria-hidden="true"></i><span data-i18n="wish.soon">Out January 15, 2027</span></span>
       <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="fr" aria-pressed="false">FR</button><button type="button" data-lang="en" aria-pressed="true">EN</button></div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-attr="aria-label:nav.menu"><span></span><span></span><span></span></button>
     </div>
   </div>
 </header>
 <main id="main">
-  <section class="hero">
-    <div class="wrap">
-      <div>
-        <span class="hero-status intro" style="--d:.1s"><i></i><span data-i18n="hero.status">Available for freelance missions</span></span>
-        <h1><span class="line"><span style="--d:.15s" data-i18n="hero.l1">Gameplay</span></span><span class="line"><span style="--d:.3s" data-i18n-html="hero.l2">you can <span class="accent">feel.</span></span></span></h1>
-        <p class="hero-role intro" style="--d:.6s" data-i18n-html="hero.role"><strong>Djason Nathiez</strong> — Unity Gameplay Programmer</p>
-        <p class="hero-lead intro" style="--d:.7s" data-i18n="hero.lead">Freelance Unity developer specialised in gameplay, systems and networking. I turn a design intention into solid, readable mechanics that feel great to play.</p>
-        <div class="hero-cta intro" style="--d:.85s">
-          <a class="btn btn--solid" href="#projects"><span data-i18n="hero.cta1">See the projects</span><span class="arrow" aria-hidden="true">→</span></a>
-          <a class="btn btn--ghost" href="#contact"><span data-i18n="hero.cta2">Get in touch</span></a>
+  <section class="hero-main">
+    <div class="hero-stage">
+      <img class="hero-key" src="assets/heroes-dawn/keyart.webp" srcset="assets/heroes-dawn/keyart-960.webp 960w, assets/heroes-dawn/keyart.webp 1672w" sizes="100vw" alt="" width="1672" height="941" fetchpriority="high">
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-copy"><div class="wrap"><div class="inner">
+        <div class="hero-meta">
+          <span class="eyebrow intro" style="--d:.15s" data-i18n="h.feat.eyebrow">Featured game</span>
+          <h1 class="hero-logo intro" style="--d:.25s"><img src="assets/heroes-dawn/logo.png" alt="Heroes Dawn" width="1280" height="179"></h1>
+          <p class="hero-sub intro" style="--d:.4s" data-i18n="h.feat.sub">A tactical management RPG in a world where humans have become metahumans.</p>
+          <p class="hero-date intro" style="--d:.48s" data-i18n="hd.release.line">January 15, 2027 · Android · iOS · Steam</p>
         </div>
-      </div>
-      <div class="hero-art" aria-hidden="true"><span class="slash"></span><svg class="logo-big" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg></div>
+        <div class="hero-cta intro" style="--d:.55s">
+          <span class="btn btn--soon " role="note"><i aria-hidden="true"></i><span data-i18n="wish.soon">Out January 15, 2027</span></span>
+          <a class="btn btn--ghost" href="heroes-dawn.html"><span data-i18n="h.feat.cta2">Discover the game</span><span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div></div></div>
     </div>
-    <div class="scroll-cue" aria-hidden="true"><span data-i18n="hero.scroll">Scroll</span></div>
+    <div class="dock"><div class="wrap">
+      <a class="dock-card" href="heroes-dawn.html"><img src="assets/heroes-dawn/combat.webp" srcset="assets/heroes-dawn/combat-800.webp 800w, assets/heroes-dawn/combat.webp 1600w" sizes="124px" alt="" aria-hidden="true" width="248" height="140" loading="lazy" decoding="async"><span><small data-i18n="dock.1.s">Out January 15, 2027</small><strong data-i18n="dock.1.t">Heroes Dawn</strong></span><span class="go" aria-hidden="true">→</span></a>
+      <a class="dock-card" href="hell-rising.html"><img src="assets/hell-rising/vue-jeu-800.webp" alt="" aria-hidden="true" width="248" height="140" loading="lazy" decoding="async"><span><small data-i18n="dock.2.s">New project</small><strong data-i18n="dock.2.t">Hell Rising</strong></span><span class="go" aria-hidden="true">→</span></a>
+      <a class="dock-card" href="studio.html"><img src="assets/heroes-dawn/equipe.webp" srcset="assets/heroes-dawn/equipe-800.webp 800w, assets/heroes-dawn/equipe.webp 1600w" sizes="124px" alt="" aria-hidden="true" width="248" height="140" loading="lazy" decoding="async"><span><small data-i18n="dock.3.s">The studio</small><strong data-i18n="dock.3.t">Meet STUDIO N29</strong></span><span class="go" aria-hidden="true">→</span></a>
+    </div></div>
   </section>
 
-  <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>Unity</span><span>C#</span><span>Gameplay</span><span>Photon</span><span>Editor tools</span><span>Game feel</span><span>Netcode</span><span>Systems</span><span>Unity 6</span><span>Freelance</span><span>Unity</span><span>C#</span><span>Gameplay</span><span>Photon</span><span>Editor tools</span><span>Game feel</span><span>Netcode</span><span>Systems</span><span>Unity 6</span><span>Freelance</span></div></div>
-
-  <section class="section" id="projects">
+  <section class="section" id="game">
     <div class="wrap">
       <div class="section-head">
-        <div class="reveal">
-          <span class="eyebrow" data-i18n="projects.eyebrow">Projects</span>
-          <h2 class="section-title" data-i18n="projects.title">What I've built.</h2>
-        </div>
-        <p class="lead reveal" style="--d:.1s" data-i18n="projects.lead">Networking, spells, rhythm, controllers, combat systems. For each project: what I actually did.</p>
+        <span class="eyebrow reveal" data-i18n="h.pillars.eyebrow">The game</span>
+        <h2 class="section-title reveal" data-i18n="h.pillars.title">Read every turn. Plan every mission.</h2>
+        <p class="lead reveal" style="--d:.1s" data-i18n="h.feat.text">Lead a squad of metahumans: explore a board that unfolds as you advance, combine your agents' powers on the combat timeline and run The Dawn's headquarters between missions.</p>
       </div>
-      <div class="projects-grid">
-      <article class="card reveal card--featured">
-        <div class="card-media"><img src="assets/projects/heroes-dawn/poster.jpg" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          <span class="eyebrow" data-i18n="projects.featured">Featured project</span>
-          <div class="card-meta"><span data-i18n="p.heroes-dawn.type">Management RPG</span><span class="badge badge--wip" data-i18n="status.wip">In progress</span></div>
-          <h3><a class="card-link" href="projects/heroes-dawn.html">Heroes Dawn</a></h3>
-          <p class="role" data-i18n="p.heroes-dawn.role">Design & development</p>
-          <p data-i18n="p.heroes-dawn.desc">Mobile-first management RPG in an alternate New York: board exploration, turn-based combat on an active timeline and HQ management. Playable Brooklyn campaign (v0.9.0).</p>
-          <ul class="tags"><li>Unity 6</li><li>C#</li><li>Clean architecture</li><li>Editor tools</li></ul>
+      <div class="tabs reveal" data-tabs>
+        <div class="tab-list" role="tablist" aria-orientation="vertical">
+          <button type="button" class="tab" role="tab" id="feat-t0" aria-controls="feat-p0" aria-selected="true"><span class="idx">01</span><span data-i18n="hd.f1.t">Combat on a timeline</span></button>
+          <button type="button" class="tab" role="tab" id="feat-t1" aria-controls="feat-p1" aria-selected="false"><span class="idx">02</span><span data-i18n="hd.f2.t">A board that unfolds</span></button>
+          <button type="button" class="tab" role="tab" id="feat-t2" aria-controls="feat-p2" aria-selected="false"><span class="idx">03</span><span data-i18n="hd.f3.t">Build your squad</span></button>
+          <button type="button" class="tab" role="tab" id="feat-t3" aria-controls="feat-p3" aria-selected="false"><span class="idx">04</span><span data-i18n="hd.f4.t">Headquarters, your base</span></button>
+          <button type="button" class="tab" role="tab" id="feat-t4" aria-controls="feat-p4" aria-selected="false"><span class="idx">05</span><span data-i18n="hd.f5.t">A campaign that starts in New York</span></button>
+          <button type="button" class="tab" role="tab" id="feat-t5" aria-controls="feat-p5" aria-selected="false"><span class="idx">06</span><span data-i18n="hd.f6.t">Mini-games</span></button>
         </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-media"><img src="assets/projects/discosmos/03.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.discosmos.type">3D MOBA · 2 months</span></div>
-          <h3><a class="card-link" href="projects/discosmos.html">Discosmos</a></h3>
-          <p class="role" data-i18n="p.discosmos.role">Lead Network & Skills</p>
-          <p data-i18n="p.discosmos.desc">Synchronous network infrastructure and skill architecture for a competitive 3D MOBA built in two months.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li><li>Photon</li><li>Netcode</li></ul>
+        <div class="tab-panels">
+          <article class="tab-panel" role="tabpanel" id="feat-p0" aria-labelledby="feat-t0">
+            <div class="panel-media"><img src="assets/heroes-dawn/combat.webp" srcset="assets/heroes-dawn/combat-800.webp 800w, assets/heroes-dawn/combat.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="Turn-based combat on the active timeline" data-i18n-attr="alt:hd.cap.combat" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f1.t">Combat on a timeline</h3><p data-i18n="hd.f1.d">Follow the combat timeline, manage your agents' energy and play their skill cards. Strike, protect or support: every decision shapes the balance of your squad.</p></div>
+          </article>
+          <article class="tab-panel" role="tabpanel" id="feat-p1" aria-labelledby="feat-t1">
+            <div class="panel-media"><img src="assets/heroes-dawn/plateau.webp" srcset="assets/heroes-dawn/plateau-800.webp 800w, assets/heroes-dawn/plateau.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="Board exploration in Red Hook" data-i18n-attr="alt:hd.cap.board" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f2.t">A board that unfolds</h3><p data-i18n="hd.f2.d">Roll the die to gain movement points, study the available paths and choose your destination. The fog hides what comes next: push forward to uncover encounters, battles and objectives.</p></div>
+          </article>
+          <article class="tab-panel" role="tabpanel" id="feat-p2" aria-labelledby="feat-t2">
+            <div class="panel-media"><img src="assets/heroes-dawn/equipe.webp" srcset="assets/heroes-dawn/equipe-800.webp 800w, assets/heroes-dawn/equipe.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="Squad composition and synergies" data-i18n-attr="alt:hd.cap.team" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f3.t">Build your squad</h3><p data-i18n="hd.f3.d">Recruit agents with different abilities, assemble your team and look for synergies between its members. Prepare their skills and equipment to shape your strategy.</p></div>
+          </article>
+          <article class="tab-panel" role="tabpanel" id="feat-p3" aria-labelledby="feat-t3">
+            <div class="panel-media"><img src="assets/heroes-dawn/qg.webp" srcset="assets/heroes-dawn/qg-800.webp 800w, assets/heroes-dawn/qg.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="The HQ hub in New York" data-i18n-attr="alt:hd.cap.hq" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f4.t">Headquarters, your base</h3><p data-i18n="hd.f4.d">Between missions, manage your team, review objectives, craft equipment and organize expeditions. Preparation is part of the adventure.</p></div>
+          </article>
+          <article class="tab-panel" role="tabpanel" id="feat-p4" aria-labelledby="feat-t4">
+            <div class="panel-media"><img src="assets/heroes-dawn/missions.webp" srcset="assets/heroes-dawn/missions-800.webp 800w, assets/heroes-dawn/missions.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="Mission selection on the New York map" data-i18n-attr="alt:hd.cap.missions" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f5.t">A campaign that starts in New York</h3><p data-i18n="hd.f5.d">Choose your mission on the map, follow the objectives of each zone and unlock the next ones as the campaign advances.</p></div>
+          </article>
+          <article class="tab-panel" role="tabpanel" id="feat-p5" aria-labelledby="feat-t5">
+            <div class="panel-media"><img src="assets/heroes-dawn/minijeu.webp" srcset="assets/heroes-dawn/minijeu-800.webp 800w, assets/heroes-dawn/minijeu.webp 1600w" sizes="(max-width: 1060px) 100vw, 880px" alt="Rhythm mini-game" data-i18n-attr="alt:hd.cap.minigame" width="1600" height="900" loading="lazy" decoding="async"></div>
+            <div class="panel-text"><h3 data-i18n="hd.f6.t">Mini-games</h3><p data-i18n="hd.f6.d">Rhythm, infiltration, engineering and survival challenges break up the missions and reward the squad.</p></div>
+          </article>
         </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-media card-media--contain"><img class="card-bg" src="assets/projects/beat-strike/07.webp" alt="" aria-hidden="true" loading="lazy" decoding="async"><img src="assets/projects/beat-strike/07.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.beat-strike.type">Mobile rhythm</span></div>
-          <h3><a class="card-link" href="projects/beat-strike.html">Beat Strike</a></h3>
-          <p class="role" data-i18n="p.beat-strike.role">Rhythm engine & editor tool</p>
-          <p data-i18n="p.beat-strike.desc">High-precision mobile rhythm engine, main gameplay loop and a Unity tool to compose patterns.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li><li>Editor tools</li><li>Rhythm engine</li></ul>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-media"><img src="assets/projects/delight/03.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.delight.type">3D adventure</span></div>
-          <h3><a class="card-link" href="projects/delight.html">Delight</a></h3>
-          <p class="role" data-i18n="p.delight.role">Gameplay Programmer</p>
-          <p data-i18n="p.delight.desc">3D character controller, state-machine enemy AI and audio architecture, on a Rubika group project.</p>
-          <ul class="tags"><li>Unity 6</li><li>C#</li><li>FSM AI</li><li>Audio</li></ul>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-media"><img src="assets/projects/sweet-courrier/05.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.sweet-courrier.type">Twin stick co-op</span></div>
-          <h3><a class="card-link" href="projects/sweet-courrier.html">Sweet Courrier</a></h3>
-          <p class="role" data-i18n="p.sweet-courrier.role">Gameplay Engineer</p>
-          <p data-i18n="p.sweet-courrier.desc">Cooperative arcade shooter: arcade physics, local multiplayer input and game feel.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li><li>Physics</li><li>Local co-op</li></ul>
-        </div>
-      </article>
-      <article class="card reveal">
-        <div class="card-media"><img src="assets/projects/n29-hq/01.webp" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.n29-hq.type">Internal tool</span></div>
-          <h3><a class="card-link" href="projects/n29-hq.html">N29 HQ</a></h3>
-          <p class="role" data-i18n="p.n29-hq.role">Designer & Developer</p>
-          <p data-i18n="p.n29-hq.desc">The private tool I run my freelance business with: projects, time tracking, quotes and invoices, encrypted sync.</p>
-          <ul class="tags"><li>JavaScript</li><li>WebCrypto</li><li>Supabase</li><li>PWA</li></ul>
-        </div>
-      </article>
-      <article class="card reveal card--nda">
-        <div class="card-media"><img src="assets/projects/project-x-cover.svg" alt="" loading="lazy" decoding="async" width="1200" height="750"></div>
-        <div class="card-body">
-          
-          <div class="card-meta"><span data-i18n="p.project-x.type">Confidential</span><span class="badge badge--nda" data-i18n="status.nda">NDA</span></div>
-          <h3><a class="card-link" href="projects/project-x.html">Project X</a></h3>
-          <p class="role" data-i18n="p.project-x.role">Unity development</p>
-          <p data-i18n="p.project-x.desc">A project in development, under a non-disclosure agreement. Details will be published once the NDA is lifted.</p>
-          <ul class="tags"><li>Unity</li><li>C#</li></ul>
-        </div>
-      </article>
       </div>
+      <p class="more reveal"><a class="btn btn--ghost" href="heroes-dawn.html"><span data-i18n="h.feat.cta2">Discover the game</span><span class="arrow" aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
-  <section class="section section--cut" id="about">
-    <div class="wrap about-grid">
-      <div class="reveal">
-        <span class="eyebrow" data-i18n="about.eyebrow">About</span>
-        <h2 class="section-title" data-i18n="about.title">Gameplay developer, trained at Rubika.</h2>
-      </div>
-      <div class="about-text reveal" style="--d:.1s">
-        <p data-i18n-html="about.p1">I'm a <strong>Unity developer</strong> specialised in <strong>gameplay programming</strong>, systems and networking. I studied at Rubika (Supinfogame) in the Programming Bachelor, and I now work as a freelancer under the <strong>STUDIO N29</strong> banner.</p>
-        <p data-i18n="about.p2">I like mechanics that feel good in the hands: readable combat, a spell that responds at the right moment, networking you never notice. My experience also gave me full-stack web, LLM / AI and prompt-engineering skills.</p>
-        <p data-i18n="about.p3">I fit into a team quickly, communicate clearly and like shipping code that others can pick up.</p>
-        <div class="facts">
-          <div class="fact"><b>6</b><span data-i18n="about.f1.l">projects featured</span></div>
-          <div class="fact"><b>C#</b><span data-i18n="about.f2.l">main language</span></div>
-          <div class="fact"><b>2019–23</b><span data-i18n="about.f3.l">Rubika · Programming Bachelor</span></div>
-          <div class="fact"><b data-i18n="about.f4.n">Freelance</b><span data-i18n="about.f4.l">open to missions</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="skills">
+  <section class="section section--cut" id="heroes">
     <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow" data-i18n="skills.eyebrow">Skills</span>
-        <h2 class="section-title" data-i18n="skills.title">What I can take on.</h2>
+      <div class="section-head">
+        <span class="eyebrow reveal" data-i18n="h.agents.eyebrow">Characters</span>
+        <h2 class="section-title reveal" data-i18n="h.agents.title">Agents and cryptids.</h2>
+        <p class="lead reveal" style="--d:.1s" data-i18n="h.agents.lead">Illustrations from the game: meet The Dawn's agents and the creatures they face.</p>
       </div>
-      <div class="skills-grid">
-        <article class="skill reveal" style="--d:0s">
-          <span class="idx">01</span>
-          <h3 data-i18n="skills.1.t">Gameplay programming</h3>
-          <p data-i18n="skills.1.d">Game mechanics, combat, spells and abilities, game loop, controls and game feel.</p>
-          <ul class="chips"><li>C#</li><li>Unity</li><li>State machines</li><li>ScriptableObjects</li><li>Game feel</li></ul>
-        </article>
-        <article class="skill reveal" style="--d:0.08s">
-          <span class="idx">02</span>
-          <h3 data-i18n="skills.2.t">Networking & multiplayer</h3>
-          <p data-i18n="skills.2.d">Network architecture, state synchronisation, replicated actions and consistency between players.</p>
-          <ul class="chips"><li>Photon</li><li>RPC</li><li>State sync</li><li>Rooms</li></ul>
-        </article>
-        <article class="skill reveal" style="--d:0.16s">
-          <span class="idx">03</span>
-          <h3 data-i18n="skills.3.t">Editor tools</h3>
-          <p data-i18n="skills.3.d">Unity tools for designers: pattern editors, custom inspectors, data-driven workflows.</p>
-          <ul class="chips"><li>Editor scripting</li><li>Custom inspectors</li><li>Data-driven</li></ul>
-        </article>
-        <article class="skill reveal" style="--d:0s">
-          <span class="idx">04</span>
-          <h3 data-i18n="skills.4.t">Architecture & systems</h3>
-          <p data-i18n="skills.4.d">Managers, pooling, serialisation and data loading: clean code that scales.</p>
-          <ul class="chips"><li>Object pooling</li><li>Addressables</li><li>Serialization</li><li>Design patterns</li></ul>
-        </article>
-        <article class="skill reveal" style="--d:0.08s">
-          <span class="idx">05</span>
-          <h3 data-i18n="skills.5.t">Full-stack & AI</h3>
-          <p data-i18n="skills.5.d">Back-end APIs, graph databases, LLM integration and prompt engineering.</p>
-          <ul class="chips"><li>TypeScript</li><li>Python</li><li>Neo4j</li><li>SQL / NoSQL</li><li>Dart</li></ul>
-        </article>
-        <article class="skill reveal" style="--d:0.16s">
-          <span class="idx">06</span>
-          <h3 data-i18n="skills.6.t">Tools & pipeline</h3>
-          <p data-i18n="skills.6.d">Git, cloud, 3D (Blender, Unreal) and collaboration with art and design teams.</p>
-          <ul class="chips"><li>Git</li><li>Google Cloud</li><li>Blender</li><li>Unreal Engine</li><li>C++</li></ul>
-        </article>
+      <div class="agents-viewer reveal" data-tabs>
+        <div class="agent-stage">
+          <figure class="agent-panel" role="tabpanel" id="ag-p0" aria-labelledby="ag-t0"><img src="assets/heroes-dawn/art/giulia-rossi.webp" srcset="assets/heroes-dawn/art/giulia-rossi-800.webp 800w, assets/heroes-dawn/art/giulia-rossi.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Giulia Rossi" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Giulia Rossi</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p1" aria-labelledby="ag-t1"><img src="assets/heroes-dawn/art/ilona-varga.webp" srcset="assets/heroes-dawn/art/ilona-varga-800.webp 800w, assets/heroes-dawn/art/ilona-varga.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Ilona Varga" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Ilona Varga</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p2" aria-labelledby="ag-t2"><img src="assets/heroes-dawn/art/lucas-mendes.webp" srcset="assets/heroes-dawn/art/lucas-mendes-800.webp 800w, assets/heroes-dawn/art/lucas-mendes.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Lucas Mendes" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Lucas Mendes</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p3" aria-labelledby="ag-t3"><img src="assets/heroes-dawn/art/mei-lin-chen.webp" srcset="assets/heroes-dawn/art/mei-lin-chen-800.webp 800w, assets/heroes-dawn/art/mei-lin-chen.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Mei-Lin Chen" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Mei-Lin Chen</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p4" aria-labelledby="ag-t4"><img src="assets/heroes-dawn/art/kwame-abara.webp" srcset="assets/heroes-dawn/art/kwame-abara-800.webp 800w, assets/heroes-dawn/art/kwame-abara.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Kwame Abara" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Kwame Abara</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p5" aria-labelledby="ag-t5"><img src="assets/heroes-dawn/art/freya-lindqvist.webp" srcset="assets/heroes-dawn/art/freya-lindqvist-800.webp 800w, assets/heroes-dawn/art/freya-lindqvist.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Freya Lindqvist" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Freya Lindqvist</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p6" aria-labelledby="ag-t6"><img src="assets/heroes-dawn/art/yelena-ivanova.webp" srcset="assets/heroes-dawn/art/yelena-ivanova-800.webp 800w, assets/heroes-dawn/art/yelena-ivanova.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Yelena Ivanova" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Yelena Ivanova</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p7" aria-labelledby="ag-t7"><img src="assets/heroes-dawn/art/sam-okafor.webp" srcset="assets/heroes-dawn/art/sam-okafor-800.webp 800w, assets/heroes-dawn/art/sam-okafor.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Sam Okafor" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Sam Okafor</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p8" aria-labelledby="ag-t8"><img src="assets/heroes-dawn/art/rin-takeda.webp" srcset="assets/heroes-dawn/art/rin-takeda-800.webp 800w, assets/heroes-dawn/art/rin-takeda.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Rin Takeda" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Rin Takeda</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p9" aria-labelledby="ag-t9"><img src="assets/heroes-dawn/art/odile-ferrand.webp" srcset="assets/heroes-dawn/art/odile-ferrand-800.webp 800w, assets/heroes-dawn/art/odile-ferrand.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Odile Ferrand" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Odile Ferrand</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p10" aria-labelledby="ag-t10"><img src="assets/heroes-dawn/art/ada-okonkwo.webp" srcset="assets/heroes-dawn/art/ada-okonkwo-800.webp 800w, assets/heroes-dawn/art/ada-okonkwo.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Ada Okonkwo" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Ada Okonkwo</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p11" aria-labelledby="ag-t11"><img src="assets/heroes-dawn/art/haruto-nakamura.webp" srcset="assets/heroes-dawn/art/haruto-nakamura-800.webp 800w, assets/heroes-dawn/art/haruto-nakamura.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Haruto Nakamura" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.agent">Agent</small><b>Haruto Nakamura</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p12" aria-labelledby="ag-t12"><img src="assets/heroes-dawn/art/kraken.webp" srcset="assets/heroes-dawn/art/kraken-800.webp 800w, assets/heroes-dawn/art/kraken.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Kraken" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.cryptid">Cryptid</small><b>Kraken</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p13" aria-labelledby="ag-t13"><img src="assets/heroes-dawn/art/phalene.webp" srcset="assets/heroes-dawn/art/phalene-800.webp 800w, assets/heroes-dawn/art/phalene.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Phalène" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.cryptid">Cryptid</small><b>Phalène</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p14" aria-labelledby="ag-t14"><img src="assets/heroes-dawn/art/famine.webp" srcset="assets/heroes-dawn/art/famine-800.webp 800w, assets/heroes-dawn/art/famine.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Famine" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.cryptid">Cryptid</small><b>Famine</b></figcaption></figure>
+          <figure class="agent-panel" role="tabpanel" id="ag-p15" aria-labelledby="ag-t15"><img src="assets/heroes-dawn/art/lupin.webp" srcset="assets/heroes-dawn/art/lupin-800.webp 800w, assets/heroes-dawn/art/lupin.webp 1600w" sizes="(max-width: 1240px) 100vw, 1240px" alt="Lupin" width="1600" height="900" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.cryptid">Cryptid</small><b>Lupin</b></figcaption></figure>
+        </div>
+        <div class="thumbs" role="tablist" aria-label="Heroes Dawn">
+          <button type="button" class="thumb" role="tab" id="ag-t0" aria-controls="ag-p0" aria-selected="true" aria-label="Giulia Rossi"><img src="assets/heroes-dawn/art/giulia-rossi-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t1" aria-controls="ag-p1" aria-selected="false" aria-label="Ilona Varga"><img src="assets/heroes-dawn/art/ilona-varga-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t2" aria-controls="ag-p2" aria-selected="false" aria-label="Lucas Mendes"><img src="assets/heroes-dawn/art/lucas-mendes-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t3" aria-controls="ag-p3" aria-selected="false" aria-label="Mei-Lin Chen"><img src="assets/heroes-dawn/art/mei-lin-chen-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t4" aria-controls="ag-p4" aria-selected="false" aria-label="Kwame Abara"><img src="assets/heroes-dawn/art/kwame-abara-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t5" aria-controls="ag-p5" aria-selected="false" aria-label="Freya Lindqvist"><img src="assets/heroes-dawn/art/freya-lindqvist-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t6" aria-controls="ag-p6" aria-selected="false" aria-label="Yelena Ivanova"><img src="assets/heroes-dawn/art/yelena-ivanova-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t7" aria-controls="ag-p7" aria-selected="false" aria-label="Sam Okafor"><img src="assets/heroes-dawn/art/sam-okafor-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t8" aria-controls="ag-p8" aria-selected="false" aria-label="Rin Takeda"><img src="assets/heroes-dawn/art/rin-takeda-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t9" aria-controls="ag-p9" aria-selected="false" aria-label="Odile Ferrand"><img src="assets/heroes-dawn/art/odile-ferrand-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t10" aria-controls="ag-p10" aria-selected="false" aria-label="Ada Okonkwo"><img src="assets/heroes-dawn/art/ada-okonkwo-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t11" aria-controls="ag-p11" aria-selected="false" aria-label="Haruto Nakamura"><img src="assets/heroes-dawn/art/haruto-nakamura-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t12" aria-controls="ag-p12" aria-selected="false" aria-label="Kraken"><img src="assets/heroes-dawn/art/kraken-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t13" aria-controls="ag-p13" aria-selected="false" aria-label="Phalène"><img src="assets/heroes-dawn/art/phalene-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t14" aria-controls="ag-p14" aria-selected="false" aria-label="Famine"><img src="assets/heroes-dawn/art/famine-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+          <button type="button" class="thumb" role="tab" id="ag-t15" aria-controls="ag-p15" aria-selected="false" aria-label="Lupin"><img src="assets/heroes-dawn/art/lupin-800.webp" alt="" width="800" height="450" loading="lazy" decoding="async"></button>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="section section--cut" id="reviews">
+  <section class="section" id="universe">
+    <div class="wrap split">
+      <div class="split-text reveal">
+        <span class="eyebrow" data-i18n="s.apex.eyebrow">The universe</span>
+        <h2 class="section-title" data-i18n="s.apex.title">One universe, many games.</h2>
+        <p class="lead" data-i18n="s.apex.p1">The Apex Universe is the shared universe of STUDIO N29's projects: characters, factions and places that connect from one game to the next.</p>
+        <a class="btn btn--ghost" href="studio.html#apex"><span data-i18n="h.apex.cta">Discover the universe</span><span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+      <div class="split-media reveal" style="--d:.1s"><img src="assets/heroes-dawn/art/porte-des-enfers.webp" alt="" width="1600" height="900" loading="lazy" decoding="async"></div>
+    </div>
+  </section>
+
+  <section class="section section--cut" id="shots">
     <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow" data-i18n="reviews.eyebrow">Reviews</span>
-        <h2 class="section-title" data-i18n="reviews.title">What clients say.</h2>
-      </div>
-      <div class="reviews">
-        <figure class="review reveal">
-          <div class="stars" role="img" aria-label="5 / 5"><span aria-hidden="true">★★★★★</span></div>
-          <blockquote data-i18n="reviews.quote">Strong all-round contribution across. Djason delivered the first draft of the match simulation algorithms, integrated RP Vision from the GDD with solid stabilisation and performance gains, and set up a clean Unity architecture, Git workflow and documentation. Djason was a reliable partner in production meetings, helping scope and split tasks clearly. Highly recommended for Unity game development.</blockquote>
-          <figcaption>
-            <span class="avatar" aria-hidden="true">Z</span>
-            <span><strong>Zahid</strong><small data-i18n="reviews.role">Product Operations Lead, Chukker App LLC</small></span>
-          </figcaption>
-          <p class="review-meta mono"><span data-i18n="reviews.date">Review posted on 16/10/2026</span> · Malt</p>
-        </figure>
-        <aside class="rating reveal" style="--d:.1s">
-          <b>5.0<small> / 5</small></b>
-          <span class="mono" data-i18n="reviews.count">1 review on Malt</span>
-          <a class="btn btn--solid btn--sm" href="https://www.malt.fr/profile/djasonnathiez" target="_blank" rel="noopener"><span data-i18n="reviews.cta">See my Malt profile</span><span class="arrow" aria-hidden="true">↗</span></a>
-          <p class="review-note" data-i18n="reviews.note">Review shown as published on Malt.</p>
-        </aside>
+      <div class="section-head">
+        <span class="eyebrow reveal" data-i18n="h.shots.eyebrow">In the game</span>
+        <h2 class="section-title reveal" data-i18n="h.shots.title">Straight from the latest build.</h2>
+        
       </div>
     </div>
+    <div class="strip" tabindex="0" role="group" aria-label="Heroes Dawn">
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/combat-sort.webp" srcset="assets/heroes-dawn/combat-sort-800.webp 800w, assets/heroes-dawn/combat-sort.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="Casting a skill during combat" data-i18n-attr="alt:hd.cap.combat2" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/plateau-brouillard.webp" srcset="assets/heroes-dawn/plateau-brouillard-800.webp 800w, assets/heroes-dawn/plateau-brouillard.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="Fog of war and zone objectives" data-i18n-attr="alt:hd.cap.fog" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/fiche.webp" srcset="assets/heroes-dawn/fiche-800.webp 800w, assets/heroes-dawn/fiche.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="Agent sheet with skills and gear" data-i18n-attr="alt:hd.cap.sheet" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/grimoire.webp" srcset="assets/heroes-dawn/grimoire-800.webp 800w, assets/heroes-dawn/grimoire.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="The grimoire of skill cards" data-i18n-attr="alt:hd.cap.grimoire" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/recrutement.webp" srcset="assets/heroes-dawn/recrutement-800.webp 800w, assets/heroes-dawn/recrutement.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="Recruiting new agents" data-i18n-attr="alt:hd.cap.recruit" width="1600" height="900" loading="lazy" decoding="async"></a>
+      <a class="strip-item" href="heroes-dawn.html#screens" tabindex="-1"><img src="assets/heroes-dawn/expeditions.webp" srcset="assets/heroes-dawn/expeditions-800.webp 800w, assets/heroes-dawn/expeditions.webp 1600w" sizes="(max-width: 700px) 85vw, 640px" alt="Organizing expeditions" data-i18n-attr="alt:hd.cap.expeditions" width="1600" height="900" loading="lazy" decoding="async"></a>
+    </div>
+    <p class="more reveal"><a class="btn btn--ghost" href="heroes-dawn.html#screens"><span data-i18n="h.shots.cta">See all screenshots</span><span class="arrow" aria-hidden="true">→</span></a></p>
   </section>
 
-  <section class="section" id="journey">
+  <section class="banner" id="wishlist">
+    <img class="banner-bg" src="assets/heroes-dawn/art/porte-des-enfers.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="wrap">
-      <div class="reveal">
-        <span class="eyebrow" data-i18n="journey.eyebrow">Journey</span>
-        <h2 class="section-title" data-i18n="journey.title">Where I come from.</h2>
-      </div>
-      <div class="timeline">
-        <div class="t-item reveal">
-          <div class="t-date" data-i18n="journey.1.date">Jun 2026 → Jan 2027</div>
-          <div><h3><span data-i18n="journey.1.t">Fullstack Developer</span><small data-i18n="journey.1.o">IdentityOS</small></h3><p data-i18n="journey.1.d">Built an AI-based back-end API on graph databases, and a narrative game in Unity that uses this API.</p></div>
-        </div>
-        <div class="t-item reveal">
-          <div class="t-date" data-i18n="journey.2.date">Aug 2024 → Nov 2025</div>
-          <div><h3><span data-i18n="journey.2.t">Web Developer</span><small data-i18n="journey.2.o">Central Cars</small></h3><p data-i18n="journey.2.d">Showcase website for used vehicles with an admin interface, and setup of the digital tools (cloud, invoicing, stock).</p></div>
-        </div>
-        <div class="t-item reveal">
-          <div class="t-date" data-i18n="journey.3.date">Mar → May 2024</div>
-          <div><h3><span data-i18n="journey.3.t">IT Technician</span><small data-i18n="journey.3.o">Simoldes Plasticos</small></h3><p data-i18n="journey.3.d">Hardware and software maintenance, and a consumables tracking app based on QR-code scanning.</p></div>
-        </div>
-        <div class="t-item reveal">
-          <div class="t-date" data-i18n="journey.4.date">2019 → 2023</div>
-          <div><h3><span data-i18n="journey.4.t">Programming Bachelor</span><small data-i18n="journey.4.o">Rubika — Supinfogame</small></h3><p data-i18n="journey.4.d">Video game programming studies: gameplay, systems and networking.</p></div>
-        </div>
-      </div>
+      <span class="eyebrow reveal" data-i18n="hd.cta.eyebrow">Out January 15, 2027</span>
+      <h2 class="section-title reveal" data-i18n="hd.cta.title">Join the squad.</h2>
+      <p class="lead reveal" data-i18n="hd.cta.lead">Heroes Dawn launches on Android, iOS and Steam. Wishlist it on Steam to be notified on launch day.</p>
+      <div class="hero-cta reveal"><span class="btn btn--soon " role="note"><i aria-hidden="true"></i><span data-i18n="wish.soon">Out January 15, 2027</span></span></div>
     </div>
   </section>
 
-  <section class="section" id="contact">
-    <div class="wrap contact-grid">
-      <div class="reveal">
-        <span class="eyebrow" data-i18n="contact.eyebrow">Contact</span>
-        <h2 class="section-title" data-i18n="contact.title">A project? Let's talk gameplay.</h2>
-        <p class="lead" data-i18n="contact.lead">Prototype, team reinforcement, networking system, editor tool: describe your need and I'll get back to you quickly.</p>
-        <div class="contact-list">
-          <a href="mailto:dm.nathiez@gmail.com"><small data-i18n="contact.email">Email</small><span>dm.nathiez@gmail.com</span></a>
-          <a href="https://www.linkedin.com/in/djason-nathiez-391b2b365" target="_blank" rel="noopener"><small data-i18n="contact.linkedin">LinkedIn</small><span>linkedin.com/in/djason-nathiez</span></a>
-          <a href="https://www.malt.fr/profile/djasonnathiez" target="_blank" rel="noopener"><small data-i18n="contact.malt">Malt</small><span>malt.fr/profile/djasonnathiez</span></a>
-          <a href="https://n29-studio.fr/"><small data-i18n="contact.web">Website</small><span>n29-studio.fr</span></a>
-          <div><small data-i18n="contact.where">Location</small><span data-i18n="contact.where.v">Hauts-de-France, France · remote friendly</span></div>
-        </div>
+  <section class="teaser" id="hell-rising">
+    <img class="teaser-bg" src="assets/hell-rising/cendres.webp" srcset="assets/hell-rising/cendres-800.webp 800w, assets/hell-rising/cendres.webp 1600w" sizes="100vw" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <div class="wrap">
+      <span class="eyebrow reveal" data-i18n="hr.eyebrow">New project · Early development</span>
+      <h2 class="teaser-title reveal">Hell Rising</h2>
+      <p class="lead reveal" data-i18n="hr.tag">An action game set in the Hells of the Apex Universe. The project has just started: it is too early to say more, but we are already at work.</p>
+      <ul class="chips teaser-chips reveal"><li data-i18n="hr.c1">Narrative action</li><li data-i18n="hr.c2">Solo · 3D</li><li data-i18n="hr.c3">Apex Universe</li></ul>
+      <p class="more reveal"><a class="btn btn--ghost" href="hell-rising.html"><span data-i18n="hr.cta">Discover the project</span><span class="arrow" aria-hidden="true">→</span></a></p>
+    </div>
+  </section>
+
+  <section class="section" id="studio">
+    <div class="wrap studio-band">
+      <div class="studio-mark reveal" aria-hidden="true"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg></div>
+      <div class="reveal" style="--d:.1s">
+        <span class="eyebrow" data-i18n="h.studio.eyebrow">The studio</span>
+        <h2 class="section-title" data-i18n="h.studio.title">Games with gameplay you can feel.</h2>
+        <p class="lead" data-i18n="h.studio.text">STUDIO N29 is an independent game studio based in Hauts-de-France. We build Unity games around readable, responsive mechanics, and the tools and systems that make them possible.</p>
+        <p style="margin-top:2rem"><a class="btn btn--ghost" href="studio.html"><span data-i18n="h.studio.cta">Meet the studio</span><span class="arrow" aria-hidden="true">→</span></a></p>
       </div>
-      <form class="form reveal" id="contact-form" style="--d:.1s">
-        <input type="hidden" name="access_key" value="2061a5e7-2cc7-434f-b98f-9d11cdc1b6da">
-        <input type="hidden" name="subject" value="Nouveau message — portfolio STUDIO N29">
-        <input type="hidden" name="from_name" value="Portfolio STUDIO N29">
-        <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <div class="field"><label for="f-name" data-i18n="form.name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required></div>
-        <div class="field"><label for="f-email" data-i18n="form.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
-        <div class="field"><label for="f-topic" data-i18n="form.topic">Your need</label>
-          <select id="f-topic" name="topic" required>
-            <option value="" disabled selected data-i18n="form.topic.0">Choose…</option>
-            <option value="freelance" data-i18n="form.topic.1">Freelance mission</option>
-            <option value="collab" data-i18n="form.topic.2">Collaboration / project</option>
-            <option value="other" data-i18n="form.topic.3">Other</option>
-          </select></div>
-        <div class="field"><label for="f-message" data-i18n="form.message">Message</label><textarea id="f-message" name="message" required></textarea></div>
-        <button class="btn btn--solid" type="submit" data-i18n="form.send">Send message</button>
-        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
-      </form>
     </div>
   </section>
 </main>
 <footer class="site-footer">
-  <div class="wrap">
-    <span>© <span id="year">2026</span> STUDIO N29 — Djason Nathiez</span>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="index.html" aria-label="STUDIO N29"><svg class="" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg><span>STUDIO N29</span></a>
+      <p data-i18n="foot.tag">Independent game studio based in Hauts-de-France, France.</p>
+    </div>
+    <div>
+      <h4>Heroes Dawn</h4>
+      <ul>
+        <li><a href="heroes-dawn.html#overview" data-i18n="sub.overview">Overview</a></li>
+        <li><a href="heroes-dawn.html#lore" data-i18n="sub.lore">The world</a></li>
+        <li><a href="heroes-dawn.html#gameplay" data-i18n="sub.gameplay">Gameplay</a></li>
+        <li><a href="heroes-dawn.html#agents" data-i18n="sub.agents">Characters</a></li>
+        <li><a href="heroes-dawn.html#screens" data-i18n="sub.screens">Screenshots</a></li>
+        <li><a href="heroes-dawn.html#roadmap" data-i18n="sub.roadmap">Roadmap</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 data-i18n="foot.studio">Studio</h4>
+      <ul>
+        <li><a href="studio.html" data-i18n="nav.studio">Studio</a></li>
+        <li><a href="hell-rising.html">Hell Rising</a></li>
+        <li><a href="portfolio.html" data-i18n="nav.portfolio">Portfolio</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 data-i18n="foot.follow">Contact</h4>
+      <ul>
+        <li><a href="mailto:dm.nathiez@gmail.com">dm.nathiez@gmail.com</a></li>
+        <li><a href="https://www.linkedin.com/in/djason-nathiez-391b2b365" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.malt.fr/profile/djasonnathiez" target="_blank" rel="noopener">Malt</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© <span id="year">2026</span> STUDIO N29 — All rights reserved.</span>
     <span data-i18n="foot.nda">Project X is under a non-disclosure agreement.</span>
-    <div class="foot-links"><a href="mailto:dm.nathiez@gmail.com">dm.nathiez@gmail.com</a></div>
   </div>
 </footer>
 <script src="js/i18n-data.js" defer></script>
 <script src="js/i18n.js" defer></script>
 <script src="js/ui.js" defer></script>
-<script src="js/form.js" defer></script>
+<script src="js/tabs.js" defer></script>
 </body>
 </html>
