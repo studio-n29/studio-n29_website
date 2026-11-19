@@ -39,6 +39,7 @@ Les fichiers HTML, `sitemap.xml`, `robots.txt` et `js/i18n-data.js` sont **gén�
 - Projets (liste, technos, images) : `tools/lib/data.mjs`.
 - **Lien Steam** : renseigner `STEAM_URL` dans `tools/lib/data.mjs`. Vide, les boutons affichent « Bientôt sur Steam » (non cliquable).
 - Couleurs : variables `--accent` / `--gold` dans `css/base.css` et `css/studio.css`.
+- CSS : on édite `css/{base,components,studio,animations}.css` ; `npm run build` les assemble dans `css/site.css` (la seule feuille chargée par les pages, avec un numéro de version). Ne jamais éditer `css/site.css`.
 
 ## Commandes
 

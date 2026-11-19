@@ -31,10 +31,7 @@ export const head = ({ title, desc, prefix, canonical, page, extra = "", htmlAtt
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="${prefix}assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${prefix}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${prefix}${ver("css/base.css")}">
-<link rel="stylesheet" href="${prefix}${ver("css/components.css")}">
-<link rel="stylesheet" href="${prefix}${ver("css/studio.css")}">
-<link rel="stylesheet" href="${prefix}${ver("css/animations.css")}">
+<link rel="stylesheet" href="${prefix}${ver("css/site.css")}">
 ${extra}</head>`;
 
 /** Wishlist button. Without STEAM_URL it is an inert "coming soon" badge (never a dead link). */
