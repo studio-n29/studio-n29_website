@@ -174,7 +174,26 @@
 .check input:checked::before { transform: rotate(45deg) scale(1); }
 .check input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .alpha-form .btn { justify-self: start; }
-.alpha-form .form-status { margin: 0; }
+.alpha-form .form-status { margin: 0; min-height: 1.4em; font-size: 1rem; }
+.alpha-form[hidden], .alpha-done[hidden] { display: none; }
+.alpha-form.is-error { animation: shake 0.45s; }
+.alpha-form input:disabled { opacity: 0.6; cursor: wait; }
+.btn .spin { display: none; width: 16px; height: 16px; border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: spin 0.7s linear infinite; }
+.btn.is-loading { pointer-events: none; filter: saturate(0.7); }
+.btn.is-loading .spin { display: inline-block; }
+/* confirmation panel shown in place of the form */
+.alpha-done { display: grid; gap: 0.9rem; justify-items: start; padding: 1.8rem; border: 1px solid rgba(214, 175, 91, 0.6); background: linear-gradient(180deg, rgba(214, 175, 91, 0.16), rgba(214, 175, 91, 0.04)); animation: pop 0.6s var(--ease); outline: none; }
+.alpha-done h3 { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: 0.06em; text-transform: uppercase; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; }
+.alpha-done p { color: var(--ink); }
+.alpha-done strong { color: var(--gold-hi); word-break: break-all; }
+.alpha-check { width: 64px; height: 64px; display: grid; place-items: center; color: #101c29; background: linear-gradient(180deg, var(--gold-hi), var(--gold)); clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); box-shadow: 0 0 40px rgba(214, 175, 91, 0.5); }
+.alpha-check svg { width: 26px; height: 26px; }
+/* home page: the Alpha sign-up is highlighted right under the hero */
+.section--alpha { padding-block: clamp(2.5rem, 5vw, 4rem); background: radial-gradient(ellipse 70% 120% at 50% 0%, rgba(214, 175, 91, 0.14), transparent 70%); }
+.section--alpha .alpha-box { box-shadow: 0 0 0 1px rgba(214, 175, 91, 0.25), 0 30px 90px -30px rgba(214, 175, 91, 0.35); }
+.section--alpha .eyebrow { color: var(--gold-hi); }
+.section--alpha .eyebrow::after { display: inline-block; }
+.btn--alpha { animation: glow 2.6s ease-in-out infinite; }
 @media (max-width: 900px) { .alpha-box { grid-template-columns: 1fr; } }
 
 /* Lore explainer (Heroes Dawn page) */

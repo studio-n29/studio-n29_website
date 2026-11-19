@@ -267,7 +267,7 @@
   "lore.c3.t": "Les Apex",
   "lore.c3.d": "Le surnom courant des méta-humains, tiré de l'Apex Unit d'origine. Le terme officiel reste « méta-humain ».",
   "sub.alpha": "Alpha",
-  "alpha.eyebrow": "Alpha Android",
+  "alpha.eyebrow": "Alpha Android · Inscriptions ouvertes",
   "alpha.title": "Rejoignez l'Alpha.",
   "alpha.lead": "Essayez Heroes Dawn sur Android avant tout le monde. Inscrivez-vous avec l'adresse e-mail de votre compte Google et nous vous inviterons à l'Alpha sur Google Play.",
   "alpha.note": "Utilisez l'adresse liée à votre compte Google Play : c'est celle qui recevra l'invitation.",
@@ -281,5 +281,8 @@
   "alpha.bad": "Veuillez saisir une adresse e-mail valide.",
   "alpha.noconsent": "Veuillez cocher la case pour continuer.",
   "alpha.err": "L'inscription a échoué. Réessayez, ou écrivez-nous :",
-  "alpha.privacy": "Votre adresse sert uniquement à vous inviter à l'Alpha."
+  "alpha.privacy": "Votre adresse sert uniquement à vous inviter à l'Alpha.",
+  "alpha.done.title": "Vous êtes sur la liste !",
+  "alpha.done.text": "Votre invitation à l'Alpha sera envoyée à",
+  "alpha.again": "Inscrire une autre adresse"
 }

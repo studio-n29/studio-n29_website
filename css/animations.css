@@ -6,6 +6,10 @@
 @keyframes fadeUp { to { opacity: 1; transform: none; } }
 @keyframes kenburns { from { transform: scale(1.02); } to { transform: scale(1.09) translateY(-1%); } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(212, 175, 97, 0.6); } 70% { box-shadow: 0 0 0 10px rgba(212, 175, 97, 0); } 100% { box-shadow: 0 0 0 0 rgba(212, 175, 97, 0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes shake { 0%, 100% { transform: none; } 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(3px); } }
+@keyframes pop { from { opacity: 0; transform: scale(0.94) translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes glow { 0%, 100% { filter: drop-shadow(0 0 0 rgba(214, 175, 91, 0)); } 50% { filter: drop-shadow(0 0 14px rgba(214, 175, 91, 0.7)); } }
 @keyframes embers { from { background-position: 0 0, 0 0; } to { background-position: 0 -600px, 0 -900px; } }
 
 @media (prefers-reduced-motion: reduce) {

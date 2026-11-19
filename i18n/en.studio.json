@@ -267,7 +267,7 @@
   "lore.c3.t": "The Apex",
   "lore.c3.d": "The everyday nickname of metahumans, taken from the original Apex Unit. The official term remains “metahuman”.",
   "sub.alpha": "Alpha",
-  "alpha.eyebrow": "Android Alpha",
+  "alpha.eyebrow": "Android Alpha · Sign-ups open",
   "alpha.title": "Join the Alpha.",
   "alpha.lead": "Try Heroes Dawn on Android before everyone else. Sign up with the email of your Google account and we will invite you to the Alpha on Google Play.",
   "alpha.note": "Use the address linked to your Google Play account: it is the one the invitation is sent to.",
@@ -281,5 +281,8 @@
   "alpha.bad": "Please enter a valid email address.",
   "alpha.noconsent": "Please tick the box to continue.",
   "alpha.err": "Sign-up failed. Please try again, or write to us:",
-  "alpha.privacy": "Your address is only used to invite you to the Alpha."
+  "alpha.privacy": "Your address is only used to invite you to the Alpha.",
+  "alpha.done.title": "You are on the list!",
+  "alpha.done.text": "Your invitation to the Alpha will be sent to",
+  "alpha.again": "Sign up another address"
 }

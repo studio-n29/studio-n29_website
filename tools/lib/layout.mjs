@@ -1,5 +1,11 @@
 // Shared page chrome: <head>, header, footer, scripts, small components.
-import { SITE, EMAIL, LINKEDIN, MALT, STEAM_URL, projectHref, t, tx } from "./data.mjs";
+import { createHash } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { ROOT, SITE, EMAIL, LINKEDIN, MALT, STEAM_URL, projectHref, t, tx } from "./data.mjs";
+
+/** Cache-busting: `file?v=<hash of the file>` so browsers and GitHub Pages never serve a stale CSS/JS after a deploy. */
+const ver = (rel) => `${rel}?v=${createHash("md5").update(readFileSync(join(ROOT, rel))).digest("hex").slice(0, 8)}`;
 
 export const logo = (cls = "") => `<svg class="${cls}" viewBox="220 255 585 515" aria-hidden="true"><g fill="currentColor"><polygon class="n-a" points="437,263 570,298 514,318 300,646 288,612 228,700 250,605 231,575"/><polygon class="n-b" points="567,350 705,400 567,581"/><polygon class="n-c" points="501,436 501,682 794,396 546,761 361,653"/></g></svg>`;
 
@@ -25,10 +31,10 @@ export const head = ({ title, desc, prefix, canonical, page, extra = "", htmlAtt
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="${prefix}assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="${prefix}assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="${prefix}css/base.css">
-<link rel="stylesheet" href="${prefix}css/components.css">
-<link rel="stylesheet" href="${prefix}css/studio.css">
-<link rel="stylesheet" href="${prefix}css/animations.css">
+<link rel="stylesheet" href="${prefix}${ver("css/base.css")}">
+<link rel="stylesheet" href="${prefix}${ver("css/components.css")}">
+<link rel="stylesheet" href="${prefix}${ver("css/studio.css")}">
+<link rel="stylesheet" href="${prefix}${ver("css/animations.css")}">
 ${extra}</head>`;
 
 /** Wishlist button. Without STEAM_URL it is an inert "coming soon" badge (never a dead link). */
@@ -100,12 +106,12 @@ export const footer = (prefix) => `<footer class="site-footer">
   </div>
 </footer>`;
 
-export const scripts = (prefix, { form = false, lightbox = false, filter = false, tabs = false, alpha = false } = {}) => `<script src="${prefix}js/i18n-data.js" defer></script>
-<script src="${prefix}js/i18n.js" defer></script>
-<script src="${prefix}js/ui.js" defer></script>
-${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}${alpha ? `<script src="${prefix}js/alpha.js" defer></script>\n` : ""}${tabs ? `<script src="${prefix}js/tabs.js" defer></script>\n` : ""}${lightbox ? `<script src="${prefix}js/lightbox.js" defer></script>\n` : ""}${filter ? `<script src="${prefix}js/filter.js" defer></script>\n` : ""}</body>
+export const scripts = (prefix, { form = false, lightbox = false, filter = false, tabs = false, alpha = false } = {}) => {
+  const s = (name) => `<script src="${prefix}${ver(`js/${name}.js`)}" defer></script>\n`;
+  return `${s("i18n-data")}${s("i18n")}${s("ui")}${form ? s("form") : ""}${alpha ? s("alpha") : ""}${tabs ? s("tabs") : ""}${lightbox ? s("lightbox") : ""}${filter ? s("filter") : ""}</body>
 </html>
 `;
+};
 
 /** Responsive Heroes Dawn capture (1600 px + 800 px WebP). */
 export const hdImg = (prefix, name, alt, { w = 1600, h = 900, sizes = "(max-width: 900px) 100vw, 50vw", lazy = true, altKey = "" } = {}) =>

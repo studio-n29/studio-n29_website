@@ -1,5 +1,5 @@
 // Page sections shared by the home page and the Heroes Dawn page.
-import { hdArts, ALPHA, EMAIL, t, tx } from "./data.mjs";
+import { hdArts, ALPHA, EMAIL, STEAM_URL, t, tx } from "./data.mjs";
 import { hdImg, wishlist } from "./layout.mjs";
 import { ZONES } from "./agents.mjs";
 
@@ -16,7 +16,8 @@ export const keyArtHero = ({ eyebrowKey, subKey, secondary, page = false, dock =
           ${tx("p", "hd.release.line", "hero-date intro", false, 'style="--d:.48s"')}
         </div>
         <div class="hero-cta intro" style="--d:.55s">
-          ${wishlist()}
+          <a class="btn btn--solid btn--alpha" href="#alpha"><span data-i18n="alpha.cta">${t("alpha.cta")}</span><span class="arrow" aria-hidden="true">→</span></a>
+          ${STEAM_URL ? wishlist() : ""}
           ${secondary}
         </div>
       </div></div></div>
@@ -56,7 +57,7 @@ export const agentsViewer = (prefix) => {
 };
 
 /** Android Alpha sign-up: stores the email of the player's Google account (see ALPHA in data.mjs). */
-export const alphaSection = () => `<section class="section" id="alpha">
+export const alphaSection = ({ spotlight = false } = {}) => `<section class="section${spotlight ? " section--alpha" : ""}" id="alpha">
     <div class="wrap">
       <div class="alpha-box frame reveal">
         <div class="alpha-text">
@@ -69,10 +70,16 @@ export const alphaSection = () => `<section class="section" id="alpha">
           <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="field">${tx("label", "alpha.email", "", false, 'for="alpha-email"')}<input id="alpha-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required placeholder="${t("alpha.placeholder")}" data-i18n-attr="placeholder:alpha.placeholder"></div>
           <label class="check"><input type="checkbox" name="consent" required><span data-i18n="alpha.consent">${t("alpha.consent")}</span></label>
-          <button class="btn btn--solid" type="submit"><span data-i18n="alpha.submit">${t("alpha.submit")}</span></button>
+          <button class="btn btn--solid" type="submit"><span class="spin" aria-hidden="true"></span><span class="btn-label" data-i18n="alpha.submit">${t("alpha.submit")}</span></button>
           <p class="form-status" id="alpha-status" role="status" aria-live="polite"></p>
           ${tx("p", "alpha.privacy", "alpha-note")}
         </form>
+        <div class="alpha-done" id="alpha-done" role="status" aria-live="polite" tabindex="-1" hidden>
+          <span class="alpha-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></span>
+          ${tx("h3", "alpha.done.title")}
+          <p><span data-i18n="alpha.done.text">${t("alpha.done.text")}</span> <strong id="alpha-sent-to"></strong></p>
+          <button class="btn btn--ghost btn--sm" type="button" id="alpha-again"><span data-i18n="alpha.again">${t("alpha.again")}</span></button>
+        </div>
       </div>
     </div>
   </section>`;

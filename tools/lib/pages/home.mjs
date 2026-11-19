@@ -1,6 +1,6 @@
 import { SITE, hdImages, t, tx } from "../data.mjs";
 import { head, header, footer, scripts, hdImg, sectionHead, logo } from "../layout.mjs";
-import { keyArtHero, featureTabs, agentsViewer, wishBanner } from "../sections.mjs";
+import { keyArtHero, featureTabs, agentsViewer, alphaSection, wishBanner } from "../sections.mjs";
 
 const org = {
   "@context": "https://schema.org",
@@ -43,6 +43,8 @@ ${header(p, "")}
 <main id="main">
   ${keyArtHero({ eyebrowKey: "h.feat.eyebrow", subKey: "h.feat.sub", dock: dockHtml,
     secondary: `<a class="btn btn--ghost" href="heroes-dawn.html"><span data-i18n="h.feat.cta2">${t("h.feat.cta2")}</span><span class="arrow" aria-hidden="true">→</span></a>` })}
+
+  ${alphaSection({ spotlight: true })}
 
   <section class="section" id="game">
     <div class="wrap">
@@ -107,5 +109,5 @@ ${header(p, "")}
   </section>
 </main>
 ${footer(p)}
-${scripts(p, { tabs: true })}`;
+${scripts(p, { tabs: true, alpha: true })}`;
 };

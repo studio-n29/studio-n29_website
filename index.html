@@ -20,10 +20,10 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="assets/fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/components.css">
-<link rel="stylesheet" href="css/studio.css">
-<link rel="stylesheet" href="css/animations.css">
+<link rel="stylesheet" href="css/base.css?v=bd806473">
+<link rel="stylesheet" href="css/components.css?v=1da6fede">
+<link rel="stylesheet" href="css/studio.css?v=ea9a6ce0">
+<link rel="stylesheet" href="css/animations.css?v=0097780a">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","name":"STUDIO N29","url":"https://n29-studio.fr/","logo":"https://n29-studio.fr/assets/apple-touch-icon.png","founder":{"@type":"Person","name":"Djason Nathiez"},"address":{"@type":"PostalAddress","addressRegion":"Hauts-de-France","addressCountry":"FR"}},{"@type":"VideoGame","name":"Heroes Dawn","url":"https://n29-studio.fr/heroes-dawn.html","image":"https://n29-studio.fr/assets/projects/heroes-dawn/poster.jpg","genre":"Tactical management RPG","gamePlatform":["Android","iOS","PC (Steam)"],"datePublished":"2027-01-15","author":{"@type":"Organization","name":"STUDIO N29"}}]}</script>
 </head>
 <body id="top">
@@ -58,7 +58,8 @@
           <p class="hero-date intro" style="--d:.48s" data-i18n="hd.release.line">January 15, 2027 · Android · iOS · Steam</p>
         </div>
         <div class="hero-cta intro" style="--d:.55s">
-          <span class="btn btn--soon " role="note"><i aria-hidden="true"></i><span data-i18n="wish.soon">Out January 15, 2027</span></span>
+          <a class="btn btn--solid btn--alpha" href="#alpha"><span data-i18n="alpha.cta">Join the Android Alpha</span><span class="arrow" aria-hidden="true">→</span></a>
+          
           <a class="btn btn--ghost" href="heroes-dawn.html"><span data-i18n="h.feat.cta2">Discover the game</span><span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div></div></div>
@@ -68,6 +69,33 @@
       <a class="dock-card" href="hell-rising.html"><img src="assets/hell-rising/vue-jeu-800.webp" alt="" aria-hidden="true" width="248" height="140" loading="lazy" decoding="async"><span><small data-i18n="dock.2.s">New project</small><strong data-i18n="dock.2.t">Hell Rising</strong></span><span class="go" aria-hidden="true">→</span></a>
       <a class="dock-card" href="studio.html"><img src="assets/heroes-dawn/equipe.webp" srcset="assets/heroes-dawn/equipe-800.webp 800w, assets/heroes-dawn/equipe.webp 1600w" sizes="124px" alt="" aria-hidden="true" width="248" height="140" loading="lazy" decoding="async"><span><small data-i18n="dock.3.s">The studio</small><strong data-i18n="dock.3.t">Meet STUDIO N29</strong></span><span class="go" aria-hidden="true">→</span></a>
     </div></div>
+  </section>
+
+  <section class="section section--alpha" id="alpha">
+    <div class="wrap">
+      <div class="alpha-box frame reveal">
+        <div class="alpha-text">
+          <span class="eyebrow" data-i18n="alpha.eyebrow">Android Alpha · Sign-ups open</span>
+          <h2 class="section-title" data-i18n="alpha.title">Join the Alpha.</h2>
+          <p class="lead" data-i18n="alpha.lead">Try Heroes Dawn on Android before everyone else. Sign up with the email of your Google account and we will invite you to the Alpha on Google Play.</p>
+          <p class="alpha-note" data-i18n="alpha.note">Use the address linked to your Google Play account: it is the one the invitation is sent to.</p>
+        </div>
+        <form class="alpha-form" id="alpha-form" data-url="https://ulwbghlrglwccozbdlvr.supabase.co" data-key="sb_publishable_0Zig_nNczVDf_U5MuMxEQQ_fU1b0J8m" data-mail="dm.nathiez@gmail.com" novalidate>
+          <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field"><label for="alpha-email" data-i18n="alpha.email">Google account email</label><input id="alpha-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required placeholder="you@gmail.com" data-i18n-attr="placeholder:alpha.placeholder"></div>
+          <label class="check"><input type="checkbox" name="consent" required><span data-i18n="alpha.consent">I agree that STUDIO N29 stores my email address to invite me to the Heroes Dawn Alpha. I can ask for it to be deleted at any time.</span></label>
+          <button class="btn btn--solid" type="submit"><span class="spin" aria-hidden="true"></span><span class="btn-label" data-i18n="alpha.submit">Sign up for the Alpha</span></button>
+          <p class="form-status" id="alpha-status" role="status" aria-live="polite"></p>
+          <p class="alpha-note" data-i18n="alpha.privacy">Your address is only used to invite you to the Alpha.</p>
+        </form>
+        <div class="alpha-done" id="alpha-done" role="status" aria-live="polite" tabindex="-1" hidden>
+          <span class="alpha-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square"/></svg></span>
+          <h3 data-i18n="alpha.done.title">You are on the list!</h3>
+          <p><span data-i18n="alpha.done.text">Your invitation to the Alpha will be sent to</span> <strong id="alpha-sent-to"></strong></p>
+          <button class="btn btn--ghost btn--sm" type="button" id="alpha-again"><span data-i18n="alpha.again">Sign up another address</span></button>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="section" id="game">
@@ -326,9 +354,10 @@
     <span data-i18n="foot.nda">Project X is under a non-disclosure agreement.</span>
   </div>
 </footer>
-<script src="js/i18n-data.js" defer></script>
-<script src="js/i18n.js" defer></script>
-<script src="js/ui.js" defer></script>
-<script src="js/tabs.js" defer></script>
+<script src="js/i18n-data.js?v=f9087367" defer></script>
+<script src="js/i18n.js?v=5fd8c8a8" defer></script>
+<script src="js/ui.js?v=b6155218" defer></script>
+<script src="js/alpha.js?v=58c3133d" defer></script>
+<script src="js/tabs.js?v=f28dc74a" defer></script>
 </body>
 </html>
