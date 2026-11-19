@@ -1,6 +1,6 @@
 import { SITE, hdImages, t, tx } from "../data.mjs";
 import { head, header, footer, scripts, hdImg, sectionHead } from "../layout.mjs";
-import { keyArtHero, featureTabs, agentsViewer, wishBanner } from "../sections.mjs";
+import { keyArtHero, featureTabs, agentsViewer, alphaSection, wishBanner } from "../sections.mjs";
 import { FEATURES } from "./home.mjs";
 
 export const render = () => {
@@ -10,7 +10,7 @@ export const render = () => {
     image: SITE + "/assets/projects/heroes-dawn/poster.jpg", description: t("page.hd.desc"), genre: "Tactical management RPG",
     gamePlatform: ["Android", "iOS", "PC (Steam)"], datePublished: "2027-01-15", applicationCategory: "Game", author: { "@type": "Organization", name: "STUDIO N29", url: SITE + "/" },
   };
-  const sub = [["overview", "sub.overview"], ["lore", "sub.lore"], ["gameplay", "sub.gameplay"], ["agents", "sub.agents"], ["screens", "sub.screens"], ["roadmap", "sub.roadmap"]];
+  const sub = [["overview", "sub.overview"], ["lore", "sub.lore"], ["gameplay", "sub.gameplay"], ["agents", "sub.agents"], ["screens", "sub.screens"], ["roadmap", "sub.roadmap"], ["alpha", "sub.alpha"]];
   return `${head({ title: t("page.hd.title"), desc: t("page.hd.desc"), prefix: p, canonical: SITE + "/heroes-dawn.html", page: "hd",
     extra: `<script type="application/ld+json">${JSON.stringify(game)}</script>\n`, image: `${SITE}/assets/projects/heroes-dawn/poster.jpg` })}
 <body>
@@ -93,8 +93,10 @@ ${header(p, "heroes")}
     </div>
   </section>
 
+  ${alphaSection()}
+
   ${wishBanner(p, { secondary: `<a class="btn btn--ghost" href="contact.html"><span data-i18n="hd.cta.press">${t("hd.cta.press")}</span><span class="arrow" aria-hidden="true">→</span></a>` })}
 </main>
 ${footer(p)}
-${scripts(p, { lightbox: true, tabs: true })}`;
+${scripts(p, { lightbox: true, tabs: true, alpha: true })}`;
 };

@@ -100,10 +100,10 @@ export const footer = (prefix) => `<footer class="site-footer">
   </div>
 </footer>`;
 
-export const scripts = (prefix, { form = false, lightbox = false, filter = false, tabs = false } = {}) => `<script src="${prefix}js/i18n-data.js" defer></script>
+export const scripts = (prefix, { form = false, lightbox = false, filter = false, tabs = false, alpha = false } = {}) => `<script src="${prefix}js/i18n-data.js" defer></script>
 <script src="${prefix}js/i18n.js" defer></script>
 <script src="${prefix}js/ui.js" defer></script>
-${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}${tabs ? `<script src="${prefix}js/tabs.js" defer></script>\n` : ""}${lightbox ? `<script src="${prefix}js/lightbox.js" defer></script>\n` : ""}${filter ? `<script src="${prefix}js/filter.js" defer></script>\n` : ""}</body>
+${form ? `<script src="${prefix}js/form.js" defer></script>\n` : ""}${alpha ? `<script src="${prefix}js/alpha.js" defer></script>\n` : ""}${tabs ? `<script src="${prefix}js/tabs.js" defer></script>\n` : ""}${lightbox ? `<script src="${prefix}js/lightbox.js" defer></script>\n` : ""}${filter ? `<script src="${prefix}js/filter.js" defer></script>\n` : ""}</body>
 </html>
 `;
 

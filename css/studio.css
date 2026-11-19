@@ -162,6 +162,21 @@
 .teaser-note { text-align: center; color: var(--muted); max-width: 60ch; margin: 2.5rem auto 0; font-size: 0.95rem; }
 @media (max-width: 800px) { .duo { grid-template-columns: 1fr; } }
 
+/* Android Alpha sign-up */
+.alpha-box { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 5vw, 4rem); padding: clamp(1.6rem, 4vw, 3.2rem); align-items: center; border-color: rgba(214, 175, 91, 0.45); background: linear-gradient(135deg, rgba(214, 175, 91, 0.1), var(--bg-2) 60%); }
+.alpha-box .eyebrow::after { display: none; }
+.alpha-box .section-title { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+.alpha-note { color: var(--muted); font-size: 0.92rem; margin-top: 1rem; }
+.alpha-form { display: grid; gap: 1.1rem; }
+.check { display: grid; grid-template-columns: auto 1fr; gap: 0.8rem; align-items: start; font-size: 0.92rem; color: var(--muted); cursor: pointer; line-height: 1.45; }
+.check input { appearance: none; width: 20px; height: 20px; margin: 0.1rem 0 0; border: 1px solid var(--gold-lo); background: #05070b; cursor: pointer; display: grid; place-content: center; transition: border-color 0.2s, background 0.2s; }
+.check input::before { content: ""; width: 10px; height: 10px; background: var(--gold); transform: rotate(45deg) scale(0); transition: transform 0.2s var(--ease); }
+.check input:checked::before { transform: rotate(45deg) scale(1); }
+.check input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.alpha-form .btn { justify-self: start; }
+.alpha-form .form-status { margin: 0; }
+@media (max-width: 900px) { .alpha-box { grid-template-columns: 1fr; } }
+
 /* Lore explainer (Heroes Dawn page) */
 .lore-line { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; position: relative; }
 .lore-step { position: relative; padding-top: 2.6rem; }

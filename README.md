@@ -16,6 +16,12 @@ Site statique du studio (EN par défaut / FR) publié via GitHub Pages sur `n29-
 Sections partagées accueil / Heroes Dawn (onglets de fonctionnalités, visionneuse de personnages, bannière wishlist) : `tools/lib/sections.mjs`.
 Polices auto-hébergées (Barlow, Barlow Condensed, licence OFL) dans `assets/fonts/`. Palette « Aube Tactique » du jeu : marine `#101C29`, ivoire `#ECE7DC`, laiton `#D6AF5B`.
 
+## Inscriptions à l'Alpha Android
+
+Le formulaire de la page Heroes Dawn (`#alpha`, aussi accessible depuis le bouton de l'accueil) enregistre l'e-mail du compte Google et le consentement dans la table Supabase `public.site_alpha_signups` (projet N29 HQ). La clé publique y est en insertion seule : personne ne peut lire ni supprimer depuis le site.
+
+Pour récupérer la liste : tableau de bord Supabase → Table Editor → `site_alpha_signups` → Export → CSV, puis dans la Google Play Console (test fermé → Testeurs → liste d'e-mails) importer le CSV. Les doublons sont impossibles (index unique sur l'e-mail en minuscules). Pour supprimer une adresse sur demande : supprimer la ligne dans le tableau de bord. Configuration : `ALPHA` dans `tools/lib/data.mjs`.
+
 ## Visuels Heroes Dawn (build 1.0.2)
 
 `npm run images` importe depuis `E:\Projets\HeroesDawn` (variable `HD_ROOT` pour un autre chemin) :

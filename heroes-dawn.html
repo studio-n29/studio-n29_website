@@ -72,6 +72,7 @@
     <a href="#agents" data-i18n="sub.agents">Characters</a>
     <a href="#screens" data-i18n="sub.screens">Screenshots</a>
     <a href="#roadmap" data-i18n="sub.roadmap">Roadmap</a>
+    <a href="#alpha" data-i18n="sub.alpha">Alpha</a>
   </div></nav>
 
   <section class="section" id="overview">
@@ -302,6 +303,27 @@
     </div>
   </section>
 
+  <section class="section" id="alpha">
+    <div class="wrap">
+      <div class="alpha-box frame reveal">
+        <div class="alpha-text">
+          <span class="eyebrow" data-i18n="alpha.eyebrow">Android Alpha</span>
+          <h2 class="section-title" data-i18n="alpha.title">Join the Alpha.</h2>
+          <p class="lead" data-i18n="alpha.lead">Try Heroes Dawn on Android before everyone else. Sign up with the email of your Google account and we will invite you to the Alpha on Google Play.</p>
+          <p class="alpha-note" data-i18n="alpha.note">Use the address linked to your Google Play account: it is the one the invitation is sent to.</p>
+        </div>
+        <form class="alpha-form" id="alpha-form" data-url="https://ulwbghlrglwccozbdlvr.supabase.co" data-key="sb_publishable_0Zig_nNczVDf_U5MuMxEQQ_fU1b0J8m" data-mail="dm.nathiez@gmail.com" novalidate>
+          <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field"><label for="alpha-email" data-i18n="alpha.email">Google account email</label><input id="alpha-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required placeholder="you@gmail.com" data-i18n-attr="placeholder:alpha.placeholder"></div>
+          <label class="check"><input type="checkbox" name="consent" required><span data-i18n="alpha.consent">I agree that STUDIO N29 stores my email address to invite me to the Heroes Dawn Alpha. I can ask for it to be deleted at any time.</span></label>
+          <button class="btn btn--solid" type="submit"><span data-i18n="alpha.submit">Sign up for the Alpha</span></button>
+          <p class="form-status" id="alpha-status" role="status" aria-live="polite"></p>
+          <p class="alpha-note" data-i18n="alpha.privacy">Your address is only used to invite you to the Alpha.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section class="banner" id="wishlist">
     <img class="banner-bg" src="assets/heroes-dawn/art/porte-des-enfers.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="wrap">
@@ -355,6 +377,7 @@
 <script src="js/i18n-data.js" defer></script>
 <script src="js/i18n.js" defer></script>
 <script src="js/ui.js" defer></script>
+<script src="js/alpha.js" defer></script>
 <script src="js/tabs.js" defer></script>
 <script src="js/lightbox.js" defer></script>
 </body>

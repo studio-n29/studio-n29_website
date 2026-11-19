@@ -12,6 +12,10 @@ export const MALT = "https://www.malt.fr/profile/djasonnathiez";
 export const LINKEDIN = "https://www.linkedin.com/in/djason-nathiez-391b2b365";
 export const ACCESS_KEY = "2061a5e7-2cc7-434f-b98f-9d11cdc1b6da"; // Web3Forms public key (client-side by design)
 
+/** Android Alpha sign-up (Supabase, table public.site_alpha_signups: insert-only for the public key). Export the list as CSV from the Supabase dashboard
+ *  (Table Editor > site_alpha_signups > Export) and import the emails in Google Play Console. The publishable key is public by design. */
+export const ALPHA = { url: "https://ulwbghlrglwccozbdlvr.supabase.co", key: "sb_publishable_0Zig_nNczVDf_U5MuMxEQQ_fU1b0J8m" };
+
 /** Steam store page of Heroes Dawn. Leave empty until the page exists: the wishlist button then shows "Coming soon on Steam". */
 export const STEAM_URL = "";
 

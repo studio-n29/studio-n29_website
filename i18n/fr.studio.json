@@ -265,5 +265,21 @@
   "lore.c2.t": "L'AMIF",
   "lore.c2.d": "Une agence qui prétend encadrer les méta-humains pour leur sécurité, mais qui étudie et prélève leurs capacités. La principale menace officielle de The Dawn.",
   "lore.c3.t": "Les Apex",
-  "lore.c3.d": "Le surnom courant des méta-humains, tiré de l'Apex Unit d'origine. Le terme officiel reste « méta-humain »."
+  "lore.c3.d": "Le surnom courant des méta-humains, tiré de l'Apex Unit d'origine. Le terme officiel reste « méta-humain ».",
+  "sub.alpha": "Alpha",
+  "alpha.eyebrow": "Alpha Android",
+  "alpha.title": "Rejoignez l'Alpha.",
+  "alpha.lead": "Essayez Heroes Dawn sur Android avant tout le monde. Inscrivez-vous avec l'adresse e-mail de votre compte Google et nous vous inviterons à l'Alpha sur Google Play.",
+  "alpha.note": "Utilisez l'adresse liée à votre compte Google Play : c'est celle qui recevra l'invitation.",
+  "alpha.email": "E-mail de votre compte Google",
+  "alpha.placeholder": "vous@gmail.com",
+  "alpha.consent": "J'accepte que STUDIO N29 conserve mon adresse e-mail pour m'inviter à l'Alpha de Heroes Dawn. Je peux demander sa suppression à tout moment.",
+  "alpha.submit": "M'inscrire à l'Alpha",
+  "alpha.cta": "Rejoindre l'Alpha Android",
+  "alpha.sending": "Envoi…",
+  "alpha.ok": "Vous êtes sur la liste ! Votre invitation vous sera envoyée par e-mail.",
+  "alpha.bad": "Veuillez saisir une adresse e-mail valide.",
+  "alpha.noconsent": "Veuillez cocher la case pour continuer.",
+  "alpha.err": "L'inscription a échoué. Réessayez, ou écrivez-nous :",
+  "alpha.privacy": "Votre adresse sert uniquement à vous inviter à l'Alpha."
 }

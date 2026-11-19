@@ -1,5 +1,5 @@
 // Page sections shared by the home page and the Heroes Dawn page.
-import { hdArts, t, tx } from "./data.mjs";
+import { hdArts, ALPHA, EMAIL, t, tx } from "./data.mjs";
 import { hdImg, wishlist } from "./layout.mjs";
 import { ZONES } from "./agents.mjs";
 
@@ -54,6 +54,28 @@ export const agentsViewer = (prefix) => {
         </div>
       </div>`;
 };
+
+/** Android Alpha sign-up: stores the email of the player's Google account (see ALPHA in data.mjs). */
+export const alphaSection = () => `<section class="section" id="alpha">
+    <div class="wrap">
+      <div class="alpha-box frame reveal">
+        <div class="alpha-text">
+          ${tx("span", "alpha.eyebrow", "eyebrow")}
+          ${tx("h2", "alpha.title", "section-title")}
+          ${tx("p", "alpha.lead", "lead")}
+          ${tx("p", "alpha.note", "alpha-note")}
+        </div>
+        <form class="alpha-form" id="alpha-form" data-url="${ALPHA.url}" data-key="${ALPHA.key}" data-mail="${EMAIL}" novalidate>
+          <input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="field">${tx("label", "alpha.email", "", false, 'for="alpha-email"')}<input id="alpha-email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required placeholder="${t("alpha.placeholder")}" data-i18n-attr="placeholder:alpha.placeholder"></div>
+          <label class="check"><input type="checkbox" name="consent" required><span data-i18n="alpha.consent">${t("alpha.consent")}</span></label>
+          <button class="btn btn--solid" type="submit"><span data-i18n="alpha.submit">${t("alpha.submit")}</span></button>
+          <p class="form-status" id="alpha-status" role="status" aria-live="polite"></p>
+          ${tx("p", "alpha.privacy", "alpha-note")}
+        </form>
+      </div>
+    </div>
+  </section>`;
 
 /** Full-width closing banner with the wishlist call to action. */
 export const wishBanner = (prefix, { id = "wishlist", secondary = "" } = {}) => `<section class="banner" id="${id}">

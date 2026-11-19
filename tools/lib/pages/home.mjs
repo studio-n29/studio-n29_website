@@ -81,7 +81,7 @@ ${header(p, "")}
     <p class="more reveal"><a class="btn btn--ghost" href="heroes-dawn.html#screens"><span data-i18n="h.shots.cta">${t("h.shots.cta")}</span><span class="arrow" aria-hidden="true">→</span></a></p>
   </section>
 
-  ${wishBanner(p)}
+  ${wishBanner(p, { secondary: `<a class="btn btn--ghost" href="heroes-dawn.html#alpha"><span data-i18n="alpha.cta">${t("alpha.cta")}</span><span class="arrow" aria-hidden="true">→</span></a>` })}
 
   <section class="teaser" id="hell-rising">
     <img class="teaser-bg" src="assets/hell-rising/cendres.webp" srcset="assets/hell-rising/cendres-800.webp 800w, assets/hell-rising/cendres.webp 1600w" sizes="100vw" alt="" aria-hidden="true" loading="lazy" decoding="async">
