@@ -4,6 +4,7 @@ import sharp from "sharp";
 import { mkdirSync, writeFileSync, statSync, copyFileSync, readdirSync, rmSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { AGENTS } from "./lib/agents.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const HD = process.env.HD_ROOT || "E:/Projets/HeroesDawn";
@@ -32,25 +33,12 @@ export const SHOTS = [
 ];
 
 // Illustrations from the game's art production. [slug, display name, kind, source file]
+// All the agents of The Dawn that have an illustration (list in tools/lib/agents.mjs), cryptides included: they are agents too.
+// [slug, label, kind, source file, zone]
 export const ARTS = [
-  ["giulia-rossi", "Giulia Rossi", "agent", "Agents/giulia_rossi.jpg"],
-  ["ilona-varga", "Ilona Varga", "agent", "Agents/ilona_varga.jpg"],
-  ["lucas-mendes", "Lucas Mendes", "agent", "Agents/lucas_mendes.jpg"],
-  ["mei-lin-chen", "Mei-Lin Chen", "agent", "Agents/mei_lin_chen.jpg"],
-  ["kwame-abara", "Kwame Abara", "agent", "Agents/kwame_abara.jpg"],
-  ["freya-lindqvist", "Freya Lindqvist", "agent", "Agents/freya_lindqvist.jpg"],
-  ["yelena-ivanova", "Yelena Ivanova", "agent", "Agents/yelena_ivanova.jpg"],
-  ["sam-okafor", "Sam Okafor", "agent", "Agents/sam_okafor.jpg"],
-  ["rin-takeda", "Rin Takeda", "agent", "Agents/rin_takeda.jpg"],
-  ["odile-ferrand", "Odile Ferrand", "agent", "Agents/odile_ferrand.jpg"],
-  ["ada-okonkwo", "Ada Okonkwo", "agent", "Agents/ada_okonkwo.jpg"],
-  ["haruto-nakamura", "Haruto Nakamura", "agent", "Agents/haruto_nakamura.jpg"],
-  ["kraken", "Kraken", "cryptid", "Ennemis_Cryptides/cryptide_s1_kraken.jpg"],
-  ["phalene", "Phalène", "cryptid", "Ennemis_Cryptides/cryptide_s4_phalene.jpg"],
-  ["famine", "Famine", "cryptid", "Ennemis_Cryptides/cryptide_s5_famine.jpg"],
-  ["lupin", "Lupin", "cryptid", "Ennemis_Cryptides/cryptide_s7_lupin.jpg"],
-  ["porte-des-enfers", "Paris", "place", "Lieux/paris_porte_des_enfers.jpg"],
-  ["place-rouge", "Moscou", "place", "Lieux/moscou_place_rouge_futuriste.jpg"],
+  ...AGENTS.map((a) => [a.slug, a.name, "agent", a.src, a.zone]),
+  ["porte-des-enfers", "Paris", "place", "Lieux/paris_porte_des_enfers.jpg", ""],
+  ["place-rouge", "Moscou", "place", "Lieux/moscou_place_rouge_futuriste.jpg", ""],
 ];
 
 rmSync(OUT, { recursive: true, force: true });
@@ -68,13 +56,14 @@ for (const [name, src, cap] of SHOTS) {
 }
 
 const arts = [];
-for (const [slug, label, kind, rel] of ARTS) {
+for (const [slug, label, kind, rel, zone] of ARTS) {
   const src = `${ART}/${rel}`;
   const m = await sharp(src).metadata();
   const w = Math.min(1600, m.width);
   await webp(src, join(OUT, "art", `${slug}.webp`), w, 80);
   await webp(src, join(OUT, "art", `${slug}-800.webp`), 800, 76);
-  arts.push({ slug, label, kind, w, h: Math.round((m.height * w) / m.width) });
+  if (kind === "agent") await webp(src, join(OUT, "art", `${slug}-320.webp`), 320, 72);
+  arts.push({ slug, label, kind, zone, w, h: Math.round((m.height * w) / m.width) });
   console.log(`art ${slug}: ${kb(join(OUT, "art", `${slug}.webp`))} KB`);
 }
 

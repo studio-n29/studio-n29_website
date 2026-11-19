@@ -16,8 +16,8 @@ export const ACCESS_KEY = "2061a5e7-2cc7-434f-b98f-9d11cdc1b6da"; // Web3Forms p
 export const STEAM_URL = "";
 
 // i18n: i18n/{en,fr}.json hold the original keys; i18n/{en,fr}.studio.json hold the studio-site keys (they override).
-export const fr = { ...read("i18n/fr.json"), ...read("i18n/fr.studio.json") };
-export const en = { ...read("i18n/en.json"), ...read("i18n/en.studio.json") };
+export const fr = { ...read("i18n/fr.json"), ...read("i18n/fr.studio.json"), ...read("i18n/fr.agents.json") };
+export const en = { ...read("i18n/en.json"), ...read("i18n/en.studio.json"), ...read("i18n/en.agents.json") };
 export const t = (k) => {
   if (!(k in en)) throw new Error(`Missing i18n key (en): ${k}`);
   if (!(k in fr)) throw new Error(`Missing i18n key (fr): ${k}`);
@@ -30,7 +30,7 @@ export const tx = (tag, key, cls = "", html = false, extra = "") =>
 const hdManifest = read("assets/heroes-dawn/manifest.json");
 /** In-game captures (build 1.0.2): [{ name, w, h, cap }] */
 export const hdImages = hdManifest.shots;
-/** Illustrations: [{ slug, label, kind: "agent" | "cryptid" | "place", w, h }] */
+/** Illustrations: [{ slug, label, kind: "agent" | "place", zone: "ny" | "paris" | "moscow" | "salem" | "", w, h }] (cryptides are agents too, zone "salem") */
 export const hdArts = hdManifest.arts;
 
 const m = (slug, list) => list.map(([f, w, h]) => ({ src: `${slug}/${f}`, w, h }));

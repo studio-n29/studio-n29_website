@@ -99,23 +99,18 @@
   ],
   "arts": [
     {
-      "slug": "giulia-rossi",
-      "label": "Giulia Rossi",
+      "slug": "agent-d",
+      "label": "Agent D",
       "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
     {
-      "slug": "ilona-varga",
-      "label": "Ilona Varga",
+      "slug": "darius-brooks",
+      "label": "Darius Brooks",
       "kind": "agent",
-      "w": 1600,
-      "h": 900
-    },
-    {
-      "slug": "lucas-mendes",
-      "label": "Lucas Mendes",
-      "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
@@ -123,6 +118,7 @@
       "slug": "mei-lin-chen",
       "label": "Mei-Lin Chen",
       "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
@@ -130,6 +126,15 @@
       "slug": "kwame-abara",
       "label": "Kwame Abara",
       "kind": "agent",
+      "zone": "ny",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "noah-kaplan",
+      "label": "Noah Kaplan",
+      "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
@@ -137,20 +142,31 @@
       "slug": "freya-lindqvist",
       "label": "Freya Lindqvist",
       "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
     {
-      "slug": "yelena-ivanova",
-      "label": "Yelena Ivanova",
+      "slug": "giulia-rossi",
+      "label": "Giulia Rossi",
       "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
     {
-      "slug": "sam-okafor",
-      "label": "Sam Okafor",
+      "slug": "tunde-oyelaran",
+      "label": "Tunde Oyelaran",
       "kind": "agent",
+      "zone": "ny",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "lucas-mendes",
+      "label": "Lucas Mendes",
+      "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
@@ -158,13 +174,31 @@
       "slug": "rin-takeda",
       "label": "Rin Takeda",
       "kind": "agent",
+      "zone": "ny",
       "w": 1600,
       "h": 900
     },
     {
-      "slug": "odile-ferrand",
-      "label": "Odile Ferrand",
+      "slug": "amara-hughes",
+      "label": "Amara Hughes",
       "kind": "agent",
+      "zone": "ny",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "ilona-varga",
+      "label": "Ilona Varga",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "louis-dubois",
+      "label": "Louis Dubois",
+      "kind": "agent",
+      "zone": "paris",
       "w": 1600,
       "h": 900
     },
@@ -172,6 +206,103 @@
       "slug": "ada-okonkwo",
       "label": "Ada Okonkwo",
       "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "victor-sorel",
+      "label": "Victor Sorel",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "fatou-diallo",
+      "label": "Fatou Diallo",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "clement-lefevre",
+      "label": "Clément Lefèvre",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "youssef-haddad",
+      "label": "Youssef Haddad",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "marco-bellini",
+      "label": "Marco Bellini",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "severine-morel",
+      "label": "Séverine Morel",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "ji-hoon-park",
+      "label": "Ji-Hoon Park",
+      "kind": "agent",
+      "zone": "paris",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "agent-m",
+      "label": "Agent M",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "sam-okafor",
+      "label": "Sam Okafor",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "astrid-hallstrom",
+      "label": "Astrid Hallström",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "celeste-moreau",
+      "label": "Céleste Moreau",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "anna-petrov",
+      "label": "Anna Petrov",
+      "kind": "agent",
+      "zone": "moscow",
       "w": 1600,
       "h": 900
     },
@@ -179,34 +310,119 @@
       "slug": "haruto-nakamura",
       "label": "Haruto Nakamura",
       "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "eero-nieminen",
+      "label": "Eero Nieminen",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "mateo-vasquez",
+      "label": "Mateo Vasquez",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "zofia-kowalczyk",
+      "label": "Zofia Kowalczyk",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "odile-ferrand",
+      "label": "Odile Ferrand",
+      "kind": "agent",
+      "zone": "moscow",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "yelena-ivanova",
+      "label": "Yelena Ivanova",
+      "kind": "agent",
+      "zone": "moscow",
       "w": 1600,
       "h": 900
     },
     {
       "slug": "kraken",
       "label": "Kraken",
-      "kind": "cryptid",
+      "kind": "agent",
+      "zone": "salem",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "mante",
+      "label": "Mante",
+      "kind": "agent",
+      "zone": "salem",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "caprin",
+      "label": "Caprin",
+      "kind": "agent",
+      "zone": "salem",
       "w": 1600,
       "h": 900
     },
     {
       "slug": "phalene",
       "label": "Phalène",
-      "kind": "cryptid",
+      "kind": "agent",
+      "zone": "salem",
       "w": 1600,
       "h": 900
     },
     {
       "slug": "famine",
       "label": "Famine",
-      "kind": "cryptid",
+      "kind": "agent",
+      "zone": "salem",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "pied-grand",
+      "label": "Pied-Grand",
+      "kind": "agent",
+      "zone": "salem",
       "w": 1600,
       "h": 900
     },
     {
       "slug": "lupin",
       "label": "Lupin",
-      "kind": "cryptid",
+      "kind": "agent",
+      "zone": "salem",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "pierre",
+      "label": "Pierre",
+      "kind": "agent",
+      "zone": "salem",
+      "w": 1600,
+      "h": 900
+    },
+    {
+      "slug": "suceur",
+      "label": "Suceur",
+      "kind": "agent",
+      "zone": "salem",
       "w": 1600,
       "h": 900
     },
@@ -214,6 +430,7 @@
       "slug": "porte-des-enfers",
       "label": "Paris",
       "kind": "place",
+      "zone": "",
       "w": 1600,
       "h": 900
     },
@@ -221,6 +438,7 @@
       "slug": "place-rouge",
       "label": "Moscou",
       "kind": "place",
+      "zone": "",
       "w": 1600,
       "h": 900
     }

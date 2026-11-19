@@ -1,6 +1,7 @@
 // Page sections shared by the home page and the Heroes Dawn page.
 import { hdArts, t, tx } from "./data.mjs";
 import { hdImg, wishlist } from "./layout.mjs";
+import { ZONES } from "./agents.mjs";
 
 /** Key-art hero: clean illustration + wordmark logo (Aube Tactique identity). `dock` is appended by the caller. */
 export const keyArtHero = ({ eyebrowKey, subKey, secondary, page = false, dock = "" }) => `<section class="hero-main${page ? " hero-main--page" : ""}">
@@ -35,16 +36,21 @@ export const featureTabs = (prefix, features, id = "feat") => `<div class="tabs 
         </div>
       </div>`;
 
-/** Character viewer: big illustration (name caption) + thumbnail selector. Agents first, then cryptids. */
+/** Agent viewer: big illustration with a shaded caption (zone, name, power, description) + zone filter + thumbnails.
+ *  Every agent of The Dawn with an illustration is listed, cryptides included (they are agents too). */
 export const agentsViewer = (prefix) => {
-  const list = hdArts.filter((a) => a.kind === "agent" || a.kind === "cryptid");
+  const list = hdArts.filter((a) => a.kind === "agent");
   const art = (a, size) => `${prefix}assets/heroes-dawn/art/${a.slug}${size}.webp`;
+  const zones = ["all", ...ZONES];
   return `<div class="agents-viewer reveal" data-tabs>
         <div class="agent-stage">
-          ${list.map((a, i) => `<figure class="agent-panel" role="tabpanel" id="ag-p${i}" aria-labelledby="ag-t${i}"><img src="${art(a, "")}" srcset="${art(a, "-800")} 800w, ${art(a, "")} ${a.w}w" sizes="(max-width: 1240px) 100vw, 1240px" alt="${a.label}" width="${a.w}" height="${a.h}" loading="lazy" decoding="async"><figcaption><small data-i18n="hd.art.${a.kind}">${t(`hd.art.${a.kind}`)}</small><b>${a.label}</b></figcaption></figure>`).join("\n          ")}
+          ${list.map((a, i) => `<figure class="agent-panel" role="tabpanel" id="ag-p${i}" aria-labelledby="ag-t${i}"><img src="${art(a, "")}" srcset="${art(a, "-800")} 800w, ${art(a, "")} ${a.w}w" sizes="(max-width: 1240px) 100vw, 1240px" alt="${a.label}" width="${a.w}" height="${a.h}" loading="lazy" decoding="async"><figcaption><small class="ag-zone" data-i18n="zone.${a.zone}">${t(`zone.${a.zone}`)}</small><b class="ag-name">${a.label}</b><span class="ag-tag" data-i18n="ag.${a.slug}.t">${t(`ag.${a.slug}.t`)}</span><p class="ag-desc" data-i18n="ag.${a.slug}.d">${t(`ag.${a.slug}.d`)}</p></figcaption></figure>`).join("\n          ")}
+        </div>
+        <div class="zone-filters" role="group" aria-label="Zone">
+          ${zones.map((z, i) => `<button type="button" class="chip-btn" data-zone-filter="${z}" aria-pressed="${i === 0}" data-i18n="zone.${z}">${t(`zone.${z}`)}</button>`).join("\n          ")}
         </div>
         <div class="thumbs" role="tablist" aria-label="Heroes Dawn">
-          ${list.map((a, i) => `<button type="button" class="thumb" role="tab" id="ag-t${i}" aria-controls="ag-p${i}" aria-selected="${i === 0}" aria-label="${a.label}"><img src="${art(a, "-800")}" alt="" width="800" height="${Math.round((a.h * 800) / a.w)}" loading="lazy" decoding="async"></button>`).join("\n          ")}
+          ${list.map((a, i) => `<button type="button" class="thumb" role="tab" id="ag-t${i}" data-zone="${a.zone}" aria-controls="ag-p${i}" aria-selected="${i === 0}" aria-label="${a.label}"><img src="${art(a, "-320")}" alt="" width="320" height="${Math.round((a.h * 320) / a.w)}" loading="lazy" decoding="async"></button>`).join("\n          ")}
         </div>
       </div>`;
 };

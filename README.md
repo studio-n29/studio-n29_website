@@ -21,7 +21,7 @@ Polices auto-hébergées (Barlow, Barlow Condensed, licence OFL) dans `assets/fo
 `npm run images` importe depuis `E:\Projets\HeroesDawn` (variable `HD_ROOT` pour un autre chemin) :
 - key art et logo « Aube Tactique » : `publication-aube-tactique/sources/key-art-paysage.png` et `steam/library-logo_1280.png` ;
 - captures réelles du jeu : `publication-aube-tactique/steam/screenshots`, `captures-release`, `captures-pc`, `captures-brutes` (liste `SHOTS` dans `tools/images.mjs`) ;
-- illustrations d'agents, de cryptides et de lieux : `principal/03_Art_UI_UX/Illustrations` (liste `ARTS`).
+- illustrations des agents de The Dawn (cryptides inclus, ce sont des agents aussi) et de lieux : `principal/03_Art_UI_UX/Illustrations`. La liste des agents est dans `tools/lib/agents.mjs` ; leur zone, pouvoir et description (FR/EN) sont dans `i18n/{fr,en}.agents.json` (clés `ag.<slug>.t` et `ag.<slug>.d`, d'après `02_Lore_Narration/04_Agents_The_Dawn.md`).
 
 Les fichiers générés sont dans `assets/heroes-dawn/` (committés) ; `assets/og.jpg` et `assets/projects/heroes-dawn/poster.jpg` viennent de la capsule Steam principale.
 

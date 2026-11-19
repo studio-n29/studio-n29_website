@@ -77,9 +77,25 @@
 .agents-viewer { display: grid; gap: 1rem; }
 .agent-stage { position: relative; border: 1px solid var(--line); background: #000; }
 .agent-stage .agent-panel { margin: 0; position: relative; }
-.agent-panel figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 4rem 1.8rem 1.4rem; background: linear-gradient(180deg, transparent, rgba(7, 15, 23, 0.92)); display: grid; gap: 0.1rem; }
-.agent-panel figcaption b { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 3.4vw, 2.8rem); letter-spacing: 0.08em; text-transform: uppercase; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; }
-.agent-panel figcaption small { font-family: var(--cond); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); }
+/* shaded caption at the bottom of each illustration: zone, name, power, short description */
+.agent-panel figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 7rem 2rem 1.7rem; background:
+  linear-gradient(180deg, transparent 0, rgba(7, 15, 23, 0.55) 38%, rgba(7, 15, 23, 0.94) 100%); display: grid; gap: 0.25rem; justify-items: start; }
+.agent-panel figcaption::before { content: ""; position: absolute; left: 2rem; right: 2rem; bottom: 0; height: 1px; background: linear-gradient(90deg, var(--gold), transparent 70%); opacity: 0.7; }
+.agent-panel .ag-zone { font-family: var(--cond); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.26em; text-transform: uppercase; color: var(--gold); display: inline-flex; align-items: center; gap: 0.6rem; }
+.agent-panel .ag-zone::before { content: ""; width: 7px; height: 7px; background: var(--gold); transform: rotate(45deg); }
+.agent-panel .ag-name { font-family: var(--display); font-weight: 700; font-size: clamp(2rem, 4vw, 3.2rem); letter-spacing: 0.08em; text-transform: uppercase; background: var(--gold-grad); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.05; filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.7)); }
+.agent-panel .ag-tag { font-family: var(--cond); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink); padding: 0.12rem 0.7rem; border: 1px solid var(--line); background: rgba(214, 175, 91, 0.12); margin-top: 0.3rem; }
+.agent-panel .ag-desc { color: rgba(236, 231, 220, 0.92); font-size: 1.08rem; line-height: 1.5; max-width: 62ch; margin-top: 0.5rem; text-shadow: 0 1px 10px rgba(0, 0, 0, 0.9); }
+@media (max-width: 700px) {
+  /* small screens: the caption sits under the illustration instead of covering it */
+  .agent-panel figcaption { position: static; padding: 1.1rem 1.2rem 1.4rem; background: linear-gradient(180deg, rgba(23, 38, 54, 0.95), var(--bg-3)); }
+  .agent-panel figcaption::before { left: 1.2rem; right: 1.2rem; top: 0; bottom: auto; }
+  .agent-panel .ag-name { font-size: 2rem; }
+  .agent-panel .ag-desc { font-size: 1rem; }
+}
+.zone-filters { display: none; }
+.js .zone-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.thumb[hidden] { display: none; }
 .agent-stage img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .js .agent-panel[hidden] { display: none; }
 .agent-stage .agent-panel { animation: fadeIn 0.7s var(--ease); }
@@ -87,7 +103,8 @@
 .agent-stage::before { left: -1px; top: -1px; border-top: 3px solid var(--gold); border-left: 3px solid var(--gold); }
 .agent-stage::after { right: -1px; bottom: -1px; border-bottom: 3px solid var(--gold); border-right: 3px solid var(--gold); }
 .thumbs { display: none; }
-.js .thumbs { display: grid; grid-template-columns: repeat(8, 1fr); gap: 0.6rem; }
+.js .thumbs { --cols: 8; display: flex; flex-wrap: wrap; align-content: flex-start; gap: 0.6rem; max-height: 17.5rem; overflow-y: auto; padding: 0.3rem 0.4rem 0.5rem 0.1rem; scrollbar-width: thin; scrollbar-color: var(--gold-lo) transparent; }
+.js .thumbs .thumb { flex: 0 0 calc((100% - (var(--cols) - 1) * 0.6rem) / var(--cols)); }
 .thumb { padding: 0; border: 1px solid var(--line-soft); background: #000; cursor: pointer; position: relative; opacity: 0.55; transition: opacity 0.3s, border-color 0.3s, transform 0.3s var(--ease); overflow: hidden; aspect-ratio: 16 / 10; }
 .thumb img { width: 100%; height: 100%; object-fit: cover; }
 .thumb:hover { opacity: 0.9; }
@@ -194,7 +211,7 @@
   .js .tab-list { grid-template-columns: repeat(3, 1fr); }
   .tab { font-size: 1rem; padding: 0.7rem 0.8rem; }
   .tab[aria-selected="true"] { transform: none; }
-  .js .thumbs { grid-template-columns: repeat(6, 1fr); }
+  .js .thumbs { --cols: 6; }
 }
 @media (max-width: 800px) {
   .hero-stage { height: auto; min-height: 0; max-height: none; }
@@ -210,7 +227,7 @@
   .spec { grid-template-columns: 1fr 1fr; }
   .js .tab-list { grid-template-columns: 1fr 1fr; }
   .js .tab-panel .panel-text { position: static; background: none; padding: 1.3rem 1.4rem 1.6rem; }
-  .js .thumbs { grid-template-columns: repeat(3, 1fr); }
+  .js .thumbs { --cols: 3; }
   .subnav .wrap { justify-content: flex-start; }
 }
 @media (max-width: 520px) { .dock-card { grid-template-columns: 96px 1fr auto; } .dock-card img { width: 96px; height: 56px; } }
